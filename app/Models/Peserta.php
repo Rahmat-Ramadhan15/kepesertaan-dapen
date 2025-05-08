@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
+class Peserta extends Model
+{
+    use HasFactory;
+
+    protected $table = 'pesertas';
+    protected $primaryKey = 'nip';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'nip',
+        'nama',
+        'no_sk',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'tmk',
+        'tpst',
+        'kode_peserta',
+        'status_pernikahan',
+        'kode_ptkp',
+        'alamat',
+        'kelurahan',
+        'kabupaten',
+        'kota',
+        'kode_pos',
+        'telpon',
+        'pendidikan',
+        'jurusan',
+        'golongan',
+        'jabatan',
+        'phdp',
+        'akumulasi_ibhp',
+        'cabang_id',
+        'created_at',
+        'Updated_at',
+    ];
+
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+        'tmk' => 'date',
+        'tpst' => 'date',
+        'phdp' => 'decimal:2',
+        'akumulasi_ibhp' => 'decimal:2',
+    ];
+
+    public function keluargas()
+    {
+        return $this->hasMany(Keluarga::class, 'nip', 'nip');
+    }
+
+    public function keluarga()
+    {
+        return $this->hasMany(Keluarga::class, 'nip', 'nip');
+    }
+
+    public function cabang()
+    {
+        return $this->belongsTo(Cabang::class, 'cabang_id');
+    }
+
+    public function getUmurAttribute()
+    {
+        // Pastikan tanggal_lahir bukan null
+        if ($this->tanggal_lahir) {
+            $age = Carbon::parse($this->tanggal_lahir)->diffInYears(now());
+
+            // Bulatkan umur
+            return round($age); // Menggunakan round() untuk membulatkan umur
+        }
+
+        // Jika tanggal_lahir null, bisa mengembalikan nilai default atau null
+        return null;  // Atau bisa return 0 atau nilai lain sesuai kebutuhan
+    }
+
+
+    /**
+     * Get masa kerja from join date
+     */
+    public function getMasaKerjaAttribute()
+    {
+        return now()->diffInYears($this->tanggal_masuk);
+    }
+
+    /**
+     * Apply filters for printing report
+     */
+    public static function scopeApplyPrintFilter($query, $filters)
+    {
+        $query = self::with(['cabang', 'keluarga']);
+        
+        // Filter by age range
+        if (isset($filters['umur_min']) && isset($filters['umur_max'])) {
+            $maxDate = now()->subYears($filters['umur_min'])->format('Y-m-d');
+            $minDate = now()->subYears($filters['umur_max'])->format('Y-m-d');
+            $query->whereBetween('tanggal_lahir', [$minDate, $maxDate]);
+        }
+        
+        // Filter by branch
+        if (!empty($filters['cabang'])) {
+            $query->where('cabang_id', $filters['cabang']);
+        }
+        
+        // Filter by gender
+        if (!empty($filters['jenis_kelamin'])) {
+            $query->where('jenis_kelamin', $filters['jenis_kelamin']);
+        }
+        
+        // Filter by marital status
+        if (!empty($filters['status_pernikahan'])) {
+            $query->where('status_pernikahan', $filters['status_pernikahan']);
+        }
+        
+        // Filter by education
+        if (!empty($filters['pendidikan'])) {
+            $query->where('pendidikan', $filters['pendidikan']);
+        }
+        
+        // Filter by PHDP range
+        if (isset($filters['phdp_min']) && isset($filters['phdp_max'])) {
+            $query->whereBetween('phdp', [$filters['phdp_min'], $filters['phdp_max']]);
+        }
+        
+        // Filter by golongan
+        if (!empty($filters['golongan'])) {
+            $query->where('golongan', $filters['golongan']);
+        }
+        
+        return $query;
+    }
+
+}
