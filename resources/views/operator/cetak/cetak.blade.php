@@ -348,26 +348,26 @@
             <span>Dana Pensiun</span>
         </div>
         <ul class="list-unstyled px-3 mt-3">
-        <li>
+            <li>
                 <a href="{{ route('operator.index') }}">
                     <i class="fas fa-users"></i>
                     Data Peserta
                 </a>
             </li>
             <li>
-                <a href="{{ route('cetak.index') }}">
+                <a href="{{ route('cetak.index') }}"  class="active">
                     <i class="fas fa-print"></i>
                     <span>Menu Cetak</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('cetak.index') }}">
+                <a href="{{ route('manfaat.index') }}">
                     <i class="fas fa-book"></i>
-                    <span>Manfaat Penisun</span>
+                    <span>Manfaat Pensiun</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('cetak.index') }}">
+                <a href="{{ route('hitung.index') }}">
                     <i class="fas fa-calculator"></i>
                     <span>Hitung Iuran</span>
                 </a>
