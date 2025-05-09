@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operator;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Keluarga; // Pastikan model ini ada
 use App\Models\Peserta; // Jika ingin relasi ke peserta

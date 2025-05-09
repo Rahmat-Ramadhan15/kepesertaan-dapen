@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operator;
 
+use App\Http\Controllers\Controller;
 use App\Models\Peserta;
 use App\Models\Cabang;
 use Illuminate\Http\Request;
