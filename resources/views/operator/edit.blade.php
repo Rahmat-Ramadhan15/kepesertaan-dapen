@@ -64,12 +64,8 @@
                     <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $peserta->alamat }}">
                 </div>
                 <div class="mb-3">
-                    <label for="kabupaten" class="form-label">Kabupaten</label>
-                    <input type="text" class="form-control" id="kabupaten" name="kabupaten" value="{{ $peserta->kabupaten }}">
-                </div>
-                <div class="mb-3">
-                    <label for="kota" class="form-label">Kota</label>
-                    <input type="text" class="form-control" id="kota" name="kota" value="{{ $peserta->kota }}">
+                    <label for="kabupaten/kota" class="form-label">Kabupaten/Kota</label>
+                    <input type="text" class="form-control" id="kabupaten/kota" name="kabupaten/kota" value="{{ $peserta['kabupaten/kota'] }}">
                 </div>
                 <div class="mb-3">
                     <label for="kode_pos" class="form-label">Kode Pos</label>
