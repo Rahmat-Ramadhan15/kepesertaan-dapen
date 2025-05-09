@@ -431,6 +431,14 @@
                     <canvas id="phdpChart"></canvas>
                 </div>
             </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="chart-container">
+                    <h5 class="chart-title"><i class="fas fa-users me-2"></i>Jumlah Karyawan Berdasarkan Jabatan</h5>
+                    <canvas id="jabatanChart"></canvas>
+                </div>
+            </div>
+        </div>  
         </div>
 
         <div class="card">
@@ -642,6 +650,78 @@
             genderChart.resize();
             phdpChart.resize();
         });
+
+        // ===== CHART: Jumlah peserta per jabatan =====
+const jabatanPesertaLabels = {!! json_encode(array_keys($jumlahPerJabatan)) !!};
+const jabatanPesertaCounts = {!! json_encode(array_values($jumlahPerJabatan)) !!};
+
+const ctx = document.getElementById('jabatanChart').getContext('2d');
+
+// Gradasi warna garis
+const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+gradient.addColorStop(0, '#3f51b5');     // Warna atas
+gradient.addColorStop(1, '#c5cae9');     // Warna bawah
+
+const jabatanChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: jabatanPesertaLabels,
+        datasets: [{
+            label: 'Jumlah Peserta',
+            data: jabatanPesertaCounts,
+            borderColor: '#3f51b5',
+            backgroundColor: gradient,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#3f51b5',
+            pointBorderColor: '#fff',
+            pointHoverRadius: 6,
+            pointRadius: 4,
+            pointHoverBackgroundColor: '#303f9f',
+            pointHoverBorderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Grafik Jumlah Peserta per Jabatan',
+                font: {
+                    size: 18,
+                    weight: 'bold'
+                },
+                padding: { top: 10, bottom: 20 }
+            },
+            tooltip: {
+                backgroundColor: '#ffffff',
+                titleColor: '#000',
+                bodyColor: '#000',
+                borderColor: '#3f51b5',
+                borderWidth: 1,
+                callbacks: {
+                    label: ctx => `${ctx.parsed.y} orang`
+                }
+            },
+            legend: { display: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { stepSize: 1 },
+                grid: {
+                    color: '#e0e0e0'
+                }
+            },
+            x: {
+                grid: {
+                    color: '#f5f5f5'
+                }
+            }
+        }
+    }
+});
+
     });
 </script>
 </body>
