@@ -30,6 +30,11 @@ class SupervisorController extends Controller
             'notifications' => 3 // Number of unread notifications
         ];
         
+        $jumlahPerJabatan = Peserta::select('jabatan', \DB::raw('count(*) as total'))
+            ->groupBy('jabatan')
+            ->pluck('total', 'jabatan')
+            ->toArray();    
+       
         return view('supervisor.dashboard', compact(
             'peserta',
             'totalPeserta',
@@ -37,7 +42,8 @@ class SupervisorController extends Controller
             'totalPerempuan',
             'phdpPerJabatan',
             'totalPHDP',
-            'adminData'
+            'adminData',
+            'jumlahPerJabatan'
         ));
     }
     
