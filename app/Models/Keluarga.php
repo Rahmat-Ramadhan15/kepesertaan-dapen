@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Auditable;
+use Carbon\Carbon;
 
 class Keluarga extends Model
 {
-    use HasFactory;
+    use HasFactory,Auditable;
 
     protected $table = 'keluargas';
 
@@ -30,6 +32,13 @@ class Keluarga extends Model
 
     public function getUmurAttribute()
     {
-        return now()->diffInYears($this->tanggal_lahir);
+        if ($this->tanggal_lahir) {
+            $age = Carbon::parse($this->tanggal_lahir)->diffInYears(now());
+    
+            // Bulatkan umur ke atas
+            return ceil($age); // Menggunakan ceil() untuk membulatkan ke atas
+        }
+    
+        return null; 
     }
 }

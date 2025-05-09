@@ -379,16 +379,12 @@
                             <label for="kelurahan" class="form-label">Kelurahan</label>
                             <input type="text" class="form-control" id="kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" placeholder="Masukkan kelurahan">
                         </div>
-                        <div class="col-md-6 form-field-group">
-                            <label for="kabupaten" class="form-label">Kabupaten</label>
-                            <input type="text" class="form-control" id="kabupaten" name="kabupaten" value="{{ old('kabupaten') }}" placeholder="Masukkan kabupaten">
-                        </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 form-field-group">
-                            <label for="kota" class="form-label">Kota</label>
-                            <input type="text" class="form-control" id="kota" name="kota" value="{{ old('kota') }}" placeholder="Masukkan kota">
+                            <label for="kota" class="form-label">Kabupaten/Kota</label>
+                            <input type="text" class="form-control" id="kabupaten/kota" name="kabupaten/kota" value="{{ old('kabupaten/kota') }}" placeholder="Masukkan kota">
                         </div>
                         <div class="col-md-6 form-field-group">
                             <label for="kode_pos" class="form-label">Kode Pos</label>

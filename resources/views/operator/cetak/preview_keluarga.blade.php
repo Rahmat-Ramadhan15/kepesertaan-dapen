@@ -64,7 +64,7 @@
                         <td class="text-center">{{ $k + 1 }}</td>
                         <td>{{ $keluarga->nama }}</td>
                         <td>{{ $keluarga->hubungan }}</td>
-                        <td>{{ $keluarga->tanggal_lahir->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($keluarga->tanggal_lahir)->format('d-m-Y') }}</td>
                         <td class="text-center">{{ $keluarga->umur }}</td>
                         <td>{{ $keluarga->pekerjaan }}</td>
                     </tr>

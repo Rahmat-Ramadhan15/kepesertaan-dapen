@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 
 class Peserta extends Model
 {
-    use HasFactory;
+    use HasFactory,Auditable;
 
     protected $table = 'pesertas';
     protected $primaryKey = 'nip';
@@ -29,8 +30,7 @@ class Peserta extends Model
         'kode_ptkp',
         'alamat',
         'kelurahan',
-        'kabupaten',
-        'kota',
+        'kabupaten/kota',
         'kode_pos',
         'telpon',
         'pendidikan',
@@ -86,9 +86,27 @@ class Peserta extends Model
      * Get masa kerja from join date
      */
     public function getMasaKerjaAttribute()
-    {
-        return now()->diffInYears($this->tanggal_masuk);
+{
+    // Pastikan tmk valid
+    if ($this->tmk) {
+        // Hitung selisih tahun dan bulan
+        $diff = now()->diff($this->tmk);
+
+        // Jika ada sisa bulan, kita bulatkan ke atas menjadi 1 tahun
+        $years = $diff->y;
+        $months = $diff->m;
+
+        // Jika ada lebih dari 0 bulan, kita tambahkan 1 tahun
+        if ($months > 0 || $diff->d > 0) {
+            $years++;
+        }
+
+        return $years;
     }
+
+    return 0; // Jika tmk tidak ada, kembalikan 0
+}
+
 
     /**
      * Apply filters for printing report

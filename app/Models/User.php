@@ -21,5 +21,15 @@ class User extends Authenticatable
         'password',
     ];
 
-    // Definisi relasi atau method tambahan jika diperlukan
+     // Relasi untuk log audit yang dilakukan oleh user ini
+     public function auditLogs()
+     {
+         return $this->hasMany(AuditLog::class, 'user_id', 'nip');
+     }
+     
+     // Relasi untuk log audit yang terkait dengan model user ini (ketika user diubah)
+     public function activityLogs()
+     {
+         return $this->morphMany(AuditLog::class, 'reference');
+     }
 }
