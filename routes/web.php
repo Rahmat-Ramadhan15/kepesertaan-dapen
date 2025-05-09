@@ -5,18 +5,23 @@ use Mews\Captcha\Facades\Captcha;
 
 use App\Models\User;
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
+//Middleware
 use App\Http\Middleware\RoleMiddleware;
-use App\Http\Controllers\OperatorController;
-use App\Http\Controllers\SupervisorController;
-use App\Http\Controllers\CabangController;
-use App\Http\Controllers\KeluargaController;
-use App\Http\Controllers\ExportController;
-use App\Http\Controllers\CetakController;
-use App\Http\Controllers\AuditLogController;
-use App\Http\Controllers\ManfaatPensiunController;
-use App\Http\Controllers\HitungIuranController;
+//Auth
+use App\Http\Controllers\Auth\AuthController;
+//Admin
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\CabangController;
+//Operator
+use App\Http\Controllers\Operator\KeluargaController;
+use App\Http\Controllers\Operator\OperatorController;
+use App\Http\Controllers\Operator\CetakController;
+use App\Http\Controllers\Operator\ManfaatPensiunController;
+use App\Http\Controllers\Operator\HitungIuranController;
+//Supervisor
+use App\Http\Controllers\Supervisor\SupervisorController;
+use App\Http\Controllers\Supervisor\ExportController;
 
 Route::get('/', function () {
     return redirect('/login');
