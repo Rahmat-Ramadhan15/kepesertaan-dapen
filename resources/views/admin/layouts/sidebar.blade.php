@@ -38,7 +38,8 @@
                 <li class="sidebar-menu-subitem">
                     <span class="submenu-header">NS</span>
                     <ul class="sidebar-submenu">
-                        <li><a href="#"><i class="fas fa-database"></i> Tabel NS</a>
+                        <li><a href="{{ route('admin.parameter.ns.index') }}"><i class="fas fa-database"></i> Tabel
+                                NS</a>
                         </li>
                         <li><a href="#"><i class="fas fa-user-tie"></i> NS Pegawai</a>
                         </li>
