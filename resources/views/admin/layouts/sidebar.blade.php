@@ -26,11 +26,40 @@
                 <span>Tambah Operator</span>
             </a>
         </li>
+        <!-- Menu Parameter -->
         <li class="sidebar-menu-item">
-            <a href="#">
-                <i class="fas fa-user-plus"></i>
+            <a href="#parameterSubmenu" data-bs-toggle="collapse" class="collapsed">
+                <i class="fas fa-cogs"></i>
                 <span>Parameter</span>
+                <i class="fas fa-chevron-down float-end"></i>
             </a>
+            <ul id="parameterSubmenu" class="collapse sidebar-submenu">
+                <!-- Submenu NS -->
+                <li class="sidebar-menu-subitem">
+                    <span class="submenu-header">NS</span>
+                    <ul class="sidebar-submenu">
+                        <li><a href="#"><i class="fas fa-database"></i> Tabel NS</a>
+                        </li>
+                        <li><a href="#"><i class="fas fa-user-tie"></i> NS Pegawai</a>
+                        </li>
+                        <li><a href="#"><i class="fas fa-heart-broken"></i> NS
+                                Janda/Duda</a></li>
+                        <li><a href="#"><i class="fas fa-child"></i> NS Anak</a></li>
+                    </ul>
+                </li>
+
+                <!-- Submenu lainnya -->
+                <li>
+                    <a href="#">
+                        <i class="fas fa-table"></i> Tabel PTKP
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-university"></i> Data Bank
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="sidebar-menu-item">
             <a href="#">
