@@ -463,7 +463,7 @@
                             @foreach ($data as $nilaiSekarang)
                                 <tr>
                                     <td class="fw-semibold">{{ $nilaiSekarang->usia }}</td>
-                                    <td>
+                                        <td>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span>{{ $nilaiSekarang->nilai_sekarang }}</span>
                                             <div class="d-flex">

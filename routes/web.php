@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuditLogController;
 use App\Http\Controllers\Admin\CabangController;
 use App\Http\Controllers\Admin\Parameter\NilaiSekarangController;
+use App\Http\Controllers\Admin\Parameter\PtkpController;
 //Operator
 use App\Http\Controllers\Operator\KeluargaController;
 use App\Http\Controllers\Operator\OperatorController;
@@ -60,7 +61,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
 
     Route::prefix('admin/parameter')->name('admin.parameter.')->middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('ns', NilaiSekarangController::class);
+        Route::resource('ptkp', ptkpController::class);
     });
+
+    
 
 });
 
