@@ -417,38 +417,34 @@
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h1 class="dashboard-title">
-                    <i class="fas fa-building me-2"></i> Tambah Nilai Sekarang
+                    <i class="fas fa-building me-2"></i> Tambah Nilai Sekarang PTKP
                 </h1>
             </div>
 
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
-                        <strong>Form Tambah Nilai Sekarang</strong>
+                        <strong>Form Tambah Nilai Sekarang PTKP</strong>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('admin.parameter.ns.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="usia" class="form-label">Usia</label>
-                            <input type="number" class="form-control" id="usia" name="usia" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nilai_sekarang" class="form-label">Nilai Sekarang</label>
-                            <textarea class="form-control" id="nilai_sekarang" name="nilai_sekarang" rows="3" type="number"
-                                class="form-control" step="0.000001" oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''" required></textarea>
-                        </div>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary action-button">
-                                <i class="fas fa-save me-1"></i> Simpan
-                            </button>
-                            <a href="{{ route('admin.parameter.ns.index') }}" class="btn btn-secondary action-button">
+                <div class="container">
+      
+        <form action="{{ route('admin.parameter.ptkp.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="kode_ptkp" class="form-label">Kode PTKP</label>
+                <input type="text" class="form-control" id="kode_ptkp" name="kode_ptkp" required>
+            </div>
+            <div class="mb-3">
+                <label for="nilai_ptkp" class="form-label">Nilai PTKP</label>
+                <input type="number" class="form-control" id="nilai_ptkp" name="nilai_ptkp" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <a href="{{ route('admin.parameter.ptkp.index') }}" class="btn btn-secondary action-button">
                                 <i class="fas fa-arrow-left me-1"></i> Kembali
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                </a>
+        </form>
+    </div>
             </div>
         </div>
     </div>

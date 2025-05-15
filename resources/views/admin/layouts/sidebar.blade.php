@@ -51,7 +51,7 @@
 
                 <!-- Submenu lainnya -->
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.parameter.ptkp.index') }}">
                         <i class="fas fa-table"></i> Tabel PTKP
                     </a>
                 </li>

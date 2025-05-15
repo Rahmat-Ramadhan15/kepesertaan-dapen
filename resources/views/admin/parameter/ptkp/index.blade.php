@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Cabang</title>
+    <title>Dashboard Cabang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -221,6 +221,28 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #555;
+            border-top: none;
+            background-color: var(--primary-light);
+            padding: 1rem 1.5rem;
+        }
+
+        .table td {
+            padding: 1rem 1.5rem;
+            vertical-align: middle;
+        }
+
+        .table-responsive {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -290,7 +312,6 @@
             margin: 0;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 992px) {
             .sidebar-logout {
                 display: block;
@@ -308,7 +329,10 @@
             .sidebar.collapsed .sidebar-logout-btn i {
                 margin-right: 1rem;
             }
+        }
 
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
             .sidebar {
                 width: var(--sidebar-width-collapsed);
                 transform: translateX(-100%);
@@ -417,37 +441,53 @@
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h1 class="dashboard-title">
-                    <i class="fas fa-building me-2"></i> Tambah Nilai Sekarang
+                    <i class="fas fa-building me-2"></i> Tabel Nilai Sekarang PTKP
                 </h1>
+                <div>
+                    <a href="{{ route('admin.parameter.ptkp.create') }}" class="btn btn-primary action-button">
+                        <i class="fas fa-plus me-2"></i> Tambah Nilai Sekarang PTKP
+                    </a>
+                </div>
             </div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>Form Tambah Nilai Sekarang</strong>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('admin.parameter.ns.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="usia" class="form-label">Usia</label>
-                            <input type="number" class="form-control" id="usia" name="usia" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nilai_sekarang" class="form-label">Nilai Sekarang</label>
-                            <textarea class="form-control" id="nilai_sekarang" name="nilai_sekarang" rows="3" type="number"
-                                class="form-control" step="0.000001" oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''" required></textarea>
-                        </div>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary action-button">
-                                <i class="fas fa-save me-1"></i> Simpan
-                            </button>
-                            <a href="{{ route('admin.parameter.ns.index') }}" class="btn btn-secondary action-button">
-                                <i class="fas fa-arrow-left me-1"></i> Kembali
-                            </a>
-                        </div>
-                    </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="40%">Kode PTKP</th>
+                                <th width="60%">Nilai PTKP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $ptkp)
+                                <tr>
+                                    <td class="fw-semibold">{{ $ptkp->kode_ptkp }}</td>
+                                        <td>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span> {{ number_format($ptkp->nilai_ptkp, 2, ',', '.') }}</span>
+                                            <div class="d-flex">
+                                                <a href="{{ route('admin.parameter.ptkp.edit', $ptkp->id) }}"
+                                                class="btn btn-sm btn-warning me-2">
+                                                    <Edit class="fas fa-edit">Edit</a>
+
+                                                <form action="{{ route('admin.parameter.ptkp.destroy', $ptkp->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i> Hapus
+                                                    </button>
+                                                    
+                                                </form>
+                                            </div>
+                                        </div> 
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
