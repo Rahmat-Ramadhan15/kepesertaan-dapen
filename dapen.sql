@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 07, 2025 at 04:56 AM
+-- Generation Time: May 15, 2025 at 06:42 AM
 -- Server version: 11.7.2-MariaDB-log
 -- PHP Version: 8.3.17
 
@@ -45,145 +45,152 @@ CREATE TABLE `audit_logs` (
 --
 
 INSERT INTO `audit_logs` (`id`, `user_id`, `action`, `reference_type`, `reference_id`, `old_values`, `new_values`, `description`, `created_at`, `updated_at`) VALUES
-(99, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:04:15', '2025-04-22 02:04:15'),
-(100, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:04:15', '2025-04-22 02:04:15'),
-(101, '222249', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"kabupaten\":\"Bones\"}', '{\"kabupaten\":\"Bone\"}', 'Mengubah data Peserta dengan ID 199001152023020201', '2025-04-22 02:10:27', '2025-04-22 02:10:27'),
-(102, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputraa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:12:05', '2025-04-22 02:12:05'),
-(103, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputraa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:12:05', '2025-04-22 02:12:05'),
-(104, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"kabupaten\":\"Bulukumba\"}', '{\"kabupaten\":\"Bulukumbas\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-22 02:12:15', '2025-04-22 02:12:15'),
-(105, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"kabupaten\":\"Bulukumba\"}', '{\"kabupaten\":\"Bulukumbas\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-22 02:12:15', '2025-04-22 02:12:15'),
-(106, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:20:34', '2025-04-22 02:20:34'),
-(107, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:20:34', '2025-04-22 02:20:34'),
-(108, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:22:27', '2025-04-22 02:22:27'),
-(109, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:22:27', '2025-04-22 02:22:27'),
-(110, '222249', 'updated', 'App\\Models\\Peserta', '199503101987031201', '{\"nama\":\"Dina Marwah\"}', '{\"nama\":\"Dina Marwah Mantap\"}', 'Mengubah data Peserta dengan ID 199503101987031201', '2025-04-22 02:25:34', '2025-04-22 02:25:34'),
-(111, '222249', 'updated', 'App\\Models\\Peserta', '199503101987031201', '{\"nama\":\"Dina Marwah\"}', '{\"nama\":\"Dina Marwah Mantap\"}', 'Mengubah data Peserta dengan ID 199503101987031201', '2025-04-22 02:25:34', '2025-04-22 02:25:34'),
-(112, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kode_pos\":\"90111\"}', '{\"kode_pos\":\"901113\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:27:32', '2025-04-22 02:27:32'),
-(113, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:28:29', '2025-04-22 02:28:29'),
-(114, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:28:29', '2025-04-22 02:28:29'),
-(115, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:29:06', '2025-04-22 02:29:06'),
-(116, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:29:06', '2025-04-22 02:29:06'),
-(117, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"jenis_kelamin\":\"Perempuan\"}', '{\"jenis_kelamin\":\"Laki-laki\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:29:27', '2025-04-22 02:29:27'),
-(118, '222249', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 199001152023020201', '2025-04-22 02:29:58', '2025-04-22 02:29:58'),
-(119, '222249', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 199001152023020201', '2025-04-22 02:29:58', '2025-04-22 02:29:58'),
-(120, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kabupaten\":\"Gowa\"}', '{\"kabupaten\":\"Gowaaaaaaaa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:32:32', '2025-04-22 02:32:32'),
-(121, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kabupaten\":\"Gowa\"}', '{\"kabupaten\":\"Gowaaaaaaaa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:32:32', '2025-04-22 02:32:32'),
-(122, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kabupaten\":\"Gowaaaaaaaa\"}', '{\"kabupaten\":\"Gowa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:36:02', '2025-04-22 02:36:02'),
-(123, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"nama\":\"Fahri Ramadhan\"}', '{\"nama\":\"Fahri Ramadhani\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-22 02:36:21', '2025-04-22 02:36:21'),
-(124, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"nama\":\"Fahri Ramadhan\"}', '{\"nama\":\"Fahri Ramadhani\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-22 02:36:21', '2025-04-22 02:36:21'),
-(125, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputraa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:43:54', '2025-04-22 02:43:54'),
-(126, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputraasssss\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:44:20', '2025-04-22 02:44:20'),
-(127, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputraasssss\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:44:20', '2025-04-22 02:44:20'),
-(128, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraasssss\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:46:15', '2025-04-22 02:46:15'),
-(129, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraasssss\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:46:15', '2025-04-22 02:46:15'),
-(130, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kota\":\"Makassars\"}', '{\"kota\":\"Makassar\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:52:01', '2025-04-22 02:52:01'),
-(131, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kota\":\"Makassars\"}', '{\"kota\":\"Makassar\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:52:01', '2025-04-22 02:52:01'),
-(132, '222249', 'created', 'App\\Models\\Keluarga', '9', NULL, '{\"nip\":\"198501012022011001\",\"nama\":\"Aco\",\"hubungan\":\"Anak\",\"pekerjaan\":\"-\",\"updated_at\":\"2025-04-22 10:53:00\",\"created_at\":\"2025-04-22 10:53:00\",\"id\":9}', 'Menambahkan data Keluarga dengan ID 198501012022011001', '2025-04-22 02:53:00', '2025-04-22 02:53:00'),
-(133, '222249', 'deleted', 'App\\Models\\Keluarga', '6', '{\"nip\":\"199503101987031201\",\"id\":6,\"nama\":\"Melati Indah\",\"hubungan\":\"Anak\",\"jenis_kelamin\":\"Perempuan\",\"tanggal_lahir\":\"2010-10-10\",\"status_hidup\":\"Hidup\",\"pekerjaan\":\"Pelajar\",\"created_at\":\"2025-04-10 15:34:28\",\"updated_at\":\"2025-04-10 15:34:28\"}', NULL, 'Menghapus data Keluarga dengan ID 199503101987031201', '2025-04-22 02:53:39', '2025-04-22 02:53:39'),
-(134, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:54:05', '2025-04-22 02:54:05'),
-(135, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-22 02:54:05', '2025-04-22 02:54:05'),
-(136, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 02:54:58', '2025-04-22 02:54:58'),
-(137, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 03:06:57', '2025-04-22 03:06:57'),
-(138, '222249', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassar\",\"updated_at\":\"2025-04-13T23:49:54.000000Z\"}', '{\"nama_cabang\":\"Cabang Makassaraaa\",\"updated_at\":\"2025-04-22 11:07:14\"}', 'Mengubah data Cabang dengan ID ', '2025-04-22 03:07:14', '2025-04-22 03:07:14'),
-(139, '222249', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassaraaa\",\"updated_at\":\"2025-04-22T03:07:14.000000Z\"}', '{\"nama_cabang\":\"Cabang Makassar\",\"updated_at\":\"2025-04-22 11:08:54\"}', 'Mengubah data Cabang ', '2025-04-22 03:08:54', '2025-04-22 03:08:54'),
-(140, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 03:09:27', '2025-04-22 03:09:27'),
-(141, '222249', 'created', 'App\\Models\\Keluarga', '10', NULL, '{\"nip\":\"199503101987031201\",\"nama\":\"Michael\",\"hubungan\":\"Anak\",\"pekerjaan\":\"Pelajar\",\"updated_at\":\"2025-04-22 11:10:09\",\"created_at\":\"2025-04-22 11:10:09\",\"id\":10}', 'Menambahkan data Keluarga 199503101987031201', '2025-04-22 03:10:09', '2025-04-22 03:10:09'),
-(142, '222249', 'updated', 'App\\Models\\Peserta', '199503101987031201', '{\"nama\":\"Dina Marwah Mantap\"}', '{\"nama\":\"Dina Marwah\"}', 'Mengubah data Peserta 199503101987031201', '2025-04-22 03:11:01', '2025-04-22 03:11:01'),
-(143, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 03:11:30', '2025-04-22 03:11:30'),
-(144, '1000001', 'login', NULL, NULL, NULL, NULL, 'Pengguna Michael Immanuel Manabung berhasil login sebagai operator', '2025-04-22 03:12:58', '2025-04-22 03:12:58'),
-(145, '1000001', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"cabang_id\":3}', '{\"cabang_id\":\"2\"}', 'Mengubah data Peserta 199001152023020201', '2025-04-22 03:13:28', '2025-04-22 03:13:28'),
-(146, '1000001', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"cabang_id\":3}', '{\"cabang_id\":\"2\"}', 'Mengubah data Peserta 199001152023020201', '2025-04-22 03:13:28', '2025-04-22 03:13:28'),
-(147, '1000001', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"cabang_id\":3}', '{\"cabang_id\":\"2\"}', 'Mengubah data Peserta 199001152023020201', '2025-04-22 03:13:28', '2025-04-22 03:13:28'),
-(148, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 03:15:09', '2025-04-22 03:15:09'),
-(149, '1000001', 'login', NULL, NULL, NULL, NULL, 'Pengguna Michael Immanuel Manabung berhasil login sebagai operator', '2025-04-22 03:20:24', '2025-04-22 03:20:24'),
-(150, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-04-22 05:21:19', '2025-04-22 05:21:19'),
-(151, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 05:22:03', '2025-04-22 05:22:03'),
-(152, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 06:10:30', '2025-04-22 06:10:30'),
-(153, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 07:57:05', '2025-04-22 07:57:05'),
-(154, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 08:34:55', '2025-04-22 08:34:55'),
-(155, '123456', 'created', 'App\\Models\\Cabang', '7', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:38:48\",\"created_at\":\"2025-04-22 16:38:48\",\"id\":7}', 'Menambahkan data Cabang ', '2025-04-22 08:38:48', '2025-04-22 08:38:48'),
-(156, '123456', 'created', 'App\\Models\\Cabang', '8', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:39:29\",\"created_at\":\"2025-04-22 16:39:29\",\"id\":8}', 'Menambahkan data Cabang ', '2025-04-22 08:39:29', '2025-04-22 08:39:29'),
-(157, '123456', 'created', 'App\\Models\\Cabang', '9', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:40:39\",\"created_at\":\"2025-04-22 16:40:39\",\"id\":9}', 'Menambahkan data Cabang ', '2025-04-22 08:40:39', '2025-04-22 08:40:39'),
-(158, '123456', 'created', 'App\\Models\\Cabang', '10', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:42:06\",\"created_at\":\"2025-04-22 16:42:06\",\"id\":10}', 'Menambahkan data Cabang ', '2025-04-22 08:42:06', '2025-04-22 08:42:06'),
-(159, '123456', 'created', 'App\\Models\\Cabang', '11', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:43:10\",\"created_at\":\"2025-04-22 16:43:10\",\"id\":11}', 'Menambahkan data Cabang ', '2025-04-22 08:43:10', '2025-04-22 08:43:10'),
-(160, '123456', 'deleted', 'App\\Models\\Cabang', '7', '{\"id\":7,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:38:48\",\"updated_at\":\"2025-04-22 16:38:48\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 08:44:29', '2025-04-22 08:44:29'),
-(161, '123456', 'deleted', 'App\\Models\\Cabang', '11', '{\"id\":11,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:43:10\",\"updated_at\":\"2025-04-22 16:43:10\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 08:46:57', '2025-04-22 08:46:57'),
-(162, '123456', 'deleted', 'App\\Models\\Cabang', '10', '{\"id\":10,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:42:06\",\"updated_at\":\"2025-04-22 16:42:06\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 08:47:02', '2025-04-22 08:47:02'),
-(163, '123456', 'deleted', 'App\\Models\\Cabang', '9', '{\"id\":9,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:40:39\",\"updated_at\":\"2025-04-22 16:40:39\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 08:47:07', '2025-04-22 08:47:07'),
-(164, '123456', 'deleted', 'App\\Models\\Cabang', '8', '{\"id\":8,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:39:29\",\"updated_at\":\"2025-04-22 16:39:29\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 08:47:28', '2025-04-22 08:47:28'),
-(165, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\",\"updated_at\":\"2025-04-22T03:08:54.000000Z\"}', '{\"alamat\":\"Jl. Perintisss Kemerdekaan No.123, Makassar\",\"updated_at\":\"2025-04-22 16:48:11\"}', 'Mengubah data Cabang ', '2025-04-22 08:48:11', '2025-04-22 08:48:11'),
-(166, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintisss Kemerdekaan No.123, Makassar\"}', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\"}', 'Mengubah data Cabang ', '2025-04-22 08:49:12', '2025-04-22 08:49:12'),
-(167, '123456', 'created', 'App\\Models\\Cabang', '12', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. Abu bakar lambogo\",\"id\":12}', 'Menambahkan data Cabang ', '2025-04-22 08:50:05', '2025-04-22 08:50:05'),
-(168, '123456', 'deleted', 'App\\Models\\Cabang', '12', '{\"id\":12,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:50:05\",\"updated_at\":\"2025-04-22 16:50:05\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 08:55:57', '2025-04-22 08:55:57'),
-(169, '123456', 'created', 'App\\Models\\Cabang', '13', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. abu bakar\",\"id\":13}', 'Menambahkan data Cabang ', '2025-04-22 08:56:51', '2025-04-22 08:56:51'),
-(170, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 08:57:56', '2025-04-22 08:57:56'),
-(171, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 08:58:08', '2025-04-22 08:58:08'),
-(172, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 08:58:08', '2025-04-22 08:58:08'),
-(173, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 08:58:50', '2025-04-22 08:58:50'),
-(174, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 23:55:57', '2025-04-22 23:55:57'),
-(175, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 00:06:51', '2025-04-23 00:06:51'),
-(176, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 00:18:46', '2025-04-23 00:18:46'),
-(177, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassar\"}', '{\"nama_cabang\":\"Cabang Makassarraaa\"}', 'Mengubah data Cabang ', '2025-04-23 00:19:07', '2025-04-23 00:19:07'),
-(178, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 00:19:41', '2025-04-23 00:19:41'),
-(179, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"cabang_id\":4}', '{\"cabang_id\":\"1\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-23 00:19:54', '2025-04-23 00:19:54'),
-(180, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"cabang_id\":4}', '{\"cabang_id\":\"1\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-23 00:19:54', '2025-04-23 00:19:54'),
-(181, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 00:20:35', '2025-04-23 00:20:35'),
-(182, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 00:26:00', '2025-04-23 00:26:00'),
-(183, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 00:29:34', '2025-04-23 00:29:34'),
-(184, '123456', 'created', 'App\\Models\\Cabang', '14', NULL, '{\"nama_cabang\":\"Cabang Makassar\",\"alamat\":\"xxx\",\"id\":14}', 'Menambahkan data Cabang ', '2025-04-23 00:54:51', '2025-04-23 00:54:51'),
-(185, '123456', 'deleted', 'App\\Models\\Cabang', '14', '{\"id\":14,\"nama_cabang\":\"Cabang Makassar\",\"alamat\":\"xxx\",\"created_at\":\"2025-04-23 08:54:51\",\"updated_at\":\"2025-04-23 08:54:51\"}', NULL, 'Menghapus data Cabang ', '2025-04-23 00:54:55', '2025-04-23 00:54:55'),
-(186, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\"}', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassaraa\"}', 'Mengubah data Cabang ', '2025-04-23 01:23:22', '2025-04-23 01:23:22'),
-(187, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassaraa\"}', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\"}', 'Mengubah data Cabang ', '2025-04-23 01:24:38', '2025-04-23 01:24:38'),
-(188, '123456', 'created', 'App\\Models\\Cabang', '15', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"wwwwwww\",\"id\":15}', 'Menambahkan data Cabang ', '2025-04-23 01:25:44', '2025-04-23 01:25:44'),
-(189, '123456', 'deleted', 'App\\Models\\Cabang', '15', '{\"id\":15,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"wwwwwww\",\"created_at\":\"2025-04-23 09:25:44\",\"updated_at\":\"2025-04-23 09:25:44\"}', NULL, 'Menghapus data Cabang ', '2025-04-23 01:25:48', '2025-04-23 01:25:48'),
-(190, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 01:26:36', '2025-04-23 01:26:36'),
-(191, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 01:27:07', '2025-04-23 01:27:07'),
-(192, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassarraaa\"}', '{\"nama_cabang\":\"Cabang Makassar\"}', 'Mengubah data Cabang ', '2025-04-23 01:27:30', '2025-04-23 01:27:30'),
-(193, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 01:27:47', '2025-04-23 01:27:47'),
-(194, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 01:28:50', '2025-04-23 01:28:50'),
-(195, '123456', 'deleted', 'App\\Models\\Cabang', '13', '{\"id\":13,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. abu bakar\",\"created_at\":\"2025-04-22 16:56:51\",\"updated_at\":\"2025-04-22 16:56:51\"}', NULL, 'Menghapus data Cabang ', '2025-04-23 01:28:56', '2025-04-23 01:28:56'),
-(196, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 01:29:09', '2025-04-23 01:29:09'),
-(197, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"cabang_id\":2}', '{\"cabang_id\":\"5\"}', 'Mengubah data Peserta 198911202010090101', '2025-04-23 01:29:30', '2025-04-23 01:29:30'),
-(198, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"cabang_id\":5}', '{\"cabang_id\":\"4\"}', 'Mengubah data Peserta 198911202010090101', '2025-04-23 01:29:47', '2025-04-23 01:29:47'),
-(199, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"cabang_id\":5}', '{\"cabang_id\":\"4\"}', 'Mengubah data Peserta 198911202010090101', '2025-04-23 01:29:47', '2025-04-23 01:29:47'),
-(200, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 03:11:55', '2025-04-23 03:11:55'),
-(201, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 03:36:18', '2025-04-23 03:36:18'),
-(202, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-04-23 04:41:59', '2025-04-23 04:41:59'),
-(203, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 04:59:33', '2025-04-23 04:59:33'),
-(204, '222249', 'created', 'App\\Models\\Peserta', '1000001', NULL, '{\"nip\":\"1000001\",\"nama\":\"Andi Saputra\",\"jenis_kelamin\":\"Laki-laki\",\"tempat_lahir\":\"Makassar\",\"tanggal_lahir\":\"2025-04-23 00:00:00\",\"status_pernikahan\":\"Janda\",\"no_sk\":\"SK-009\",\"cabang_id\":\"3\",\"tmk\":\"2025-04-23 00:00:00\",\"tpst\":\"2025-04-23 00:00:00\",\"golongan\":\"Direktur\",\"jabatan\":\"Staf Administrasi\",\"pendidikan\":\"S3\",\"jurusan\":\"TI\",\"phdp\":\"9000000\",\"akumulasi_ibhp\":\"450000000\",\"kode_ptkp\":\"46456\",\"kode_peserta\":\"PST009\",\"alamat\":\"ablam\",\"kelurahan\":\"tass\",\"kabupaten\":\"Gowa\",\"kota\":\"Makassar\",\"kode_pos\":\"75756\",\"telpon\":\"086436363645\"}', 'Menambahkan data Peserta 1000001', '2025-04-23 05:32:00', '2025-04-23 05:32:00'),
-(205, '222249', 'created', 'App\\Models\\Keluarga', '11', NULL, '{\"nip\":\"1000001\",\"nama\":\"Andi Saputra\",\"hubungan\":\"Suami\",\"pekerjaan\":\"Polisi\",\"updated_at\":\"2025-04-23 13:32:41\",\"created_at\":\"2025-04-23 13:32:41\",\"id\":11}', 'Menambahkan data Keluarga 1000001', '2025-04-23 05:32:41', '2025-04-23 05:32:41'),
-(206, '222249', 'created', 'App\\Models\\Keluarga', '12', NULL, '{\"nip\":\"1000001\",\"nama\":\"Michael\",\"hubungan\":\"Anak\",\"pekerjaan\":\"-\",\"updated_at\":\"2025-04-23 13:33:28\",\"created_at\":\"2025-04-23 13:33:28\",\"id\":12}', 'Menambahkan data Keluarga 1000001', '2025-04-23 05:33:28', '2025-04-23 05:33:28'),
-(207, '222249', 'created', 'App\\Models\\Keluarga', '13', NULL, '{\"nip\":\"1000001\",\"nama\":\"fahri\",\"hubungan\":\"Istri\",\"pekerjaan\":\"Polisi\",\"updated_at\":\"2025-04-23 13:35:47\",\"created_at\":\"2025-04-23 13:35:47\",\"id\":13}', 'Menambahkan data Keluarga 1000001', '2025-04-23 05:35:47', '2025-04-23 05:35:47'),
-(208, '222249', 'deleted', 'App\\Models\\Keluarga', '11', '{\"nip\":\"1000001\",\"id\":11,\"nama\":\"Andi Saputra\",\"hubungan\":\"Suami\",\"jenis_kelamin\":\"Laki-laki\",\"tanggal_lahir\":null,\"status_hidup\":\"Hidup\",\"pekerjaan\":\"Polisi\",\"created_at\":\"2025-04-23 13:32:41\",\"updated_at\":\"2025-04-23 13:32:41\"}', NULL, 'Menghapus data Keluarga 1000001', '2025-04-23 05:37:33', '2025-04-23 05:37:33'),
-(209, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 05:38:01', '2025-04-23 05:38:01'),
-(210, '1000001', 'login', NULL, NULL, NULL, NULL, 'Pengguna Michael Immanuel Manabung berhasil login sebagai operator', '2025-04-23 06:02:48', '2025-04-23 06:02:48'),
-(211, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 06:04:16', '2025-04-23 06:04:16'),
-(212, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 06:33:11', '2025-04-23 06:33:11'),
-(213, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 06:42:23', '2025-04-23 06:42:23'),
-(214, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-24 02:31:12', '2025-04-24 02:31:12'),
-(215, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-24 02:31:40', '2025-04-24 02:31:40'),
-(216, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-24 06:32:15', '2025-04-24 06:32:15'),
-(217, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-25 02:51:46', '2025-04-25 02:51:46'),
-(218, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-25 02:52:16', '2025-04-25 02:52:16'),
-(219, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-25 07:11:20', '2025-04-25 07:11:20'),
-(220, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-25 08:34:28', '2025-04-25 08:34:28'),
-(221, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-28 05:06:53', '2025-04-28 05:06:53'),
-(222, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai admin', '2025-04-28 06:02:37', '2025-04-28 06:02:37'),
-(223, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai supervisor', '2025-04-28 06:03:24', '2025-04-28 06:03:24'),
-(224, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-28 06:06:18', '2025-04-28 06:06:18'),
-(225, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-30 00:09:03', '2025-04-30 00:09:03'),
-(226, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-02 00:24:45', '2025-05-02 00:24:45'),
-(227, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-07 01:04:24', '2025-05-07 01:04:24'),
-(228, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-07 03:02:14', '2025-05-07 03:02:14'),
-(229, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-07 03:11:41', '2025-05-07 03:11:41'),
-(230, '222249', 'created', 'App\\Models\\Keluarga', '14', NULL, '{\"nip\":\"1000001\",\"nama\":\"Michael\",\"hubungan\":\"Anak\",\"pekerjaan\":\"Polisi\",\"updated_at\":\"2025-05-07 11:13:20\",\"created_at\":\"2025-05-07 11:13:20\",\"id\":14}', 'Menambahkan data Keluarga 1000001', '2025-05-07 03:13:20', '2025-05-07 03:13:20'),
-(231, '222249', 'updated', 'App\\Models\\Peserta', '1000001', '{\"status_pernikahan\":\"Janda\",\"cabang_id\":3}', '{\"status_pernikahan\":\"Menikah\",\"cabang_id\":\"1\"}', 'Mengubah data Peserta 1000001', '2025-05-07 03:13:56', '2025-05-07 03:13:56'),
-(232, '222249', 'updated', 'App\\Models\\Peserta', '1000001', '{\"status_pernikahan\":\"Janda\",\"cabang_id\":3}', '{\"status_pernikahan\":\"Menikah\",\"cabang_id\":\"1\"}', 'Mengubah data Peserta 1000001', '2025-05-07 03:13:56', '2025-05-07 03:13:56'),
-(233, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-05-07 03:18:31', '2025-05-07 03:18:31'),
-(234, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-05-07 03:22:46', '2025-05-07 03:22:46'),
-(235, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-07 04:39:28', '2025-05-07 04:39:28'),
-(236, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-07 04:54:08', '2025-05-07 04:54:08'),
-(237, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-05-07 04:54:25', '2025-05-07 04:54:25');
+(99, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:04:15', '2025-04-21 18:04:15'),
+(100, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:04:15', '2025-04-21 18:04:15'),
+(101, '222249', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"kabupaten\":\"Bones\"}', '{\"kabupaten\":\"Bone\"}', 'Mengubah data Peserta dengan ID 199001152023020201', '2025-04-21 18:10:27', '2025-04-21 18:10:27'),
+(102, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputraa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:12:05', '2025-04-21 18:12:05'),
+(103, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputraa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:12:05', '2025-04-21 18:12:05'),
+(104, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"kabupaten\":\"Bulukumba\"}', '{\"kabupaten\":\"Bulukumbas\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-21 18:12:15', '2025-04-21 18:12:15'),
+(105, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"kabupaten\":\"Bulukumba\"}', '{\"kabupaten\":\"Bulukumbas\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-21 18:12:15', '2025-04-21 18:12:15'),
+(106, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:20:34', '2025-04-21 18:20:34'),
+(107, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:20:34', '2025-04-21 18:20:34'),
+(108, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:22:27', '2025-04-21 18:22:27'),
+(109, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:22:27', '2025-04-21 18:22:27'),
+(110, '222249', 'updated', 'App\\Models\\Peserta', '199503101987031201', '{\"nama\":\"Dina Marwah\"}', '{\"nama\":\"Dina Marwah Mantap\"}', 'Mengubah data Peserta dengan ID 199503101987031201', '2025-04-21 18:25:34', '2025-04-21 18:25:34'),
+(111, '222249', 'updated', 'App\\Models\\Peserta', '199503101987031201', '{\"nama\":\"Dina Marwah\"}', '{\"nama\":\"Dina Marwah Mantap\"}', 'Mengubah data Peserta dengan ID 199503101987031201', '2025-04-21 18:25:34', '2025-04-21 18:25:34'),
+(112, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kode_pos\":\"90111\"}', '{\"kode_pos\":\"901113\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:27:32', '2025-04-21 18:27:32'),
+(113, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:28:29', '2025-04-21 18:28:29'),
+(114, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:28:29', '2025-04-21 18:28:29'),
+(115, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:29:06', '2025-04-21 18:29:06'),
+(116, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:29:06', '2025-04-21 18:29:06'),
+(117, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"jenis_kelamin\":\"Perempuan\"}', '{\"jenis_kelamin\":\"Laki-laki\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:29:27', '2025-04-21 18:29:27'),
+(118, '222249', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 199001152023020201', '2025-04-21 18:29:58', '2025-04-21 18:29:58'),
+(119, '222249', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"jenis_kelamin\":\"Laki-laki\"}', '{\"jenis_kelamin\":\"Perempuan\"}', 'Mengubah data Peserta dengan ID 199001152023020201', '2025-04-21 18:29:58', '2025-04-21 18:29:58'),
+(120, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kabupaten\":\"Gowa\"}', '{\"kabupaten\":\"Gowaaaaaaaa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:32:32', '2025-04-21 18:32:32'),
+(121, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kabupaten\":\"Gowa\"}', '{\"kabupaten\":\"Gowaaaaaaaa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:32:32', '2025-04-21 18:32:32'),
+(122, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kabupaten\":\"Gowaaaaaaaa\"}', '{\"kabupaten\":\"Gowa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:36:02', '2025-04-21 18:36:02'),
+(123, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"nama\":\"Fahri Ramadhan\"}', '{\"nama\":\"Fahri Ramadhani\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-21 18:36:21', '2025-04-21 18:36:21'),
+(124, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"nama\":\"Fahri Ramadhan\"}', '{\"nama\":\"Fahri Ramadhani\"}', 'Mengubah data Peserta dengan ID 198911202010090101', '2025-04-21 18:36:21', '2025-04-21 18:36:21'),
+(125, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputraa\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:43:54', '2025-04-21 18:43:54'),
+(126, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputraasssss\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:44:20', '2025-04-21 18:44:20'),
+(127, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraa\"}', '{\"nama\":\"Andi Saputraasssss\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:44:20', '2025-04-21 18:44:20'),
+(128, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraasssss\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:46:15', '2025-04-21 18:46:15'),
+(129, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputraasssss\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:46:15', '2025-04-21 18:46:15'),
+(130, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kota\":\"Makassars\"}', '{\"kota\":\"Makassar\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:52:01', '2025-04-21 18:52:01'),
+(131, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"kota\":\"Makassars\"}', '{\"kota\":\"Makassar\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:52:01', '2025-04-21 18:52:01'),
+(132, '222249', 'created', 'App\\Models\\Keluarga', '9', NULL, '{\"nip\":\"198501012022011001\",\"nama\":\"Aco\",\"hubungan\":\"Anak\",\"pekerjaan\":\"-\",\"updated_at\":\"2025-04-22 10:53:00\",\"created_at\":\"2025-04-22 10:53:00\",\"id\":9}', 'Menambahkan data Keluarga dengan ID 198501012022011001', '2025-04-21 18:53:00', '2025-04-21 18:53:00'),
+(133, '222249', 'deleted', 'App\\Models\\Keluarga', '6', '{\"nip\":\"199503101987031201\",\"id\":6,\"nama\":\"Melati Indah\",\"hubungan\":\"Anak\",\"jenis_kelamin\":\"Perempuan\",\"tanggal_lahir\":\"2010-10-10\",\"status_hidup\":\"Hidup\",\"pekerjaan\":\"Pelajar\",\"created_at\":\"2025-04-10 15:34:28\",\"updated_at\":\"2025-04-10 15:34:28\"}', NULL, 'Menghapus data Keluarga dengan ID 199503101987031201', '2025-04-21 18:53:39', '2025-04-21 18:53:39'),
+(134, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:54:05', '2025-04-21 18:54:05'),
+(135, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta dengan ID 198501012022011001', '2025-04-21 18:54:05', '2025-04-21 18:54:05'),
+(136, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-21 18:54:58', '2025-04-21 18:54:58'),
+(137, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-21 19:06:57', '2025-04-21 19:06:57'),
+(138, '222249', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassar\",\"updated_at\":\"2025-04-13T23:49:54.000000Z\"}', '{\"nama_cabang\":\"Cabang Makassaraaa\",\"updated_at\":\"2025-04-22 11:07:14\"}', 'Mengubah data Cabang dengan ID ', '2025-04-21 19:07:14', '2025-04-21 19:07:14'),
+(139, '222249', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassaraaa\",\"updated_at\":\"2025-04-22T03:07:14.000000Z\"}', '{\"nama_cabang\":\"Cabang Makassar\",\"updated_at\":\"2025-04-22 11:08:54\"}', 'Mengubah data Cabang ', '2025-04-21 19:08:54', '2025-04-21 19:08:54'),
+(140, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputras\"}', '{\"nama\":\"Andi Saputra\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-21 19:09:27', '2025-04-21 19:09:27'),
+(141, '222249', 'created', 'App\\Models\\Keluarga', '10', NULL, '{\"nip\":\"199503101987031201\",\"nama\":\"Michael\",\"hubungan\":\"Anak\",\"pekerjaan\":\"Pelajar\",\"updated_at\":\"2025-04-22 11:10:09\",\"created_at\":\"2025-04-22 11:10:09\",\"id\":10}', 'Menambahkan data Keluarga 199503101987031201', '2025-04-21 19:10:09', '2025-04-21 19:10:09'),
+(142, '222249', 'updated', 'App\\Models\\Peserta', '199503101987031201', '{\"nama\":\"Dina Marwah Mantap\"}', '{\"nama\":\"Dina Marwah\"}', 'Mengubah data Peserta 199503101987031201', '2025-04-21 19:11:01', '2025-04-21 19:11:01'),
+(143, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-21 19:11:30', '2025-04-21 19:11:30'),
+(144, '1000001', 'login', NULL, NULL, NULL, NULL, 'Pengguna Michael Immanuel Manabung berhasil login sebagai operator', '2025-04-21 19:12:58', '2025-04-21 19:12:58'),
+(145, '1000001', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"cabang_id\":3}', '{\"cabang_id\":\"2\"}', 'Mengubah data Peserta 199001152023020201', '2025-04-21 19:13:28', '2025-04-21 19:13:28'),
+(146, '1000001', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"cabang_id\":3}', '{\"cabang_id\":\"2\"}', 'Mengubah data Peserta 199001152023020201', '2025-04-21 19:13:28', '2025-04-21 19:13:28'),
+(147, '1000001', 'updated', 'App\\Models\\Peserta', '199001152023020201', '{\"cabang_id\":3}', '{\"cabang_id\":\"2\"}', 'Mengubah data Peserta 199001152023020201', '2025-04-21 19:13:28', '2025-04-21 19:13:28'),
+(148, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-21 19:15:09', '2025-04-21 19:15:09'),
+(149, '1000001', 'login', NULL, NULL, NULL, NULL, 'Pengguna Michael Immanuel Manabung berhasil login sebagai operator', '2025-04-21 19:20:24', '2025-04-21 19:20:24'),
+(150, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-04-21 21:21:19', '2025-04-21 21:21:19'),
+(151, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-21 21:22:03', '2025-04-21 21:22:03'),
+(152, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-21 22:10:30', '2025-04-21 22:10:30'),
+(153, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-21 23:57:05', '2025-04-21 23:57:05'),
+(154, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 00:34:55', '2025-04-22 00:34:55'),
+(155, '123456', 'created', 'App\\Models\\Cabang', '7', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:38:48\",\"created_at\":\"2025-04-22 16:38:48\",\"id\":7}', 'Menambahkan data Cabang ', '2025-04-22 00:38:48', '2025-04-22 00:38:48'),
+(156, '123456', 'created', 'App\\Models\\Cabang', '8', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:39:29\",\"created_at\":\"2025-04-22 16:39:29\",\"id\":8}', 'Menambahkan data Cabang ', '2025-04-22 00:39:29', '2025-04-22 00:39:29'),
+(157, '123456', 'created', 'App\\Models\\Cabang', '9', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:40:39\",\"created_at\":\"2025-04-22 16:40:39\",\"id\":9}', 'Menambahkan data Cabang ', '2025-04-22 00:40:39', '2025-04-22 00:40:39'),
+(158, '123456', 'created', 'App\\Models\\Cabang', '10', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:42:06\",\"created_at\":\"2025-04-22 16:42:06\",\"id\":10}', 'Menambahkan data Cabang ', '2025-04-22 00:42:06', '2025-04-22 00:42:06'),
+(159, '123456', 'created', 'App\\Models\\Cabang', '11', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"updated_at\":\"2025-04-22 16:43:10\",\"created_at\":\"2025-04-22 16:43:10\",\"id\":11}', 'Menambahkan data Cabang ', '2025-04-22 00:43:10', '2025-04-22 00:43:10'),
+(160, '123456', 'deleted', 'App\\Models\\Cabang', '7', '{\"id\":7,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:38:48\",\"updated_at\":\"2025-04-22 16:38:48\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 00:44:29', '2025-04-22 00:44:29'),
+(161, '123456', 'deleted', 'App\\Models\\Cabang', '11', '{\"id\":11,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:43:10\",\"updated_at\":\"2025-04-22 16:43:10\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 00:46:57', '2025-04-22 00:46:57'),
+(162, '123456', 'deleted', 'App\\Models\\Cabang', '10', '{\"id\":10,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:42:06\",\"updated_at\":\"2025-04-22 16:42:06\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 00:47:02', '2025-04-22 00:47:02'),
+(163, '123456', 'deleted', 'App\\Models\\Cabang', '9', '{\"id\":9,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:40:39\",\"updated_at\":\"2025-04-22 16:40:39\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 00:47:07', '2025-04-22 00:47:07'),
+(164, '123456', 'deleted', 'App\\Models\\Cabang', '8', '{\"id\":8,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:39:29\",\"updated_at\":\"2025-04-22 16:39:29\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 00:47:28', '2025-04-22 00:47:28'),
+(165, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\",\"updated_at\":\"2025-04-22T03:08:54.000000Z\"}', '{\"alamat\":\"Jl. Perintisss Kemerdekaan No.123, Makassar\",\"updated_at\":\"2025-04-22 16:48:11\"}', 'Mengubah data Cabang ', '2025-04-22 00:48:11', '2025-04-22 00:48:11'),
+(166, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintisss Kemerdekaan No.123, Makassar\"}', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\"}', 'Mengubah data Cabang ', '2025-04-22 00:49:12', '2025-04-22 00:49:12'),
+(167, '123456', 'created', 'App\\Models\\Cabang', '12', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. Abu bakar lambogo\",\"id\":12}', 'Menambahkan data Cabang ', '2025-04-22 00:50:05', '2025-04-22 00:50:05'),
+(168, '123456', 'deleted', 'App\\Models\\Cabang', '12', '{\"id\":12,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. Abu bakar lambogo\",\"created_at\":\"2025-04-22 16:50:05\",\"updated_at\":\"2025-04-22 16:50:05\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 00:55:57', '2025-04-22 00:55:57'),
+(169, '123456', 'created', 'App\\Models\\Cabang', '13', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. abu bakar\",\"id\":13}', 'Menambahkan data Cabang ', '2025-04-22 00:56:51', '2025-04-22 00:56:51'),
+(170, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 00:57:56', '2025-04-22 00:57:56'),
+(171, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 00:58:08', '2025-04-22 00:58:08'),
+(172, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"nama\":\"Andi Saputra\"}', '{\"nama\":\"Andi Saputras\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 00:58:08', '2025-04-22 00:58:08'),
+(173, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 00:58:50', '2025-04-22 00:58:50'),
+(174, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 15:55:57', '2025-04-22 15:55:57'),
+(175, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 16:06:51', '2025-04-22 16:06:51'),
+(176, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 16:18:46', '2025-04-22 16:18:46'),
+(177, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassar\"}', '{\"nama_cabang\":\"Cabang Makassarraaa\"}', 'Mengubah data Cabang ', '2025-04-22 16:19:07', '2025-04-22 16:19:07'),
+(178, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 16:19:41', '2025-04-22 16:19:41'),
+(179, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"cabang_id\":4}', '{\"cabang_id\":\"1\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 16:19:54', '2025-04-22 16:19:54'),
+(180, '222249', 'updated', 'App\\Models\\Peserta', '198501012022011001', '{\"cabang_id\":4}', '{\"cabang_id\":\"1\"}', 'Mengubah data Peserta 198501012022011001', '2025-04-22 16:19:54', '2025-04-22 16:19:54'),
+(181, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 16:20:35', '2025-04-22 16:20:35'),
+(182, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 16:26:00', '2025-04-22 16:26:00'),
+(183, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 16:29:34', '2025-04-22 16:29:34'),
+(184, '123456', 'created', 'App\\Models\\Cabang', '14', NULL, '{\"nama_cabang\":\"Cabang Makassar\",\"alamat\":\"xxx\",\"id\":14}', 'Menambahkan data Cabang ', '2025-04-22 16:54:51', '2025-04-22 16:54:51'),
+(185, '123456', 'deleted', 'App\\Models\\Cabang', '14', '{\"id\":14,\"nama_cabang\":\"Cabang Makassar\",\"alamat\":\"xxx\",\"created_at\":\"2025-04-23 08:54:51\",\"updated_at\":\"2025-04-23 08:54:51\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 16:54:55', '2025-04-22 16:54:55'),
+(186, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\"}', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassaraa\"}', 'Mengubah data Cabang ', '2025-04-22 17:23:22', '2025-04-22 17:23:22'),
+(187, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassaraa\"}', '{\"alamat\":\"Jl. Perintis Kemerdekaan No.123, Makassar\"}', 'Mengubah data Cabang ', '2025-04-22 17:24:38', '2025-04-22 17:24:38'),
+(188, '123456', 'created', 'App\\Models\\Cabang', '15', NULL, '{\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"wwwwwww\",\"id\":15}', 'Menambahkan data Cabang ', '2025-04-22 17:25:44', '2025-04-22 17:25:44'),
+(189, '123456', 'deleted', 'App\\Models\\Cabang', '15', '{\"id\":15,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"wwwwwww\",\"created_at\":\"2025-04-23 09:25:44\",\"updated_at\":\"2025-04-23 09:25:44\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 17:25:48', '2025-04-22 17:25:48'),
+(190, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 17:26:36', '2025-04-22 17:26:36'),
+(191, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 17:27:07', '2025-04-22 17:27:07'),
+(192, '123456', 'updated', 'App\\Models\\Cabang', '1', '{\"nama_cabang\":\"Cabang Makassarraaa\"}', '{\"nama_cabang\":\"Cabang Makassar\"}', 'Mengubah data Cabang ', '2025-04-22 17:27:30', '2025-04-22 17:27:30'),
+(193, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 17:27:47', '2025-04-22 17:27:47'),
+(194, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 17:28:50', '2025-04-22 17:28:50'),
+(195, '123456', 'deleted', 'App\\Models\\Cabang', '13', '{\"id\":13,\"nama_cabang\":\"Cabang Ablam\",\"alamat\":\"Jl. abu bakar\",\"created_at\":\"2025-04-22 16:56:51\",\"updated_at\":\"2025-04-22 16:56:51\"}', NULL, 'Menghapus data Cabang ', '2025-04-22 17:28:56', '2025-04-22 17:28:56'),
+(196, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 17:29:09', '2025-04-22 17:29:09'),
+(197, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"cabang_id\":2}', '{\"cabang_id\":\"5\"}', 'Mengubah data Peserta 198911202010090101', '2025-04-22 17:29:30', '2025-04-22 17:29:30'),
+(198, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"cabang_id\":5}', '{\"cabang_id\":\"4\"}', 'Mengubah data Peserta 198911202010090101', '2025-04-22 17:29:47', '2025-04-22 17:29:47'),
+(199, '222249', 'updated', 'App\\Models\\Peserta', '198911202010090101', '{\"cabang_id\":5}', '{\"cabang_id\":\"4\"}', 'Mengubah data Peserta 198911202010090101', '2025-04-22 17:29:47', '2025-04-22 17:29:47'),
+(200, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 19:11:55', '2025-04-22 19:11:55'),
+(201, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 19:36:18', '2025-04-22 19:36:18'),
+(202, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-04-22 20:41:59', '2025-04-22 20:41:59'),
+(203, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 20:59:33', '2025-04-22 20:59:33'),
+(204, '222249', 'created', 'App\\Models\\Peserta', '1000001', NULL, '{\"nip\":\"1000001\",\"nama\":\"Andi Saputra\",\"jenis_kelamin\":\"Laki-laki\",\"tempat_lahir\":\"Makassar\",\"tanggal_lahir\":\"2025-04-23 00:00:00\",\"status_pernikahan\":\"Janda\",\"no_sk\":\"SK-009\",\"cabang_id\":\"3\",\"tmk\":\"2025-04-23 00:00:00\",\"tpst\":\"2025-04-23 00:00:00\",\"golongan\":\"Direktur\",\"jabatan\":\"Staf Administrasi\",\"pendidikan\":\"S3\",\"jurusan\":\"TI\",\"phdp\":\"9000000\",\"akumulasi_ibhp\":\"450000000\",\"kode_ptkp\":\"46456\",\"kode_peserta\":\"PST009\",\"alamat\":\"ablam\",\"kelurahan\":\"tass\",\"kabupaten\":\"Gowa\",\"kota\":\"Makassar\",\"kode_pos\":\"75756\",\"telpon\":\"086436363645\"}', 'Menambahkan data Peserta 1000001', '2025-04-22 21:32:00', '2025-04-22 21:32:00'),
+(205, '222249', 'created', 'App\\Models\\Keluarga', '11', NULL, '{\"nip\":\"1000001\",\"nama\":\"Andi Saputra\",\"hubungan\":\"Suami\",\"pekerjaan\":\"Polisi\",\"updated_at\":\"2025-04-23 13:32:41\",\"created_at\":\"2025-04-23 13:32:41\",\"id\":11}', 'Menambahkan data Keluarga 1000001', '2025-04-22 21:32:41', '2025-04-22 21:32:41'),
+(206, '222249', 'created', 'App\\Models\\Keluarga', '12', NULL, '{\"nip\":\"1000001\",\"nama\":\"Michael\",\"hubungan\":\"Anak\",\"pekerjaan\":\"-\",\"updated_at\":\"2025-04-23 13:33:28\",\"created_at\":\"2025-04-23 13:33:28\",\"id\":12}', 'Menambahkan data Keluarga 1000001', '2025-04-22 21:33:28', '2025-04-22 21:33:28'),
+(207, '222249', 'created', 'App\\Models\\Keluarga', '13', NULL, '{\"nip\":\"1000001\",\"nama\":\"fahri\",\"hubungan\":\"Istri\",\"pekerjaan\":\"Polisi\",\"updated_at\":\"2025-04-23 13:35:47\",\"created_at\":\"2025-04-23 13:35:47\",\"id\":13}', 'Menambahkan data Keluarga 1000001', '2025-04-22 21:35:47', '2025-04-22 21:35:47'),
+(208, '222249', 'deleted', 'App\\Models\\Keluarga', '11', '{\"nip\":\"1000001\",\"id\":11,\"nama\":\"Andi Saputra\",\"hubungan\":\"Suami\",\"jenis_kelamin\":\"Laki-laki\",\"tanggal_lahir\":null,\"status_hidup\":\"Hidup\",\"pekerjaan\":\"Polisi\",\"created_at\":\"2025-04-23 13:32:41\",\"updated_at\":\"2025-04-23 13:32:41\"}', NULL, 'Menghapus data Keluarga 1000001', '2025-04-22 21:37:33', '2025-04-22 21:37:33'),
+(209, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 21:38:01', '2025-04-22 21:38:01'),
+(210, '1000001', 'login', NULL, NULL, NULL, NULL, 'Pengguna Michael Immanuel Manabung berhasil login sebagai operator', '2025-04-22 22:02:48', '2025-04-22 22:02:48'),
+(211, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 22:04:16', '2025-04-22 22:04:16'),
+(212, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-22 22:33:11', '2025-04-22 22:33:11'),
+(213, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-22 22:42:23', '2025-04-22 22:42:23'),
+(214, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-23 18:31:12', '2025-04-23 18:31:12'),
+(215, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 18:31:40', '2025-04-23 18:31:40'),
+(216, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-23 22:32:15', '2025-04-23 22:32:15'),
+(217, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-24 18:51:46', '2025-04-24 18:51:46'),
+(218, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-24 18:52:16', '2025-04-24 18:52:16'),
+(219, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-24 23:11:20', '2025-04-24 23:11:20'),
+(220, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-25 00:34:28', '2025-04-25 00:34:28'),
+(221, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-27 21:06:53', '2025-04-27 21:06:53'),
+(222, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai admin', '2025-04-27 22:02:37', '2025-04-27 22:02:37'),
+(223, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai supervisor', '2025-04-27 22:03:24', '2025-04-27 22:03:24'),
+(224, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-04-27 22:06:18', '2025-04-27 22:06:18'),
+(225, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-04-29 16:09:03', '2025-04-29 16:09:03'),
+(226, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-01 16:24:45', '2025-05-01 16:24:45'),
+(227, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-06 17:04:24', '2025-05-06 17:04:24'),
+(228, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-06 19:02:14', '2025-05-06 19:02:14'),
+(229, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-06 19:11:41', '2025-05-06 19:11:41'),
+(230, '222249', 'created', 'App\\Models\\Keluarga', '14', NULL, '{\"nip\":\"1000001\",\"nama\":\"Michael\",\"hubungan\":\"Anak\",\"pekerjaan\":\"Polisi\",\"updated_at\":\"2025-05-07 11:13:20\",\"created_at\":\"2025-05-07 11:13:20\",\"id\":14}', 'Menambahkan data Keluarga 1000001', '2025-05-06 19:13:20', '2025-05-06 19:13:20'),
+(231, '222249', 'updated', 'App\\Models\\Peserta', '1000001', '{\"status_pernikahan\":\"Janda\",\"cabang_id\":3}', '{\"status_pernikahan\":\"Menikah\",\"cabang_id\":\"1\"}', 'Mengubah data Peserta 1000001', '2025-05-06 19:13:56', '2025-05-06 19:13:56'),
+(232, '222249', 'updated', 'App\\Models\\Peserta', '1000001', '{\"status_pernikahan\":\"Janda\",\"cabang_id\":3}', '{\"status_pernikahan\":\"Menikah\",\"cabang_id\":\"1\"}', 'Mengubah data Peserta 1000001', '2025-05-06 19:13:56', '2025-05-06 19:13:56'),
+(233, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-05-06 19:18:31', '2025-05-06 19:18:31'),
+(234, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-05-06 19:22:46', '2025-05-06 19:22:46'),
+(235, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-06 20:39:28', '2025-05-06 20:39:28'),
+(236, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-06 20:54:08', '2025-05-06 20:54:08'),
+(237, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-05-06 20:54:25', '2025-05-06 20:54:25'),
+(238, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-05-08 18:55:00', '2025-05-08 18:55:00'),
+(239, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-05-08 21:33:52', '2025-05-08 21:33:52'),
+(240, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-08 22:27:20', '2025-05-08 22:27:20'),
+(241, '234567', 'login', NULL, NULL, NULL, NULL, 'Pengguna supervisor berhasil login sebagai supervisor', '2025-05-08 22:32:53', '2025-05-08 22:32:53'),
+(242, '222249', 'login', NULL, NULL, NULL, NULL, 'Pengguna Reinhart berhasil login sebagai operator', '2025-05-14 18:36:33', '2025-05-14 18:36:33'),
+(243, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-05-14 18:39:29', '2025-05-14 18:39:29'),
+(244, '123456', 'login', NULL, NULL, NULL, NULL, 'Pengguna admin berhasil login sebagai admin', '2025-05-14 19:48:42', '2025-05-14 19:48:42');
 
 -- --------------------------------------------------------
 
@@ -204,11 +211,11 @@ CREATE TABLE `cabangs` (
 --
 
 INSERT INTO `cabangs` (`id`, `nama_cabang`, `alamat`, `created_at`, `updated_at`) VALUES
-(1, 'Cabang Makassar', 'Jl. Perintis Kemerdekaan No.123, Makassar', '2025-04-09 00:31:35', '2025-04-23 01:27:30'),
-(2, 'Cabang Parepare', 'Jl. Bau Massepe No.45, Parepare', '2025-04-09 00:31:35', '2025-04-09 00:31:35'),
-(3, 'Cabang Palopo', 'Jl. Andi Djemma No.10, Palopo', '2025-04-09 00:31:35', '2025-04-09 00:31:35'),
-(4, 'Cabang Bulukumba', 'Jl. Dr. Sam Ratulangi No.5, Bulukumba', '2025-04-09 00:31:35', '2025-04-09 00:31:35'),
-(5, 'Cabang Bone', 'Jl. Ahmad Yani No.7, Watampone', '2025-04-09 00:31:35', '2025-04-09 00:31:35');
+(1, 'Cabang Makassar', 'Jl. Perintis Kemerdekaan No.123, Makassar', '2025-04-08 16:31:35', '2025-04-22 17:27:30'),
+(2, 'Cabang Parepare', 'Jl. Bau Massepe No.45, Parepare', '2025-04-08 16:31:35', '2025-04-08 16:31:35'),
+(3, 'Cabang Palopo', 'Jl. Andi Djemma No.10, Palopo', '2025-04-08 16:31:35', '2025-04-08 16:31:35'),
+(4, 'Cabang Bulukumba', 'Jl. Dr. Sam Ratulangi No.5, Bulukumba', '2025-04-08 16:31:35', '2025-04-08 16:31:35'),
+(5, 'Cabang Bone', 'Jl. Ahmad Yani No.7, Watampone', '2025-04-08 16:31:35', '2025-04-08 16:31:35');
 
 -- --------------------------------------------------------
 
@@ -250,6 +257,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('laravel_cache_captcha_4ab0ef6715281e1d6471fed45a9d5edf', 'a:4:{i:0;s:1:\"j\";i:1;s:1:\"y\";i:2;s:1:\"8\";i:3;s:1:\"r\";}', 1745281746),
 ('laravel_cache_captcha_4d2bd3d1bb4f96c2bb47327cfb63be69', 'a:4:{i:0;s:1:\"j\";i:1;s:1:\"9\";i:2;s:1:\"b\";i:3;s:1:\"p\";}', 1745367996),
 ('laravel_cache_captcha_4fe7d361bfce3b76172c33303e172d25', 'a:4:{i:0;s:1:\"t\";i:1;s:1:\"3\";i:2;s:1:\"h\";i:3;s:1:\"f\";}', 1745312416),
+('laravel_cache_captcha_5023148e35ef1e07293ffb2ea7ebd4d5', 'a:4:{i:0;s:1:\"u\";i:1;s:1:\"d\";i:2;s:1:\"b\";i:3;s:1:\"4\";}', 1746596623),
 ('laravel_cache_captcha_51895fcf6a6d9a71354d63f710838b14', 'a:4:{i:0;s:1:\"z\";i:1;s:1:\"p\";i:2;s:1:\"x\";i:3;s:1:\"2\";}', 1745548208),
 ('laravel_cache_captcha_56563b0b321e91ec5d34eface854dd63', 'a:4:{i:0;s:1:\"m\";i:1;s:1:\"g\";i:2;s:1:\"4\";i:3;s:1:\"q\";}', 1745816653),
 ('laravel_cache_captcha_56c0bb4bf29bb331fd7312dc2dc5498c', 'a:4:{i:0;s:1:\"m\";i:1;s:1:\"u\";i:2;s:1:\"g\";i:3;s:1:\"6\";}', 1745281519),
@@ -395,16 +403,16 @@ CREATE TABLE `keluargas` (
 --
 
 INSERT INTO `keluargas` (`nip`, `id`, `nama`, `hubungan`, `jenis_kelamin`, `tanggal_lahir`, `status_hidup`, `pekerjaan`, `created_at`, `updated_at`) VALUES
-('198501012022011001', 1, 'Sri Wulandari', 'Istri', 'Perempuan', '1980-05-14', 'Hidup', 'Ibu Rumah Tangga', '2025-04-10 07:34:28', '2025-04-10 07:34:28'),
-('198911202010090101', 3, 'Putri Aisyah', 'Anak', 'Perempuan', '2008-08-23', 'Hidup', 'Pelajar', '2025-04-10 07:34:28', '2025-04-10 07:34:28'),
-('199001152023020201', 4, 'Rina Marlina', 'Istri', 'Perempuan', '1984-09-09', 'Hidup', 'Karyawan Swasta', '2025-04-10 07:34:28', '2025-04-10 07:34:28'),
-('199001152023020201', 5, 'Farhan Hakim', 'Anak', 'Laki-laki', '2012-12-30', 'Hidup', 'Pelajar', '2025-04-10 07:34:28', '2025-04-10 07:34:28'),
-('199503101987031201', 7, 'Michael', 'Orang Tua', 'Laki-laki', NULL, 'Hidup', 'PNS', '2025-04-21 06:57:44', '2025-04-21 06:57:44'),
-('198501012022011001', 9, 'Aco', 'Anak', 'Laki-laki', NULL, 'Hidup', '-', '2025-04-22 02:53:00', '2025-04-22 02:53:00'),
-('199503101987031201', 10, 'Michael', 'Anak', 'Laki-laki', NULL, 'Hidup', 'Pelajar', '2025-04-22 03:10:09', '2025-04-22 03:10:09'),
-('1000001', 12, 'Michael', 'Anak', 'Laki-laki', NULL, 'Hidup', '-', '2025-04-23 05:33:28', '2025-04-23 05:33:28'),
-('1000001', 13, 'fahri', 'Istri', 'Laki-laki', NULL, 'Hidup', 'Polisi', '2025-04-23 05:35:47', '2025-04-23 05:35:47'),
-('1000001', 14, 'Michael', 'Anak', 'Laki-laki', NULL, 'Hidup', 'Polisi', '2025-05-07 03:13:20', '2025-05-07 03:13:20');
+('198501012022011001', 1, 'Sri Wulandari', 'Istri', 'Perempuan', '1980-05-14', 'Hidup', 'Ibu Rumah Tangga', '2025-04-09 23:34:28', '2025-04-09 23:34:28'),
+('198911202010090101', 3, 'Putri Aisyah', 'Anak', 'Perempuan', '2008-08-23', 'Hidup', 'Pelajar', '2025-04-09 23:34:28', '2025-04-09 23:34:28'),
+('199001152023020201', 4, 'Rina Marlina', 'Istri', 'Perempuan', '1984-09-09', 'Hidup', 'Karyawan Swasta', '2025-04-09 23:34:28', '2025-04-09 23:34:28'),
+('199001152023020201', 5, 'Farhan Hakim', 'Anak', 'Laki-laki', '2012-12-30', 'Hidup', 'Pelajar', '2025-04-09 23:34:28', '2025-04-09 23:34:28'),
+('199503101987031201', 7, 'Michael', 'Orang Tua', 'Laki-laki', NULL, 'Hidup', 'PNS', '2025-04-20 22:57:44', '2025-04-20 22:57:44'),
+('198501012022011001', 9, 'Aco', 'Anak', 'Laki-laki', NULL, 'Hidup', '-', '2025-04-21 18:53:00', '2025-04-21 18:53:00'),
+('199503101987031201', 10, 'Michael', 'Anak', 'Laki-laki', NULL, 'Hidup', 'Pelajar', '2025-04-21 19:10:09', '2025-04-21 19:10:09'),
+('1000001', 12, 'Michael', 'Anak', 'Laki-laki', NULL, 'Hidup', '-', '2025-04-22 21:33:28', '2025-04-22 21:33:28'),
+('1000001', 13, 'fahri', 'Istri', 'Laki-laki', NULL, 'Hidup', 'Polisi', '2025-04-22 21:35:47', '2025-04-22 21:35:47'),
+('1000001', 14, 'Michael', 'Anak', 'Laki-laki', NULL, 'Hidup', 'Polisi', '2025-05-06 19:13:20', '2025-05-06 19:13:20');
 
 -- --------------------------------------------------------
 
@@ -425,7 +433,32 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
-(3, '0001_01_01_000002_create_jobs_table', 1);
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2025_05_14_070851_create_nilai_sekarang_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_sekarang`
+--
+
+CREATE TABLE `nilai_sekarang` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `usia` tinyint(3) UNSIGNED NOT NULL,
+  `nilai_sekarang` decimal(10,6) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `nilai_sekarang`
+--
+
+INSERT INTO `nilai_sekarang` (`id`, `usia`, `nilai_sekarang`, `created_at`, `updated_at`) VALUES
+(1, 55, '1.000000', NULL, NULL),
+(2, 54, '0.959940', NULL, NULL),
+(3, 53, '0.886310', NULL, NULL),
+(4, 52, '0.818870', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -467,11 +500,46 @@ CREATE TABLE `pesertas` (
 --
 
 INSERT INTO `pesertas` (`nip`, `nama`, `no_sk`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `tmk`, `tpst`, `kode_peserta`, `status_pernikahan`, `kode_ptkp`, `alamat`, `kelurahan`, `kabupaten`, `kota`, `kode_pos`, `telpon`, `pendidikan`, `jurusan`, `golongan`, `jabatan`, `phdp`, `akumulasi_ibhp`, `cabang_id`, `created_at`, `updated_at`) VALUES
-('1000001', 'Andi Saputra', 'SK-009', 'Laki-laki', 'Makassar', '2025-04-23', '2025-04-23', '2025-04-23', 'PST009', 'Menikah', '46456', 'ablam', 'tass', 'Gowa', 'Makassar', '75756', '086436363645', 'S3', 'TI', 'Direktur', 'Staf Administrasi', 9000000.00, 450000000.00, 1, NULL, NULL),
-('198501012022011001', 'Andi Saputras', 'SK-001', 'Laki-laki', 'Makassar', '1989-11-20', '2010-09-01', '2040-09-01', 'PST001', 'Menikah', 'PTKP01', 'Jl. Andalas No.10', '90231', 'Gowa', 'Makassar', '901113', '082112345678', 'S1', 'Manajemen', 'Karyawan', 'Manager', 9800000.00, 290000000.00, 1, NULL, '2025-04-20 22:16:39'),
-('198911202010090101', 'Fahri Ramadhani', 'SK-005', 'Laki-laki', 'Bulukumba', '1989-11-20', '2010-09-01', '2040-09-01', 'PST005', 'Menikah', 'PTKP02', 'Jl. Perintis Kemerdekaan No.88', '90235', 'Bulukumbas', 'Makassar', '90555', '087788899900', 'S1', 'Teknik Informatika', 'Karyawan', 'IT Support', 7000000.00, 230000000.00, 4, NULL, '2025-04-20 21:48:42'),
-('199001152023020201', 'Siti Aminah', 'SK-002', 'Perempuan', 'Bone', '1990-01-15', '2023-02-01', '2048-02-01', 'PST002', 'Menikah', 'PTKP02', 'Jl. Veteran Selatan No.5', '90232', 'Bone', 'Makassars', '90222', '082233344455', 'S2', 'Akuntansi', 'Karyawan', 'Akuntan', 8500000.00, 320000000.00, 2, NULL, '2025-04-20 22:28:15'),
-('199503101987031201', 'Dina Marwah', 'SK-004', 'Perempuan', 'Palopo', '1995-03-10', '2021-03-12', '2045-03-12', 'PST004', 'Menikah', 'PTKP01', 'Jl. Cendrawasih No.7', '90234', 'Luwu', 'Palopos', '90444', '085266778899', 'D3', 'Sekretaris', 'Karyawan', 'Staf Administrasi', 9000000.00, 210000000.00, 5, NULL, '2025-04-20 22:26:28');
+('1000001', 'Andi Saputra', 'SK-009', 'Laki-laki', 'Makassar', '2025-04-23', '2025-04-23', '2025-04-23', 'PST009', 'Menikah', '46456', 'ablam', 'tass', 'Gowa', 'Makassar', '75756', '086436363645', 'S3', 'TI', 'Direktur', 'Staf Administrasi', '9000000.00', '450000000.00', 1, NULL, NULL),
+('198501012022011001', 'Andi Saputras', 'SK-001', 'Laki-laki', 'Makassar', '1989-11-20', '2010-09-01', '2040-09-01', 'PST001', 'Menikah', 'PTKP01', 'Jl. Andalas No.10', '90231', 'Gowa', 'Makassar', '901113', '082112345678', 'S1', 'Manajemen', 'Karyawan', 'Manager', '9800000.00', '290000000.00', 1, NULL, '2025-04-20 14:16:39'),
+('198911202010090101', 'Fahri Ramadhani', 'SK-005', 'Laki-laki', 'Bulukumba', '1989-11-20', '2010-09-01', '2040-09-01', 'PST005', 'Menikah', 'PTKP02', 'Jl. Perintis Kemerdekaan No.88', '90235', 'Bulukumbas', 'Makassar', '90555', '087788899900', 'S1', 'Teknik Informatika', 'Karyawan', 'IT Support', '7000000.00', '230000000.00', 4, NULL, '2025-04-20 13:48:42'),
+('199001152023020201', 'Siti Aminah', 'SK-002', 'Perempuan', 'Bone', '1990-01-15', '2023-02-01', '2048-02-01', 'PST002', 'Menikah', 'PTKP02', 'Jl. Veteran Selatan No.5', '90232', 'Bone', 'Makassars', '90222', '082233344455', 'S2', 'Akuntansi', 'Karyawan', 'Akuntan', '8500000.00', '320000000.00', 2, NULL, '2025-04-20 14:28:15'),
+('199503101987031201', 'Dina Marwah', 'SK-004', 'Perempuan', 'Palopo', '1995-03-10', '2021-03-12', '2045-03-12', 'PST004', 'Menikah', 'PTKP01', 'Jl. Cendrawasih No.7', '90234', 'Luwu', 'Palopos', '90444', '085266778899', 'D3', 'Sekretaris', 'Karyawan', 'Staf Administrasi', '9000000.00', '210000000.00', 5, NULL, '2025-04-20 14:26:28'),
+('234567', 'anton', 'SK-0011', 'Laki-laki', 'jogjakarta', '2025-06-06', '2025-05-02', '2025-06-07', '3242', 'Lajang', '23432', 'DGFDGDFG', 'Bakung', 'MAKASSAR', 'GOWA', '121212', '908908908908', 'S1', 'SDASDASDAD', 'Direktur', 'IT', '134324234.00', '243234234.00', 3, '2025-05-08 22:32:07', '2025-05-08 22:32:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ptkp`
+--
+
+CREATE TABLE `ptkp` (
+  `id` int(11) NOT NULL,
+  `kode_ptkp` varchar(20) NOT NULL,
+  `nilai_ptkp` decimal(15,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `ptkp`
+--
+
+INSERT INTO `ptkp` (`id`, `kode_ptkp`, `nilai_ptkp`, `created_at`, `updated_at`) VALUES
+(1, 'D0', '54000000.00', NULL, '2025-05-14 22:30:10'),
+(2, 'D1', '58500000.00', '2025-05-14 22:10:44', '2025-05-14 22:10:44'),
+(3, 'D2', '63000000.00', '2025-05-14 22:12:20', '2025-05-14 22:12:20'),
+(4, 'D3', '67500000.00', '2025-05-14 22:24:50', '2025-05-14 22:24:50'),
+(5, 'J0', '54000000.00', '2025-05-14 22:25:29', '2025-05-14 22:25:29'),
+(6, 'J1', '58500000.00', '2025-05-14 22:25:50', '2025-05-14 22:25:50'),
+(7, 'J2', '63000000.00', '2025-05-14 22:26:10', '2025-05-14 22:26:10'),
+(8, 'J3', '67500000.00', '2025-05-14 22:26:29', '2025-05-14 22:26:29'),
+(9, 'K0', '58500000.00', '2025-05-14 22:26:57', '2025-05-14 22:26:57'),
+(10, 'K1', '63000000.00', '2025-05-14 22:27:25', '2025-05-14 22:27:25'),
+(11, 'K2', '67500000.00', '2025-05-14 22:27:50', '2025-05-14 22:27:50'),
+(12, 'K3', '72000000.00', '2025-05-14 22:28:11', '2025-05-14 22:28:11'),
+(13, 'TK', '54000000.00', '2025-05-14 22:28:37', '2025-05-14 22:28:37'),
+(15, '0', '0.00', '2025-05-14 22:29:48', '2025-05-14 22:29:48');
 
 -- --------------------------------------------------------
 
@@ -493,7 +561,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('77tA4jfFmP9A1lwcLn5LmMdDZ7AFdT2T0Gknk0Yr', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicDVVdFNDN1JPV2NiZVFhMXMzM2xYblU0UUVPRDJuSXc5eFRWV3Q4YyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9kYXBlbi5jby5pZC9jYXB0Y2hhL2RlZmF1bHQ/UnNJZ1FQelM9Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo3OiJjYXB0Y2hhIjthOjM6e3M6OToic2Vuc2l0aXZlIjtiOjA7czozOiJrZXkiO3M6NjA6IiQyeSQxMiRQVGRzdXZOSXZBTHk0eXJWQkJwcWVlZ0EuM2diVkYwRld4bjhsNHJzbDllNzhUYU83ODdVMiI7czo3OiJlbmNyeXB0IjtiOjA7fX0=', 1746593668);
+('5UbYp46ZLDTVkdFojSiOjcr2uT9Y87AwpWHNrBmE', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiR3RRb1dLZkVoTG1yT3BaZ0RLeWlxRk51NTZCbTQ1STlBbEJ1Z0FGWiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTA6Imh0dHA6Ly9rZXBlc2VydGFhbi1kYXBlbi50ZXN0L2FkbWluL3BhcmFtZXRlci9wdGtwIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1747291145);
 
 -- --------------------------------------------------------
 
@@ -519,11 +587,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nip`, `name`, `password`, `role`, `login_attempts`, `blocked_until`, `is_blocked`, `created_at`, `updated_at`) VALUES
-(1, '123456', 'admin', '$2y$12$83sY/jLkrGQ6CJpzPAmJM.CuhE5sKm3R1OSeJ4yYZ/S8PGqQlvoZy', 'admin', 0, NULL, 0, '2025-03-26 00:48:35', '2025-04-28 05:06:53'),
-(2, '234567', 'supervisor', '$2y$12$ePMgBCBohV7wORY1n4t3qe0.xjVwVGtiqL9n69jr2OANFp/lgKszi', 'supervisor', 0, NULL, 0, '2025-03-26 00:48:35', '2025-04-09 06:09:24'),
-(3, '345678', 'operator', '$2y$12$/Ge6YiDTqJjS6r5DlWsj/uM/Y0P4hs4gFpVxpMnDNI/83bySfgBnO', 'operator', 0, NULL, 0, '2025-03-26 00:48:35', '2025-04-09 06:09:31'),
-(4, '1000001', 'Michael Immanuel Manabung', '$2y$12$wuhdp5NIsDooD598wxD9NOCWUJtB.652pp8cMyta9QXpJ2YON40aG', 'operator', 0, NULL, 0, '2025-04-06 23:52:18', '2025-04-23 06:02:05'),
-(5, '222249', 'Reinhart', '$2y$12$SM9598mkR07THnlNt1jucOmMDKfRWTFE7CURkL/zZqfyBsSqChlIe', 'operator', 0, NULL, 0, '2025-04-07 19:28:34', '2025-04-28 06:03:38');
+(1, '123456', 'admin', '$2y$12$83sY/jLkrGQ6CJpzPAmJM.CuhE5sKm3R1OSeJ4yYZ/S8PGqQlvoZy', 'admin', 0, NULL, 0, '2025-03-25 16:48:35', '2025-04-27 21:06:53'),
+(2, '234567', 'supervisor', '$2y$12$ePMgBCBohV7wORY1n4t3qe0.xjVwVGtiqL9n69jr2OANFp/lgKszi', 'supervisor', 0, NULL, 0, '2025-03-25 16:48:35', '2025-04-08 22:09:24'),
+(3, '345678', 'operator', '$2y$12$/Ge6YiDTqJjS6r5DlWsj/uM/Y0P4hs4gFpVxpMnDNI/83bySfgBnO', 'operator', 0, NULL, 0, '2025-03-25 16:48:35', '2025-04-08 22:09:31'),
+(4, '1000001', 'Michael Immanuel Manabung', '$2y$12$wuhdp5NIsDooD598wxD9NOCWUJtB.652pp8cMyta9QXpJ2YON40aG', 'operator', 0, NULL, 0, '2025-04-06 15:52:18', '2025-04-22 22:02:05'),
+(5, '222249', 'Reinhart', '$2y$12$SM9598mkR07THnlNt1jucOmMDKfRWTFE7CURkL/zZqfyBsSqChlIe', 'operator', 0, NULL, 0, '2025-04-07 11:28:34', '2025-04-27 22:03:38');
 
 --
 -- Indexes for dumped tables
@@ -587,12 +655,24 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `nilai_sekarang`
+--
+ALTER TABLE `nilai_sekarang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pesertas`
 --
 ALTER TABLE `pesertas`
   ADD PRIMARY KEY (`nip`),
   ADD UNIQUE KEY `kode_peserta` (`kode_peserta`),
   ADD KEY `fk_cabang` (`cabang_id`);
+
+--
+-- Indexes for table `ptkp`
+--
+ALTER TABLE `ptkp`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sessions`
@@ -618,7 +698,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
 
 --
 -- AUTO_INCREMENT for table `cabangs`
@@ -648,7 +728,19 @@ ALTER TABLE `keluargas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `nilai_sekarang`
+--
+ALTER TABLE `nilai_sekarang`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ptkp`
+--
+ALTER TABLE `ptkp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
