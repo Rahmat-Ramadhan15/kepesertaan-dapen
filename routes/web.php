@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\Parameter\NsAnakController;
+use App\Http\Controllers\Admin\Parameter\NsJandaController;
+use App\Http\Controllers\Admin\Parameter\NsPegawaiController;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Facades\Captcha;
 
@@ -61,6 +64,9 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
 
     Route::prefix('admin/parameter')->name('admin.parameter.')->middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('ns', NilaiSekarangController::class);
+        Route::resource('nspegawai', NsPegawaiController::class);
+        Route::resource('nsjanda', NsJandaController::class);
+        Route::resource('nsanak', NsAnakController::class);
         Route::resource('ptkp', ptkpController::class);
     });
 
