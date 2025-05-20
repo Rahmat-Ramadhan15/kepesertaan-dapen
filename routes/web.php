@@ -52,10 +52,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     Route::put('/admin/user/{id}', [AdminController::class, 'update'])->name('admin.update-user');
     Route::delete('/admin/user/{id}', [AdminController::class, 'destroy'])->name('admin.delete-user');
 
-    Route::post('/logout', function () {
-        Auth::logout();
-        return redirect('/login');
-    })->name('logout');    
+    // Route::post('/logout', function () {
+    //     Auth::logout();
+    //     return redirect('/login');
+    // })->name('logout');    
     Route::get('/admin/audit-log', [AuditLogController::class, 'index'])->name('admin.audit-log');
     Route::resource('cabang', CabangController::class);
 
