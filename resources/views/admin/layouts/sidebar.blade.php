@@ -41,11 +41,11 @@
                         <li><a href="{{ route('admin.parameter.ns.index') }}"><i class="fas fa-database"></i> Tabel
                                 NS</a>
                         </li>
-                        <li><a href="#"><i class="fas fa-user-tie"></i> NS Pegawai</a>
+                        <li><a href="{{ route('admin.parameter.nspegawai.index') }}"><i class="fas fa-user-tie"></i> NS Pegawai</a>
                         </li>
-                        <li><a href="#"><i class="fas fa-heart-broken"></i> NS
+                        <li><a href="{{ route('admin.parameter.nsjanda.index') }}"><i class="fas fa-heart-broken"></i> NS
                                 Janda/Duda</a></li>
-                        <li><a href="#"><i class="fas fa-child"></i> NS Anak</a></li>
+                        <li><a href="{{ route('admin.parameter.nsanak.index') }}"><i class="fas fa-child"></i> NS Anak</a></li>
                     </ul>
                 </li>
 
