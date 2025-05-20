@@ -1,146 +1,416 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light" data-scheme="navy">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Bank Sulselbar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/lucide-icons@0.378.0/dist/lucide.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@0.378.0/dist/umd/lucide.js"></script>
-    <style>
-    :root {
-        --primary-color: #1e3a8a;
-        --primary-light: #2563eb;
-        --primary-dark: #1e40af;
-    }
-    
-    body {
-        background-color: #f0f4f8;
-    }
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+   <meta name="description" content="The login page allows a user to gain access to an application by entering their username and password or by authenticating using a social media login.">
+   <title>Login | Nifty - Admin Template</title>
 
-    .bg-primary {
-        background-color: var(--primary-color);
-    }
-    
-    .bg-primary-light {
-        background-color: var(--primary-light);
-    }
-    
-    .bg-primary-dark {
-        background-color: var(--primary-dark);
-    }
-    
-    .text-primary {
-        color: var(--primary-color);
-    }
-    
-    .hover\:bg-primary-dark:hover {
-        background-color: var(--primary-dark);
-    }
-    
-    .focus\:ring-primary:focus {
-        --tw-ring-color: var(--primary-color);
-    }
-    
-    .focus\:border-primary:focus {
-        border-color: var(--primary-color);
-    }
-</style>
+
+   <!-- STYLESHEETS -->
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+   <!-- Fonts [ OPTIONAL ] -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+   <!-- Bootstrap CSS [ REQUIRED ] -->
+   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+
+   <!-- Nifty CSS [ REQUIRED ] -->
+   <link rel="stylesheet" href="{{ asset('assets/css/nifty.min.css') }}">
+
+   <!-- Nifty Demo Icons [ OPTIONAL ] -->
+   <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-icons.min.css') }}">
+
+   <!-- Demo purpose CSS [ DEMO ] -->
+   <link rel="stylesheet" href="./assets/css/demo-purpose/demo-settings.min.css">
+
+
+   <!-- Favicons [ OPTIONAL ] -->
+   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+   <link rel="manifest" href="./site.webmanifest">
+
+
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   [ REQUIRED ]
+   You must include this category in your project.
+
+
+   [ OPTIONAL ]
+   This is an optional plugin. You may choose to include it in your project.
+
+
+   [ DEMO ]
+   Used for demonstration purposes only. This category should NOT be included in your project.
+
+
+   [ SAMPLE ]
+   Here's a sample script that explains how to initialize plugins and/or components: This category should NOT be included in your project.
+
+
+   Detailed information and more samples can be found in the documentation.
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden">
-        <div class="p-8">
-            <div class="flex justify-center mb-4">
-            <img src="{{ asset('images/sulselbar.jpg') }}" alt="Bank Sulselbar Logo" class="h-20 w-auto">
 
-            </div>
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-1">BANK SULSELBAR</h2>
-            <p class="text-center text-gray-500 text-sm mb-6">Kepesertaan Dana Pensiun</p>
-            
-            @if ($errors->any())
-            <div class="mb-4 text-red-600 text-sm">
-                <ul class="list-disc pl-5 space-y-1">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-            
-            <form method="POST" action="{{ route('login') }}" class="space-y-6">
-                @csrf
-                
-                <div>
-                    <div class="relative">
-                        <input 
+<body class="">
+
+
+   <!-- PAGE CONTAINER -->
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   <div id="root" class="root front-container">
+
+      <!-- CONTENTS -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <section id="content" class="content">
+         <div class="content__boxed w-100 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="content__wrap">
+
+               <!-- Login card -->
+               <div class="card shadow-lg">
+                  <div class="card-body p-4">
+
+                     <div class="text-center">
+                        <h1 class="h3">Account Login</h1>
+                        <p>Sign In to your account</p>
+                     </div>
+                     @if ($errors->any())
+                     <div class="mb-4 text-red-600 text-sm">
+                        <ul class="list-disc pl-5 space-y-1">
+                           @foreach ($errors->all() as $error)
+                                 <li>{{ $error }}</li>
+                           @endforeach
+                        </ul>
+                     </div>
+                     @endif
+                     <form method="POST" class="mt-4" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                           <input 
                             type="text" 
                             name="nip" 
                             id="nip"
                             placeholder="Username" 
                             required
-                            value="{{ old('nip') }}"
-                            class="block w-full px-3 py-3 border border-gray-200 rounded-md leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
-                        >
-                    </div>
-                </div>
+                            value="{{ old('nip') }}" class="form-control" placeholder="Username" autofocus>
+                        </div>
 
-                <div>
-                    <div class="relative">
-                        <input 
+                        <div class="mb-3">
+                           <input 
                             type="password" 
                             name="password" 
                             id="password"
-                            placeholder="Password" 
-                            required
-                            class="block w-full px-3 py-3 border border-gray-200 rounded-md leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
-                        >
-                        <button 
-                            type="button" 
-                            id="togglePassword"
-                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-primary transition"
-                        >
-                            <i data-lucide="eye" id="passwordToggleIcon"></i>
-                        </button>
-                    </div>
-                </div>
+                            placeholder="password" 
+                            required class="form-control" placeholder="password">
+                        </div>
 
-                <div class="captcha-container bg-gray-200 p-4 rounded-lg">
-                    <div class="flex items-center justify-between mb-2">
-                        <img src="{{ captcha_src() }}" id="captcha-image" class="img-thumbnail rounded-lg max-h-12">
-                        <button 
-                            type="button" 
-                            id="refresh-captcha"
-                            class="bg-primary text-white p-2 rounded-lg hover:bg-primary-dark transition flex items-center justify-center group"
-                        >
-                            <i data-lucide="refresh-cw" class="group-hover:rotate-180 transition-transform"></i>
-                        </button>
-                    </div>
-                    <div class="relative">
+                        <div class="mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="flex-grow-1">
+                                <img src="{{ captcha_src() }}" id="captcha-image" class="img-fluid border rounded">
+                            </div>
+                            <button 
+                                type="button" 
+                                id="refresh-captcha"
+                                class="btn btn-icon btn-sm btn-primary"
+                                aria-label="Refresh Captcha"
+                            >
+                                <i class="demo-psi-repeat-2 fs-5"></i>
+                            </button>
+                        </div>
+                        </div>
+
+                        <div class="mb-3">
                         <input 
                             type="text" 
                             name="captcha" 
+                            class="form-control"
                             placeholder="Enter Captcha" 
-                            required
-                            class="block w-full px-3 py-2 border border-gray-200 rounded-md leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
-                        >
-                    </div>
-                </div>
+                            required>
+                        </div>
 
-                <div>
-                    <button 
-                        type="submit" 
-                        class="w-full flex justify-center items-center gap-2 py-3 px-4 rounded-md text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition"
-                    >
-                        <i data-lucide="log-in" class="h-4 w-4"></i>
-                        Login
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+                        <div class="d-grid mt-5">
+                           <button class="btn btn-primary btn-lg" type="submit">Sign In</button>
+                        </div>
+                     </form>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                     <div class="d-flex align-items-center justify-content-between border-top pt-3 mt-3">
+                        <h5 class="m-0">Follow Media Sosial</h5>
+
+                        <!-- Social media buttons -->
+                        <div class="ms-3">
+                           <a href="https://www.facebook.com/BankSulselbar/" class="btn btn-sm btn-icon btn-hover btn-primary text-inherit" target="_blank">
+                              <i class="demo-psi-facebook fs-5"></i>
+                           </a>
+                           <a href="https://twitter.com/" class="btn btn-sm btn-icon btn-hover btn-info text-inherit" target="_blank">
+                              <i class="demo-psi-twitter fs-5"></i>
+                           </a>
+                           <a href="mailto:development.banksulselbar@gmail.com" class="btn btn-sm btn-icon btn-hover btn-danger text-inherit">
+                              <i class="demo-psi-google-plus fs-5"></i>
+                           </a>
+                           <a href="https://www.instagram.com/banksulselbar.official" class="btn btn-sm btn-icon btn-hover btn-warning text-inherit" target="_blank">
+                              <i class="demo-psi-instagram fs-5"></i>
+                           </a>
+                        </div>
+                        <!-- END : Social media buttons -->
+
+                     </div>
+
+
+                  </div>
+               </div>
+
+               <!-- END : Login card -->
+
+
+               <!-- Show the background images container -->
+               <div class="d-flex align-items-center justify-content-center gap-3 mt-4">
+                  <button class="btn btn-danger hstack gap-2" data-bs-toggle="offcanvas" data-bs-target="#_dm-boxedBgContent">
+                     <i class=" demo-psi-photos fs-4"></i>
+                     <span class="vr"></span>
+                     Background image
+                  </button>
+               </div>
+               <!-- END : Show the background images container -->
+
+
+            </div>
+         </div>
+
+
+      </section>
+
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- END - CONTENTS -->
+   </div>
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   <!-- END - PAGE CONTAINER -->
+
+
+   <!-- BOXED LAYOUT : BACKGROUND IMAGES CONTENT [ DEMO ] -->
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   <div id="_dm-boxedBgContent" class="_dm-boxbg offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1">
+      <div class="offcanvas-body px-4">
+
+         <!-- Content Header -->
+         <div class="offcanvas-header border-bottom p-0 pb-3">
+            <div>
+               <h4 class="offcanvas-title">Background Images</h4>
+               <span class="text-body-secondary">Add an image to replace the solid background color</span>
+            </div>
+            <button type="button" class="btn-close btn-lg text-reset shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+         </div>
+         <!-- End - Content header -->
+
+
+         <!-- Collection Of Images -->
+         <div id="_dm-boxedBgContainer" class="row mt-3">
+
+            <!-- Blurred Background Images -->
+            <div class="col-lg-4">
+               <h5 class="mb-2">Blurred</h5>
+               <div class="_dm-boxbg__img-container d-flex flex-wrap">
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/1.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/2.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/3.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/4.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/5.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/6.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/7.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/8.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/9.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/10.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/11.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/12.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/13.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/14.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/15.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/blurred/thumbs/16.jpg" alt="Background Image" loading="lazy">
+                  </a>
+               </div>
+            </div>
+            <!-- End - Blurred Background Images -->
+
+
+            <!-- Polygon Background Images -->
+            <div class="col-lg-4">
+               <h5 class="mb-2">Polygon &amp; Geometric</h5>
+               <div class="_dm-boxbg__img-container d-flex flex-wrap mb-4">
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/1.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/2.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/3.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/4.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/5.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/6.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/7.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/8.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/9.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/10.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/11.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/12.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/13.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/14.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/15.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/polygon/thumbs/16.jpg" alt="Background Image" loading="lazy">
+                  </a>
+               </div>
+            </div>
+            <!-- End - Polygon Background Images -->
+
+
+            <!-- Abstract Background Images -->
+            <div class="col-lg-4">
+               <h5 class="mb-2">Abstract</h5>
+               <div class="_dm-boxbg__img-container d-flex flex-wrap">
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/1.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/2.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/3.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/4.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/5.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/6.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/7.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/8.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/9.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/10.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/11.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/12.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/13.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/14.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/15.jpg" alt="Background Image" loading="lazy">
+                  </a>
+                  <a href="#" class="_dm-boxbg__thumb ratio ratio-16x9">
+                     <img class="img-responsive" src="./assets/premium/boxed-bg/abstract/thumbs/16.jpg" alt="Background Image" loading="lazy">
+                  </a>
+               </div>
+            </div>
+            <!-- End - Abstract Background Images -->
+
+
+         </div>
+         <!-- End - Collection Of Images -->
+
+
+      </div>
+   </div>
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   <!-- END - BOXED LAYOUT : BACKGROUND IMAGES CONTENT [ DEMO ] -->
+   <!-- JAVASCRIPTS -->
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+   <!-- Popper JS [ OPTIONAL ] -->
+   <script src="./assets/vendors/popperjs/popper.min.js"></script>
+
+
+   <!-- Bootstrap JS [ OPTIONAL ] -->
+   <script src="./assets/vendors/bootstrap/bootstrap.min.js"></script>
+
+
+   <!-- Nifty JS [ OPTIONAL ] -->
+   <script src="./assets/js/nifty.js"></script>
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <!-- Nifty Settings [ DEMO ] -->
+   <script src="./assets/js/demo-purpose-only.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -170,5 +440,7 @@
             });
         });
     </script>
+
 </body>
+
 </html>
