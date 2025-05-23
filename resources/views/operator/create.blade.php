@@ -187,25 +187,24 @@
             </a>
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger mb-4">
-                <div class="d-flex align-items-center mb-2">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    <strong>Terdapat kesalahan pada form:</strong>
-                </div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    
 
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-clipboard-list me-2"></i> Data Informasi Peserta
             </div>
             <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <strong>Terjadi kesalahan pada input:</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form action="{{ route('operator.store') }}" method="POST">
                     @csrf
                     
@@ -246,13 +245,18 @@
                             <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}">
                         </div>
                         <div class="col-md-6 form-field-group">
-                            <label for="status_pernikahan" class="form-label">Status Pernikahan</label>
-                            <select class="form-select" id="status_pernikahan" name="status_pernikahan">
+                            <label for="usia" class="form-label">Usia</label>
+                            <input type="number" class="form-control" id="usia" name="usia" value="{{ old('usia') }}" placeholder="Masukkan usia">
+                        </div>
+
+                        <div class="col-md-6 form-field-group">
+                            <label for="status_kawin" class="form-label">Status Pernikahan</label>
+                            <select class="form-select" id="status_kawin" name="status_kawin">
                                 <option value="">Pilih Status</option>
-                                <option value="Lajang" {{ old('status_pernikahan') == 'Lajang' ? 'selected' : '' }}>Lajang</option>
-                                <option value="Menikah" {{ old('status_pernikahan') == 'Menikah' ? 'selected' : '' }}>Menikah</option>
-                                <option value="Duda" {{ old('status_pernikahan') == 'Duda' ? 'selected' : '' }}>Duda</option>
-                                <option value="Janda" {{ old('status_pernikahan') == 'Janda' ? 'selected' : '' }}>Janda</option>
+                                <option value="Lajang" {{ old('status_kawin') == 'Lajang' ? 'selected' : '' }}>Lajang</option>
+                                <option value="Menikah" {{ old('status_kawin') == 'Menikah' ? 'selected' : '' }}>Menikah</option>
+                                <option value="Duda" {{ old('status_kawin') == 'Duda' ? 'selected' : '' }}>Duda</option>
+                                <option value="Janda" {{ old('status_kawin') == 'Janda' ? 'selected' : '' }}>Janda</option>
                             </select>
                         </div>
                     </div>
@@ -287,19 +291,39 @@
                             <input type="date" class="form-control" id="tmk" name="tmk" value="{{ old('tmk') }}">
                         </div>
                         <div class="col-md-6 form-field-group">
+                            <label for="mkmk" class="form-label">MKMK</label>
+                            <input type="date" class="form-control" id="mkmk" name="mkmk" value="{{ old('mkmk') }}" placeholder="Masukkan MKMK">
+                        </div>
+                        <div class="col-md-6 form-field-group">
                             <label for="tpst" class="form-label">TPST</label>
                             <input type="date" class="form-control" id="tpst" name="tpst" value="{{ old('tpst') }}">
+                        </div>
+                        <div class="col-md-6 form-field-group">
+                            <label for="mkmp" class="form-label">MKMP</label>
+                            <input type="date" class="form-control" id="mkmp" name="mkmp" value="{{ old('mkmp') }}" placeholder="Masukkan MKMP">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 form-field-group">
                             <label for="golongan" class="form-label">Golongan</label>
-                            <input type="text" class="form-control" id="golongan" name="golongan" value="{{ old('golongan') }}" placeholder="Masukkan golongan">
+                            <select class="form-control" id="golongan" name="golongan">
+                                <option value="">Pilih Golongan</option>
+                                <option value="Karyawan" {{ old('golongan') == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
+                                <option value="Direktur" {{ old('golongan') == 'Direktur' ? 'selected' : '' }}>Direktur</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-field-group">
+                            <label for="kode_dir" class="form-label">Kode Direktorat</label>
+                            <input type="text" class="form-control" id="kode_dir" name="kode_dir" value="{{ old('kode_dir') }}" placeholder="Masukkan kode direktorat">
                         </div>
                         <div class="col-md-6 form-field-group">
                             <label for="jabatan" class="form-label">Jabatan</label>
                             <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan') }}" placeholder="Masukkan jabatan">
+                        </div>
+                        <div class="col-md-6 form-field-group">
+                            <label for="tahun_jabat" class="form-label">Tahun Menjabat</label>
+                            <input type="date" class="form-control" id="tahun_jabat" name="tahun_jabat" value="{{ old('tahun_jabat') }}" placeholder="Masukkan tahun menjabat">
                         </div>
                     </div>
 
@@ -379,12 +403,17 @@
                             <label for="kelurahan" class="form-label">Kelurahan</label>
                             <input type="text" class="form-control" id="kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" placeholder="Masukkan kelurahan">
                         </div>
+                        <div class="col-md-6 form-field-group">
+                            <label for="kecamatan" class="form-label">Kecamatan</label>
+                            <input type="text" class="form-control" id="kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" placeholder="Masukkan kecamatan">
+                        </div>
                     </div>
+                    
 
                     <div class="row">
                         <div class="col-md-6 form-field-group">
                             <label for="kota" class="form-label">Kabupaten/Kota</label>
-                            <input type="text" class="form-control" id="kabupaten/kota" name="kabupaten/kota" value="{{ old('kabupaten/kota') }}" placeholder="Masukkan kota">
+                            <input type="text" class="form-control" id="kabupaten_kota" name="kabupaten_kota" value="{{ old('kabupaten_kota') }}" placeholder="Masukkan kabupaten/kota">
                         </div>
                         <div class="col-md-6 form-field-group">
                             <label for="kode_pos" class="form-label">Kode Pos</label>

@@ -11,7 +11,7 @@ class Peserta extends Model
 {
     use HasFactory,Auditable;
 
-    protected $table = 'pesertas';
+    protected $table = 'tablepeserta';
     protected $primaryKey = 'nip';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -23,20 +23,26 @@ class Peserta extends Model
         'jenis_kelamin',
         'tempat_lahir',
         'tanggal_lahir',
+        'usia',
         'tmk',
+        'mkmk',
         'tpst',
+        'mkmp',
         'kode_peserta',
-        'status_pernikahan',
+        'status_kawin',
         'kode_ptkp',
         'alamat',
         'kelurahan',
-        'kabupaten/kota',
+        'kecamatan',
+        'kabupaten_kota',
         'kode_pos',
         'telpon',
         'pendidikan',
         'jurusan',
         'golongan',
+        'kode_dir',
         'jabatan',
+        'tahun_jabat',
         'phdp',
         'akumulasi_ibhp',
         'cabang_id',

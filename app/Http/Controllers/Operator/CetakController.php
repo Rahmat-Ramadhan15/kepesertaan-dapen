@@ -22,9 +22,9 @@ class CetakController extends Controller
     public function index()
     {
         $cabang = Cabang::all();
-        $statusPernikahan = Peserta::select('status_pernikahan')
+        $statusPernikahan = Peserta::select('status_kawin')
                         ->distinct()
-                        ->pluck('status_pernikahan');
+                        ->pluck('status_kawin');
         $pendidikanTerakhir = Peserta::whereNotNull('pendidikan')
                         ->select('pendidikan')
                         ->distinct()
@@ -46,7 +46,7 @@ class CetakController extends Controller
             'umur_max' => $request->input('umur_max', 65),
             'cabang' => $request->input('cabang'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
-            'status_pernikahan' => $request->input('status_pernikahan'),
+            'status_kawin' => $request->input('status_kawin'),
             'pendidikan' => $request->input('pendidikan'),
             'phdp_min' => $request->input('phdp_min'),
             'phdp_max' => $request->input('phdp_max'),
