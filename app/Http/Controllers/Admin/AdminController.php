@@ -37,7 +37,17 @@ class AdminController extends Controller
         $request->validate([
             'nip' => 'required|string|max:50|unique:users,nip',
             'name' => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => [
+                            'required',
+                            'string',
+                            'min:8',
+                            'regex:/[a-z]/',      // huruf kecil
+                            'regex:/[A-Z]/',      // huruf besar
+                            'regex:/[0-9]/',      // angka
+                            'regex:/[@$!%*#?&]/', // simbol
+                            'confirmed',
+                        ],
+
         ]);
 
         User::create([
@@ -75,7 +85,17 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'password' => 'nullable|string|min:6|confirmed',
+            'password' => [
+                            'required',
+                            'string',
+                            'min:8',
+                            'regex:/[a-z]/',      // huruf kecil
+                            'regex:/[A-Z]/',      // huruf besar
+                            'regex:/[0-9]/',      // angka
+                            'regex:/[@$!%*#?&]/', // simbol
+                            'confirmed',
+                        ],
+
         ]);
 
         $user->name = $request->name;

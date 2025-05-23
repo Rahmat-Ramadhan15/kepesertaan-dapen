@@ -394,51 +394,63 @@
                 <div class="card p-4">
                     <h3 class="mb-4 text-center">🧑‍💼 Tambah Operator Baru</h3>
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-                    <form action="{{ route('admin.store-operator') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="nip" class="form-label">NIP</label>
-                            <input type="text" name="nip" id="nip" class="form-control" required
-                                placeholder="Masukkan NIP">
-                        </div>
+<form action="{{ route('admin.store-operator') }}" method="POST">
+    @csrf
+    <div class="mb-3">
+        <label for="nip" class="form-label">NIP</label>
+        <input type="text" name="nip" id="nip"
+            class="form-control @error('nip') is-invalid @enderror"
+            value="{{ old('nip') }}" required placeholder="Masukkan NIP">
+        @error('nip')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama</label>
-                            <input type="text" name="name" id="name" class="form-control" required
-                                placeholder="Masukkan nama operator">
-                        </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Nama</label>
+        <input type="text" name="name" id="name"
+            class="form-control @error('name') is-invalid @enderror"
+            value="{{ old('name') }}" required placeholder="Masukkan nama operator">
+        @error('name')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" id="password" class="form-control" required
-                                placeholder="Masukkan password">
-                        </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password"
+            class="form-control @error('password') is-invalid @enderror"
+            required placeholder="Masukkan password">
+        @error('password')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+        <small class="text-muted">
+            Gunakan minimal 8 karakter, kombinasi huruf besar, kecil, angka, dan simbol.
+        </small>
+    </div>
 
-                        <div class="mb-4">
-                            <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control" required placeholder="Ulangi password">
-                        </div>
+    <div class="mb-4">
+        <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+        <input type="password" name="password_confirmation" id="password_confirmation"
+            class="form-control" required placeholder="Ulangi password">
+    </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
-                                Kembali
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                💾 Simpan
-                            </button>
-                        </div>
-                    </form>
+    <div class="d-flex justify-content-between">
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-success">💾 Simpan</button>
+    </div>
+</form>
+
 
                 </div>
             </div>
