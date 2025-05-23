@@ -35,7 +35,7 @@ class KeluargaController extends Controller
         $request->validate([
             'nama' => 'required',
             'hubungan' => 'required',
-            'nip' => 'required|exists:pesertas,nip',
+            'nip' => 'required|exists:tablepeserta,nip',
         ]);
 
         Keluarga::create($request->all());

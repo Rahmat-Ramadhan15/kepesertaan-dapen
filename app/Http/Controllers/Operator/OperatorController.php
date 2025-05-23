@@ -51,54 +51,64 @@ class OperatorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // Validate the input
-        $validator = Validator::make($request->all(), [
-            'nip' => 'required|unique:pesertas,nip|max:50',
-            'nama' => 'required|string|max:255',
-            'no_sk' => 'nullable|string|max:100',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'tempat_lahir' => 'nullable|string|max:100',
-            'tanggal_lahir' => 'nullable|date',
-            'tmk' => 'nullable|date',
-            'tpst' => 'nullable|date',
-            'kode_peserta' => 'nullable|string|max:50',
-            'status_pernikahan' => 'nullable|string|max:50',
-            'kode_ptkp' => 'nullable|string|max:50',
-            'alamat' => 'nullable|string',
-            'kelurahan' => 'nullable|string|max:100',
-            'kabupaten/kota' => 'nullable|string|max:100',
-            'kode_pos' => 'nullable|string|max:20',
-            'telpon' => 'nullable|string|max:20',
-            'cabang_id' => 'nullable|exists:cabangs,id',
-            'pendidikan' => 'nullable|string|max:100',
-            'jurusan' => 'nullable|string|max:100',
-            'golongan' => 'nullable|string|max:50',
-            'jabatan' => 'nullable|string|max:100',
-            'phdp' => 'nullable|numeric',
-            'akumulasi_ibhp' => 'nullable|numeric',
-        ]);
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nip' => 'required|string|max:50|unique:tablepeserta,nip',
+        'nama' => 'required|string|max:255',
+        'no_sk' => 'required|string|max:100',
+        'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+        'tempat_lahir' => 'required|string|max:100',
+        'tanggal_lahir' => 'required|date',
+        'usia' => 'required|integer|min:0',
+        'tmk' => 'required|date',
+        'mkmk' => 'required|string|max:50',
+        'tpst' => 'required|date',
+        'mkmp' => 'required|date',
+        'kode_peserta' => 'required|string|max:50',
+        'status_kawin' => 'required|string|max:50',
+        'kode_ptkp' => 'required|string|max:50',
+        'alamat' => 'required|string',
+        'kelurahan' => 'required|string|max:100',
+        'kecamatan' => 'required|string|max:100',
+        'kabupaten_kota' => 'required|string|max:100',
+        'kode_pos' => 'required|string|max:20',
+        'telpon' => 'required|string|max:20',
+        'pendidikan' => 'required|string|max:100',
+        'jurusan' => 'required|string|max:100',
+        'golongan' => 'required|string|max:50',
+        'kode_dir' => 'required|string|max:50',
+        'jabatan' => 'required|string|max:100',
+        'tahun_jabat' => 'required|date',
+        'phdp' => 'required|numeric|min:0',
+        'akumulasi_ibhp' => 'required|numeric|min:0',
+        'cabang_id' => 'required|exists:cabangs,id',
+    ]);
 
-
-        // Create new Peserta record
-        try {
-            // Create a new input array with the correct field mapping
-            $input = $request->all();
-            
-            // Handle the cabang to cabang_id mapping if needed
-            if ($request->has('cabang') && !$request->has('cabang_id')) {
-                $input['cabang_id'] = $request->cabang;
-            }
-            
-            $peserta = Peserta::create($input);
-            return redirect()->route('operator.index')
-                ->with('success', 'Peserta berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Gagal menyimpan data: ' . $e->getMessage())
-                ->withInput();
-        }
+    // Jika validasi gagal
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    // Ambil semua input
+    $input = $request->all();
+
+    // Map jika 'cabang' dikirim tapi bukan 'cabang_id'
+    if ($request->has('cabang') && !$request->has('cabang_id')) {
+        $input['cabang_id'] = $request->input('cabang');
+    }
+
+    // Simpan data ke database
+    Peserta::create($input);
+
+    return redirect()->route('operator.index')
+        ->with('success', 'Peserta berhasil ditambahkan.');
+}
+
+
+
 
     /**
      * Display the specified resource.

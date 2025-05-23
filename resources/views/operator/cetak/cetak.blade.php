@@ -504,7 +504,7 @@
                                 <!-- Status Pernikahan -->
                                 <div class="mb-3">
                                     <label class="form-label">Status Pernikahan</label>
-                                    <select id="filter_status_pernikahan" class="form-select" name="status_pernikahan">
+                                    <select id="filter_status_pernikahan" class="form-select" name="status_kawin">
                                         <option value="">Semua Status</option>
                                         @foreach($statusPernikahan as $status)
                                             <option value="{{ $status }}">{{ $status }}</option>
@@ -701,7 +701,7 @@
             umur_max: $('#umurMax').val(),
             cabang: $('#filter_cabang').val(),
             jenis_kelamin: $('input[name="jenis_kelamin"]:checked').val(),
-            status_pernikahan: $('#filter_status_pernikahan').val(),
+            status_kawin: $('#filter_status_pernikahan').val(),
             pendidikan: $('#filter_pendidikan').val(),
             phdp_min: $('#phdpMin').val(),
             phdp_max: $('#phdpMax').val(),
