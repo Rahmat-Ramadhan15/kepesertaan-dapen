@@ -7,75 +7,50 @@ use Illuminate\Support\Facades\Auth;
 
 trait Auditable
 {
-    /**
-     * Boot the trait and register the model events
-     */
-    public static function bootAuditable()
+    protected static function bootAuditable()
     {
-        static::created(function ($model) {
-            self::logAuditEvent('created', $model);
-        });
-
         static::updated(function ($model) {
-            if ($model->wasChanged()) {
-                self::logAuditEvent('updated', $model);
-            }
+            $model->auditLog('UPDATE');
         });
-
+        
+        static::created(function ($model) {
+            $model->auditLog('CREATE');
+        });
+        
         static::deleted(function ($model) {
-            self::logAuditEvent('deleted', $model);
+            $model->auditLog('DELETE');
         });
     }
-
-    /**
-     * Log the audit event for the model
-     * 
-     * @param string $action The action performed (created, updated, deleted)
-     * @param mixed $model The model being audited
-     * @return void
-     */
-    protected static function logAuditEvent($action, $model)
+    
+    public function auditLog($action)
     {
-        $user = Auth::user();
-        if (!$user) return;
-
-        $oldValues = null;
-        $newValues = null;
-        $description = null;
-        $idField = $model->getAuditIdField() ?? $model->getKeyName();
-        $idValue = $model->{$idField};
-
-        if ($action === 'created') {
-            $newValues = $model->getAttributes();
-            $description = "Menambahkan data " . class_basename($model) . " " . $idValue;
-        } elseif ($action === 'updated') {
-            $oldValues = collect($model->getOriginal())->only(array_keys($model->getDirty()));
-            $newValues = $model->getDirty();
-            $description = "Mengubah data " . class_basename($model) . " " . $idValue;
-        } elseif ($action === 'deleted') {
-            $oldValues = $model->getAttributes();
-            $description = "Menghapus data " . class_basename($model) . " " . $idValue;
+        $oldValues = [];
+        $newValues = [];
+        
+        if ($action === 'UPDATE') {
+            $changes = $this->getChanges();
+            $original = $this->getOriginal();
+            
+            foreach ($changes as $key => $newValue) {
+                if (isset($original[$key])) {
+                    $oldValues[$key] = $original[$key];
+                    $newValues[$key] = $newValue;
+                }
+            }
+        } elseif ($action === 'CREATE') {
+            $newValues = $this->toArray();
+        } elseif ($action === 'DELETE') {
+            $oldValues = $this->toArray();
         }
-
+        
         AuditLog::create([
-            'user_id' => $user->nip,
+            'user_id' => Auth::user()->nip ?? null,
             'action' => $action,
-            'reference_type' => get_class($model),
-            'reference_id' => $model->getKey(),
+            'reference_type' => get_class($this),
+            'reference_id' => $this->id,
             'old_values' => $oldValues,
             'new_values' => $newValues,
-            'description' => $description,
+            'description' => class_basename($this) . ' ' . strtolower($action),
         ]);
-    }
-
-    /**
-     * Override this method in your model to specify which field to use in the audit description
-     * By default it will use the primary key
-     * 
-     * @return string|null
-     */
-    public function getAuditIdField()
-    {
-        return 'nip';  // Default for Peserta, can be overridden in models
     }
 }
