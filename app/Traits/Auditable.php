@@ -44,7 +44,7 @@ trait Auditable
         }
         
         AuditLog::create([
-            'user_id' => Auth::user()->nip ?? null,
+            'user_id' => Auth::check() ? Auth::user()->nip : 'unknown',
             'action' => $action,
             'reference_type' => get_class($this),
             'reference_id' => $this->id,

@@ -23,6 +23,8 @@ class SupervisorController extends Controller
             return round($group->avg('phdp'), 2);
         })->toArray();
         
+        $totalJabatan = $peserta->pluck('jabatan')->unique()->count();
+        
         // Get user profile data - you can replace this with actual admin data
         $adminData = [
             'name' => 'Admin Utama',
@@ -43,7 +45,8 @@ class SupervisorController extends Controller
             'phdpPerJabatan',
             'totalPHDP',
             'adminData',
-            'jumlahPerJabatan'
+            'jumlahPerJabatan',
+            'totalJabatan'
         ));
     }
     

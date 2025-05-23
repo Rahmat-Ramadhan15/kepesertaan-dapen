@@ -28,7 +28,7 @@
    <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-icons.min.css') }}">
 
    <!-- Demo purpose CSS [ DEMO ] -->
-   <link rel="stylesheet" href="./assets/css/demo-purpose/demo-settings.min.css">
+   <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-settings.min.css') }}">
 
 
    <!-- Favicons [ OPTIONAL ] -->
@@ -108,7 +108,7 @@
                                 <div class="text-reset fs-5 fw-semibold">Total Peserta</div>
                                 <small class="text-reset opacity-50">Jumlah seluruh peserta.</small>
                             </div>
-                            <span class="badge bg-primary rounded-pill">{{ $totalPeserta }}</span>
+                            <span class="badge bg-success rounded-pill">{{ $totalPeserta }}</span>
                         </li>
                         <li class="list-group-item text-body-emphasis d-flex justify-content-between align-items-start px-0">
                             <div class="me-auto">
@@ -167,11 +167,11 @@
                      <div class="card bg-cyan text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
-                              <i class="demo-psi-file-word fs-1"></i>
+                              <i class="demo-psi-lock-user fs-1"></i>
                            </div>
                            <div class="flex-grow-1 ms-3">
-                              <h5 class="h2 mb-0">241</h5>
-                              <p class="mb-0">Documents</p>
+                              <h5 class="h2 mb-0">{{ $totalPeserta }}</h5>
+                              <p class="mb-0">Total Peserta</p>
                            </div>
                         </div>
                      </div>
@@ -186,11 +186,11 @@
                      <div class="card bg-purple text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
-                              <i class="demo-psi-file-zip fs-1"></i>
+                              <i class="demo-psi-male fs-1"></i>
                            </div>
                            <div class="flex-grow-1 ms-3">
-                              <h5 class="h2 mb-0">184</h5>
-                              <p class="mb-0">Compressed files</p>
+                              <h5 class="h2 mb-0">{{ $totalLaki }}</h5>
+                              <p class="mb-0">Total Laki-laki</p>
                            </div>
                         </div>
                      </div>
@@ -205,15 +205,15 @@
                      <div class="card bg-orange text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
-                              <i class="demo-psi-camera-2 fs-1"></i>
+                              <i class="demo-psi-female-2 fs-1"></i>
                            </div>
                            <div class="flex-grow-1 ms-3">
-                              <h5 class="h2 mb-0">859</h5>
-                              <p class="mb-0">Photos</p>
+                              <h5 class="h2 mb-0">{{ $totalPerempuan }}</h5>
+                              <p class="mb-0">Total Perempuan</p>
                            </div>
                         </div>
                      </div>
-                     <!-- END : Stat widget -->
+                     END : Stat widget
 
 
                   </div>
@@ -224,11 +224,11 @@
                      <div class="card bg-pink text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
-                              <i class="demo-psi-video fs-1"></i>
+                              <i class="demo-psi-idea-2 fs-1"></i>
                            </div>
                            <div class="flex-grow-1 ms-3">
-                              <h5 class="h2 mb-0">785</h5>
-                              <p class="mb-0">Compressed files</p>
+                              <h5 class="h2 mb-0">{{ $totalJabatan }}</h5>
+                              <p class="mb-0">Total Jabatan</p>
                            </div>
                         </div>
                      </div>
@@ -1149,9 +1149,23 @@
    <!-- Chart JS Scripts [ OPTIONAL ] -->
    <script src="./assets/vendors/chart.js/chart.umd.min.js"></script>
 
+   <script>
+      const lineData = [
+         @foreach($phdpPerJabatan as $jabatan => $avgPhdp)
+            { elapsed: "{{ $jabatan }}", value: {{ $avgPhdp }} },
+         @endforeach
+      ];
+   </script>
+
+   <script>
+      window.jumlahPerJabatan = @json($jumlahPerJabatan);
+      window.doughnutLabels = Object.keys(window.jumlahPerJabatan);
+      window.doughnutData   = Object.values(window.jumlahPerJabatan);
+   </script>
 
    <!-- Initialize [ SAMPLE ] -->
-   <script src="./assets/pages/dashboard-3.js"></script>
+   <script src="{{ asset('assets/pages/dashboard-3.js') }}"></script>
+
     
 </body>
 

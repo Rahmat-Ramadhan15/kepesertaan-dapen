@@ -10,6 +10,8 @@
 
    <!-- STYLESHEETS -->
    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
    <!-- Fonts [ OPTIONAL ] -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,19 +100,40 @@
                             type="text" 
                             name="nip" 
                             id="nip"
-                            placeholder="Username" 
+                            placeholder="NIP" 
                             required
-                            value="{{ old('nip') }}" class="form-control" placeholder="Username" autofocus>
+                            value="{{ old('nip') }}" class="form-control" placeholder="NIP" autofocus>
                         </div>
 
-                        <div class="mb-3">
-                           <input 
-                            type="password" 
-                            name="password" 
-                            id="password"
-                            placeholder="password" 
-                            required class="form-control" placeholder="password">
+                        <div class="mb-3 position-relative">
+                           <div class="input-group">
+                              <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password"
+                                    class="form-control" 
+                                    placeholder="Password" 
+                                    value="{{ old('password') }}"
+                                    required>
+                              <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer;">
+                                    <ion-icon name="eye-off-outline" id="toggleIcon"></ion-icon>
+                              </span>
+                           </div>
                         </div>
+                        <script>
+                        function togglePassword() {
+                           const input = document.getElementById("password");
+                           const icon = document.getElementById("toggleIcon");
+
+                           if (input.type === "password") {
+                              input.type = "text";
+                              icon.setAttribute('name', 'eye-outline');
+                           } else {
+                              input.type = "password";
+                              icon.setAttribute('name', 'eye-off-outline');
+                           }
+                        }
+                        </script>
 
                         <div class="mb-3">
                         <div class="d-flex align-items-center gap-2">

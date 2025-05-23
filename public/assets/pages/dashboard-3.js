@@ -48,17 +48,14 @@ document.addEventListener( "DOMContentLoaded", () => {
 
    // Line Chart
    // ----------------------------------------------
-   const lineData = [
-      {'elapsed': 'Jan 1', 'value': 18}, {'elapsed': 'Jan 2', 'value': 24}, {'elapsed': 'Jan 3', 'value': 9}, {'elapsed': 'Jan 4', 'value': 12}, {'elapsed': 'Jan 5', 'value': 13}, {'elapsed': 'Jan 6', 'value': 22}, {'elapsed': 'Jan 7', 'value': 11}, {'elapsed': 'Jan 8', 'value': 26}, {'elapsed': 'Jan 9', 'value': 12}, {'elapsed': 'Jan 10', 'value': 19},
-      {'elapsed': 'Jan 11', 'value': 18}, {'elapsed': 'Jan 12', 'value': 24}, {'elapsed': 'Jan 13', 'value': 9}, {'elapsed': 'Jan 14', 'value': 12}, {'elapsed': 'Jan 15', 'value': 13}, {'elapsed': 'Jan 16', 'value': 22}, {'elapsed': 'Jan 17', 'value': 11}, {'elapsed': 'Jan 18', 'value': 26}, {'elapsed': 'Jan 19', 'value': 12}, {'elapsed': 'Jan 20', 'value': 19}
-   ];
+   
 
    lineChart = new Chart( document.getElementById('_dm-lineChart'), {
       type: 'line',
       data: {
          datasets: [
             {
-               label: 'Recent Sales',
+               label: 'Recent PHDP',
                data: lineData,
                borderWidth: 1.75,
                borderColor: primaryColor,
@@ -75,7 +72,7 @@ document.addEventListener( "DOMContentLoaded", () => {
             title: {
                display: true,
                color: headingsColor,
-               text: 'Recent Sales Chart'
+               text: 'Recent Pesertas Chart'
             },
             legend: {
                display: true,
@@ -140,27 +137,28 @@ document.addEventListener( "DOMContentLoaded", () => {
 
    // Doughnut Chart
    // ----------------------------------------------
-   const circleData =[ 25, 35, 98, 49 ];
-   const doughnutChart = new Chart( document.getElementById( "_dm-doughnutChart" ), {
-      type: "doughnut",
-      data: {
-         labels: ["Resource usage", "Completed Projects", "Completed Tasks", "Earning"],
-         datasets: [{
-            data: circleData,
-            borderColor: "transparent",
-            backgroundColor: [dangerColor, warningColor, successColor, infoColor],
-         }]
-      },
-      options: {
-         responsive: true,
-         maintainAspectRatio: false,
-         plugins: {
-            legend: {
-               display: false
-            },
-         }
+   const doughnutChart = new Chart(document.getElementById("_dm-doughnutChart"), {
+   type: "doughnut",
+   data: {
+      labels: window.doughnutLabels || ["Default1", "Default2", "Default3"],
+      datasets: [{
+         data: window.doughnutData || [10, 20, 30],
+         borderColor: "transparent",
+         backgroundColor: [dangerColor, warningColor, successColor, infoColor, primaryColor, 
+  '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'], // bisa diubah sesuai jumlah data
+      }]
+   },
+   options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+         legend: {
+            display: false
+         },
       }
-   });
+   }
+});
+
 
 });
 
