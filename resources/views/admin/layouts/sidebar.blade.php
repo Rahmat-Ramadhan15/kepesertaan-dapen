@@ -26,7 +26,6 @@
                 <span>Tambah Operator</span>
             </a>
         </li>
-        <!-- Menu Parameter -->
         <li class="sidebar-menu-item">
             <a href="#parameterSubmenu" data-bs-toggle="collapse" class="collapsed">
                 <i class="fas fa-cogs"></i>
@@ -34,7 +33,6 @@
                 <i class="fas fa-chevron-down float-end"></i>
             </a>
             <ul id="parameterSubmenu" class="collapse sidebar-submenu">
-                <!-- Submenu NS -->
                 <li class="sidebar-menu-subitem">
                     <span class="submenu-header">NS</span>
                     <ul class="sidebar-submenu">
@@ -49,14 +47,13 @@
                     </ul>
                 </li>
 
-                <!-- Submenu lainnya -->
                 <li>
                     <a href="{{ route('admin.parameter.ptkp.index') }}">
                         <i class="fas fa-table"></i> Tabel PTKP
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.parameter.databank.index') }}">
                         <i class="fas fa-university"></i> Data Bank
                     </a>
                 </li>
@@ -75,7 +72,6 @@
             </a>
         </li>
     </ul>
-    <!-- Tambahkan form logout di bawah sidebar -->
     <form action="{{ route('logout') }}" method="POST" class="sidebar-logout">
         @csrf
         <button type="submit" class="sidebar-logout-btn">
