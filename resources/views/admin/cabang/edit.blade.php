@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Cabang</title>
+    <title>Edit Data Cabang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* SALIN SEMUA KODE CSS DARI FILE index.blade.php DATA BANK ANDA DI SINI */
         :root {
             --primary-color: #3f51b5;
             --primary-light: #f5f7ff;
@@ -290,7 +290,6 @@
             margin: 0;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 992px) {
             .sidebar-logout {
                 display: block;
@@ -308,7 +307,10 @@
             .sidebar.collapsed .sidebar-logout-btn i {
                 margin-right: 1rem;
             }
+        }
 
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
             .sidebar {
                 width: var(--sidebar-width-collapsed);
                 transform: translateX(-100%);
@@ -382,12 +384,9 @@
         }
     </style>
 </head>
-
 <body>
-    <!-- Sidebar -->
     @include('admin.layouts.sidebar')
 
-    <!-- Modal Log Aktivitas -->
     <div class="modal fade" id="auditLogModal" tabindex="-1" aria-labelledby="auditLogModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
@@ -407,45 +406,101 @@
         </div>
     </div>
 
-    <!-- Mobile Toggle Button (only visible on small screens) -->
     <button class="mobile-toggle d-lg-none" id="mobileToggle">
         <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h1 class="dashboard-title">
-                    <i class="fas fa-building me-2"></i> Edit Cabang
+                    <i class="fas fa-sitemap me-2"></i> Edit Data Cabang
                 </h1>
+                <div>
+                    <a href="{{ route('cabang.index') }}" class="btn btn-secondary action-button">
+                        <i class="fas fa-arrow-left me-2"></i> Kembali
+                    </a>
+                </div>
             </div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>Form Edit Cabang</strong>
-                    </div>
-                </div>
                 <div class="card-body">
-                    <form action="{{ route('cabang.update', $cabang->id) }}" method="POST">
+                    <form action="{{ route('cabang.update', $cabang->kode_cabang) }}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('PUT') {{-- Gunakan PUT method untuk update --}}
+
+                        <div class="mb-3">
+                            <label for="kode_cabang" class="form-label">Kode Cabang</label>
+                            <input type="text" class="form-control" id="kode_cabang" name="kode_cabang" value="{{ old('kode_cabang', $cabang->kode_cabang) }}" required readonly>
+                        </div>
+
                         <div class="mb-3">
                             <label for="nama_cabang" class="form-label">Nama Cabang</label>
-                            <input type="text" class="form-control" id="nama_cabang" name="nama_cabang"
-                                value="{{ $cabang->nama_cabang }}" required>
+                            <input type="text" class="form-control @error('nama_cabang') is-invalid @enderror" id="nama_cabang" name="nama_cabang" value="{{ old('nama_cabang', $cabang->nama_cabang) }}" required>
+                            @error('nama_cabang')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="kode_alias" class="form-label">Kode Alias</label>
+                            <input type="text" class="form-control @error('kode_alias') is-invalid @enderror" id="kode_alias" name="kode_alias" value="{{ old('kode_alias', $cabang->kode_alias) }}">
+                            @error('kode_alias')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat</label>
-                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required>{{ $cabang->alamat }}</textarea>
+                            <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3">{{ old('alamat', $cabang->alamat) }}</textarea>
+                            @error('alamat')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-1"></i> Update
+
+                        <div class="mb-3">
+                            <label for="kota" class="form-label">Kota</label>
+                            <input type="text" class="form-control @error('kota') is-invalid @enderror" id="kota" name="kota" value="{{ old('kota', $cabang->kota) }}">
+                            @error('kota')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="kode_pos" class="form-label">Kode Pos</label>
+                            <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" id="kode_pos" name="kode_pos" value="{{ old('kode_pos', $cabang->kode_pos) }}">
+                            @error('kode_pos')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="telepon" class="form-label">Telepon</label>
+                            <input type="text" class="form-control @error('telepon') is-invalid @enderror" id="telepon" name="telepon" value="{{ old('telepon', $cabang->telepon) }}">
+                            @error('telepon')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fax" class="form-label">Fax</label>
+                            <input type="text" class="form-control @error('fax') is-invalid @enderror" id="fax" name="fax" value="{{ old('fax', $cabang->fax) }}">
+                            @error('fax')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $cabang->email) }}">
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary action-button">
+                            <i class="fas fa-save me-2"></i> Simpan Perubahan
                         </button>
-                        <a href="{{ route('cabang.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-1"></i> Kembali
-                        </a>
                     </form>
                 </div>
             </div>
@@ -478,37 +533,6 @@
                 $('#mainContent').toggleClass('expanded');
             });
 
-            // Log aktivitas button
-            $('.log-activity-btn').on('click', function(e) {
-                e.preventDefault();
-                $('#auditLogModal').modal('show');
-                $('#auditLogContent').html(`
-                    <div class="text-center text-muted py-5">
-                        <i class="fas fa-spinner fa-spin fa-2x"></i><br>
-                        Memuat data log...
-                    </div>
-                `);
-
-                $.ajax({
-                    url: "{{ route('admin.audit-log') }}",
-                    method: "GET",
-                    success: function(data) {
-                        $('#auditLogContent').html(data);
-                    },
-                    error: function() {
-                        $('#auditLogContent').html(
-                            '<div class="alert alert-danger">Gagal memuat log aktivitas.</div>'
-                            );
-                    }
-                });
-
-                // Close sidebar on mobile when button is clicked
-                if ($(window).width() < 992) {
-                    $('#sidebar').removeClass('collapsed');
-                    $('#sidebar').css('transform', 'translateX(-100%)');
-                }
-            });
-
             // Set active class based on current URL
             const currentUrl = window.location.href;
             $('.sidebar-menu-item a').each(function() {
@@ -521,5 +545,4 @@
         });
     </script>
 </body>
-
 </html>

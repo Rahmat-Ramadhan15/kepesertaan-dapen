@@ -452,18 +452,21 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th width="15%">Kode Bank</th>
-                                <th width="20%">Nama Bank</th>
-                                <th width="15%">Kode Cabang</th>
-                                <th width="20%">Nama Cabang</th>
-                                <th width="15%">Kode Full</th>
-                                <th width="15%">Alamat</th>
+                                <th width="auto">Kode Bank</th>
+                                <th width="auto">Nama Bank</th>
+                                <th width="auto">Kode Cabang</th>
+                                <th width="auto">Nama Cabang</th>
+                                <th width="auto">Kode Full</th>
+                                <th width="auto">Alamat</th>
+                                <th width="auto">Kota</th>
+                                <th width="auto">Kode Pos</th>
+                                <th width="auto">Telepon</th>
+                                <th width="auto">Fax</th>
+                                <th width="auto">Email</th>
                                 <th width="auto">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
-
                             @forelse ($banks as $bank)
                             <tr>
                                 <td class="fw-semibold">{{ $bank->kode_bank }}</td>
@@ -472,14 +475,17 @@
                                 <td>{{ $bank->nama_cabang }}</td>
                                 <td>{{ $bank->kode_full }}</td>
                                 <td>{{ $bank->alamat }}</td>
+                                <td>{{ $bank->kota }}</td>
+                                <td>{{ $bank->kode_pos }}</td>
+                                <td>{{ $bank->telepon }}</td>
+                                <td>{{ $bank->fax }}</td>
+                                <td>{{ $bank->email }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        {{-- Mengaktifkan tombol Edit --}}
                                         <a href="{{ route('admin.parameter.databank.edit', $bank->kode_cabang) }}"
                                             class="btn btn-sm btn-warning me-2">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        {{-- Mengaktifkan tombol Hapus --}}
                                         <form action="{{ route('admin.parameter.databank.destroy', $bank->kode_cabang) }}"
                                             method="POST"
                                             onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini? Data yang dihapus tidak dapat dikembalikan.')">
@@ -494,12 +500,11 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="12" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                     Tidak ada data bank.
                                 </td>
                             </tr>
                             @endforelse
-
                         </tbody>
                     </table>
                 </div>

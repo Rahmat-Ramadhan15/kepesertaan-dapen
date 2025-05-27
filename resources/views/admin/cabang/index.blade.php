@@ -437,60 +437,90 @@
     </button>
 
     <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">
-                    <i class="fas fa-building me-2"></i> Data Cabang
-                </h1>
-                <div>
-                    <a href="{{ route('cabang.create') }}" class="btn btn-primary action-button">
-                        <i class="fas fa-plus me-2"></i> Tambah Cabang
-                    </a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="main-content" id="mainContent">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">
+                        <i class="fas fa-sitemap me-2"></i> Data Cabang
+                    </h1>
                     <div>
-                        <strong>Daftar Seluruh Cabang</strong>
+                        <a href="{{ route('cabang.create') }}" class="btn btn-primary action-button">
+                            <i class="fas fa-plus me-2"></i> Tambah Data Cabang
+                        </a>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th width="40%">Nama Cabang</th>
-                                <th width="60%">Alamat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cabangs as $cabang)
+
+                {{-- Menampilkan pesan success atau error dari session --}}
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
-                                    <td class="fw-semibold">{{ $cabang->nama_cabang }}</td>
+                                    <th width="auto">Kode Cabang</th>
+                                    <th width="auto">Nama Cabang</th>
+                                    <th width="auto">Kode Alias</th>
+                                    <th width="auto">Alamat</th>
+                                    <th width="auto">Kota</th>
+                                    <th width="auto">Kode Pos</th>
+                                    <th width="auto">Telepon</th>
+                                    <th width="auto">Fax</th>
+                                    <th width="auto">Email</th>
+                                    <th width="auto">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($datacabangs as $datacabang)
+                                <tr>
+                                    <td class="fw-semibold">{{ $datacabang->kode_cabang }}</td>
+                                    <td>{{ $datacabang->nama_cabang }}</td> {{-- <<< UBAH DARI nama_caban KE nama_cabang --}}
+                                    <td>{{ $datacabang->kode_alias }}</td>
+                                    <td>{{ $datacabang->alamat }}</td>
+                                    <td>{{ $datacabang->kota }}</td>
+                                    <td>{{ $datacabang->kode_pos }}</td>
+                                    <td>{{ $datacabang->telepon }}</td>
+                                    <td>{{ $datacabang->fax }}</td>
+                                    <td>{{ $datacabang->email }}</td>
                                     <td>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span>{{ $cabang->alamat }}</span>
-                                            <div class="d-flex">
-                                                <a href="{{ route('cabang.edit', $cabang->id) }}"
-                                                    class="btn btn-sm btn-warning me-2">
-                                                    <i class="fas fa-edit"></i> Edit
-                                                </a>
-                                                <form action="{{ route('cabang.destroy', $cabang->id) }}" method="POST"
-                                                    onsubmit="return confirm('Yakin ingin menghapus cabang ini?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i> Hapus
-                                                    </button>
-                                                </form>
-                                            </div>
+                                        <div class="d-flex">
+                                            <a href="{{ route('cabang.edit', $datacabang->kode_cabang) }}"
+                                                class="btn btn-sm btn-warning me-2">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="{{ route('cabang.destroy', $datacabang->kode_cabang) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini? Data yang dihapus tidak dapat dikembalikan.')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i> Hapus
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                @empty
+                                <tr>
+                                    <td colspan="10" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        Tidak ada data cabang.
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

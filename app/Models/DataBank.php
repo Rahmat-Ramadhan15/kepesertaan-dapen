@@ -21,6 +21,11 @@ class DataBank extends Model
         'nama_cabang',
         'kode_full',
         'alamat',
+        'kota',
+        'kode_pos',
+        'telepon',
+        'fax',
+        'email',
     ];
 
     /**
