@@ -33,9 +33,12 @@ class KeluargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'hubungan' => 'required',
             'nip' => 'required|exists:tablepeserta,nip',
+            'nama' => 'required|string|max:255',
+            'hubungan' => 'required|string',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'tanggal_lahir' => 'required|date',
+            'usia' => 'required|numeric|min:0',
         ]);
 
         Keluarga::create($request->all());
@@ -65,8 +68,11 @@ class KeluargaController extends Controller
     public function update(Request $request, Keluarga $keluarga)
     {
         $request->validate([
-            'nama' => 'required',
-            'hubungan' => 'required',
+            'nama' => 'required|string|max:255',
+            'hubungan' => 'required|string',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'tanggal_lahir' => 'required|date',
+            'usia' => 'required|numeric|min:0',
         ]);
 
         $keluarga->update($request->all());

@@ -19,8 +19,7 @@ class Keluarga extends Model
         'hubungan',
         'jenis_kelamin',
         'tanggal_lahir',
-        'status_hidup',
-        'pekerjaan',
+        'usia',
     ];
 
     protected $dates = ['tanggal_lahir'];
