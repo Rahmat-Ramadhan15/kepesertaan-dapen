@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataCabang extends Model // <<< Ubah nama kelas
+class Cabang extends Model // <<< Ubah nama kelas
 {
     use HasFactory;
 

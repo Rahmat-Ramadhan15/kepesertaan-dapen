@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataCabang; // <<< Ubah import model
+use App\Models\Cabang; // <<< Ubah import model
 use App\Models\DataBank; // PASTIKAN BARIS INI ADA DAN TIDAK ADA TYPO
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class DataCabangController extends Controller // <<< Ubah nama kelas controller
+class CabangController extends Controller // <<< Ubah nama kelas controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datacabangs = DataCabang::all(); // <<< Ubah nama variabel dan model
-        return view('admin.cabang.index', compact('datacabangs')); // <<< Ubah nama variabel compact
+        $Cabangs = Cabang::all(); // <<< Ubah nama variabel dan model
+        return view('admin.cabang.index', compact('Cabangs')); // <<< Ubah nama variabel compact
     }
 
     /**
@@ -48,7 +48,7 @@ class DataCabangController extends Controller // <<< Ubah nama kelas controller
             'email' => 'nullable|string|email|max:255',
         ]);
 
-        DataCabang::create($request->all());
+        Cabang::create($request->all());
 
         return redirect()->route('cabang.index')->with('success', 'Data Cabang berhasil ditambahkan!');
     }
@@ -58,15 +58,15 @@ class DataCabangController extends Controller // <<< Ubah nama kelas controller
      */
     public function show(string $kode_cabang)
     {
-        // Jika Anda butuh metode ini, pastikan menggunakan DataCabang
-        // $datacabang = DataCabang::where('kode_cabang', $kode_cabang)->firstOrFail();
-        // return view('admin.cabang.show', compact('datacabang'));
+        // Jika Anda butuh metode ini, pastikan menggunakan Cabang
+        // $Cabang = Cabang::where('kode_cabang', $kode_cabang)->firstOrFail();
+        // return view('admin.cabang.show', compact('Cabang'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DataCabang $cabang) // <<< Ubah tipe hint dan nama variabel
+    public function edit(Cabang $cabang) // <<< Ubah tipe hint dan nama variabel
     {
         return view('admin.cabang.edit', compact('cabang')); // <<< Ubah nama variabel compact
     }
@@ -74,7 +74,7 @@ class DataCabangController extends Controller // <<< Ubah nama kelas controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DataCabang $cabang) // <<< Ubah tipe hint dan nama variabel
+    public function update(Request $request, Cabang $cabang) // <<< Ubah tipe hint dan nama variabel
     {
         $request->validate([
             'kode_cabang' => "required|string|max:255|unique:tablecabang,kode_cabang,{$cabang->kode_cabang},kode_cabang",
@@ -96,12 +96,12 @@ class DataCabangController extends Controller // <<< Ubah nama kelas controller
     /**
      * Remove the specified resource from storage.
      */
-     public function destroy(DataCabang $cabang) // Laravel akan mencari berdasarkan kode_cabang
+     public function destroy(Cabang $cabang) // Laravel akan mencari berdasarkan kode_cabang
     {
         
 
         try {
-            // ... (kode yang sudah ada untuk pengecekan if (!$datacabang->exists))
+            // ... (kode yang sudah ada untuk pengecekan if (!$Cabang->exists))
             if (!$cabang->exists) {
                 Log::warning('Data Cabang model instance not found for deletion: ' . $cabang->kode_cabang);
                 return redirect()->route('cabang.index')->with('error', 'Gagal menghapus. Data Cabang tidak ditemukan di database.');
