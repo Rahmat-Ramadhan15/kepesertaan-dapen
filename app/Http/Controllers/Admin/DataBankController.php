@@ -40,6 +40,11 @@ class DataBankController extends Controller
             'nama_cabang' => 'required|string|max:255',
             'kode_full' => 'required|string|max:255|unique:tablebank,kode_full',
             'alamat' => 'nullable|string|max:255',
+            'kota' => 'nullable|string|max:255',
+            'kode_pos' => 'nullable|string|max:10', // Kode pos biasanya tidak terlalu panjang
+            'telepon' => 'nullable|string|max:20', // Telepon bisa lebih panjang
+            'fax' => 'nullable|string|max:20',
+            'email' => 'nullable|string|email|max:255', // Tambahkan aturan 'email' untuk validasi format
         ]);
 
         DataBank::create($request->all());
@@ -72,6 +77,11 @@ class DataBankController extends Controller
             // Abaikan record yang sedang diedit berdasarkan primary key-nya (kode_cabang)
             'kode_full' => "required|string|max:255|unique:tablebank,kode_full,{$databank->kode_cabang},kode_cabang",
             'alamat' => 'nullable|string|max:255',
+            'kota' => 'nullable|string|max:255',
+            'kode_pos' => 'nullable|string|max:10',
+            'telepon' => 'nullable|string|max:20',
+            'fax' => 'nullable|string|max:20',
+            'email' => 'nullable|string|email|max:255',
         ]);
 
         $databank->update($request->all());

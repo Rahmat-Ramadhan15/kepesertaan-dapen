@@ -15,7 +15,7 @@ use App\Http\Controllers\Auth\AuthController;
 //Admin
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuditLogController;
-use App\Http\Controllers\Admin\CabangController;
+use App\Http\Controllers\Admin\DataCabangController;
 use App\Http\Controllers\Admin\Parameter\NilaiSekarangController;
 use App\Http\Controllers\Admin\Parameter\PtkpController;
 use App\Http\Controllers\Admin\DataBankController;
@@ -62,7 +62,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     //     return redirect('/login');
     // })->name('logout');    
     Route::get('/admin/audit-log', [AuditLogController::class, 'index'])->name('admin.audit-log');
-    Route::resource('cabang', CabangController::class);
+    Route::resource('cabang', DataCabangController::class);
 
     Route::prefix('admin/parameter')->name('admin.parameter.')->middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('ns', NilaiSekarangController::class);
