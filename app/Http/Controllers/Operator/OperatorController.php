@@ -29,12 +29,12 @@ class OperatorController extends Controller
             $query->where('nama', 'like', '%' . $request->nama . '%');
         }
 
-        $peserta = $query->get();
+        $peserta = $query->paginate(10)->appends($request->query());
 
         // Ambil list cabang unik untuk dropdown
         $listCabang = Cabang::all();
 
-        return view('operator.dashboard', compact('peserta', 'listCabang'));
+        return view('operator.dashboard', compact('peserta','listCabang'));
     }
 
 
@@ -136,7 +136,8 @@ class OperatorController extends Controller
         $peserta = Peserta::where('nip', $nip)->firstOrFail();
         $peserta->update($request->all());
 
-        return response()->json(['message' => 'Data berhasil diperbarui']);
+        return redirect()->back()->with('success', 'Data berhasil diperbarui');
+
     }
 
     /**
