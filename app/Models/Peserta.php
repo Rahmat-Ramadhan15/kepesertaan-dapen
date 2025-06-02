@@ -45,7 +45,7 @@ class Peserta extends Model
         'tahun_jabat',
         'phdp',
         'akumulasi_ibhp',
-        'cabang_id',
+        'kode_cabang',
         'created_at',
         'Updated_at',
     ];
@@ -70,7 +70,7 @@ class Peserta extends Model
 
     public function cabang()
     {
-        return $this->belongsTo(Cabang::class, 'cabang_id');
+        return $this->belongsTo(Cabang::class, 'kode_cabang', 'kode_cabang');
     }
 
     public function getUmurAttribute()
@@ -92,26 +92,26 @@ class Peserta extends Model
      * Get masa kerja from join date
      */
     public function getMasaKerjaAttribute()
-{
-    // Pastikan tmk valid
-    if ($this->tmk) {
-        // Hitung selisih tahun dan bulan
-        $diff = now()->diff($this->tmk);
+    {
+        // Pastikan tmk valid
+        if ($this->tmk) {
+            // Hitung selisih tahun dan bulan
+            $diff = now()->diff($this->tmk);
 
-        // Jika ada sisa bulan, kita bulatkan ke atas menjadi 1 tahun
-        $years = $diff->y;
-        $months = $diff->m;
+            // Jika ada sisa bulan, kita bulatkan ke atas menjadi 1 tahun
+            $years = $diff->y;
+            $months = $diff->m;
 
-        // Jika ada lebih dari 0 bulan, kita tambahkan 1 tahun
-        if ($months > 0 || $diff->d > 0) {
-            $years++;
+            // Jika ada lebih dari 0 bulan, kita tambahkan 1 tahun
+            if ($months > 0 || $diff->d > 0) {
+                $years++;
+            }
+
+            return $years;
         }
 
-        return $years;
+        return 0; // Jika tmk tidak ada, kembalikan 0
     }
-
-    return 0; // Jika tmk tidak ada, kembalikan 0
-}
 
 
     /**
@@ -130,7 +130,7 @@ class Peserta extends Model
         
         // Filter by branch
         if (!empty($filters['cabang'])) {
-            $query->where('cabang_id', $filters['cabang']);
+            $query->where('kode_cabang', $filters['cabang']);
         }
         
         // Filter by gender

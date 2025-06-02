@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="Nifty is a responsive admin dashboard template based on Bootstrap 5 framework. There are a lot of useful components.">
-   <title>Dashboard | Bank - Sulselbar</title>
+   <title>Peserta | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -109,7 +109,7 @@
                             <select name="cabang" class="form-select" style="width: auto;">
                                 <option value="">Semua Cabang</option>
                                 @foreach($listCabang as $cabang)
-                                    <option value="{{ $cabang->id }}" {{ request('cabang') == $cabang->id ? 'selected' : '' }}>
+                                    <option value="{{ $cabang->kode_cabang }}" {{ request('cabang') == $cabang->kode_cabang? 'selected' : '' }}>
                                         {{ $cabang->nama_cabang }}
                                     </option>
                                 @endforeach
