@@ -8,7 +8,7 @@ use App\Models\DataBank; // PASTIKAN BARIS INI ADA DAN TIDAK ADA TYPO
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class CabangController extends Controller // <<< Ubah nama kelas controller
+class DataCabangController extends Controller // <<< Ubah nama kelas controller
 {
     /**
      * Display a listing of the resource.
