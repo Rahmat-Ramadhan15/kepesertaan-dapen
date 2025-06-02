@@ -42,6 +42,14 @@ class AuthController extends Controller
             return back()->withErrors(['nip' => 'Akun diblokir sementara. Coba lagi nanti.']);
         }
 
+        // Cek apakah password sudah kadaluarsa
+        if ($user->last_password_changed && Carbon::parse($user->last_password_changed)->addMonths(3)->lt(Carbon::now())) {
+            Auth::logout(); // pastikan logout
+            session(['force_password_reset_nip' => $user->nip]); // simpan NIP di session
+            return redirect()->route('ganti-password');
+        }
+
+
         // Cek password
         if (!Hash::check($request->password, $user->password)) {
             $user->increment('login_attempts');

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cabang extends Model // <<< Ubah nama kelas
+class Cabang extends Model 
 {
     use HasFactory;
 
@@ -31,4 +31,10 @@ class Cabang extends Model // <<< Ubah nama kelas
     {
         return 'kode_cabang';
     }
+
+    public function peserta()
+    {
+        return $this->hasMany(Peserta::class, 'kode_cabang', 'kode_cabang');
+    }
+
 }

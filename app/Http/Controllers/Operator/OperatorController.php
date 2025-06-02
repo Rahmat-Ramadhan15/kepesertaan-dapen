@@ -18,7 +18,7 @@ class OperatorController extends Controller
         $query = Peserta::query();
 
         if ($request->filled('cabang')) {
-            $query->where('cabang_id', $request->cabang);
+            $query->where('kode_cabang', $request->cabang);
         }        
 
         if ($request->filled('jenis_kelamin')) {
@@ -51,61 +51,61 @@ class OperatorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // Validasi input
-    $validator = Validator::make($request->all(), [
-        'nip' => 'required|string|max:50|unique:tablepeserta,nip',
-        'nama' => 'required|string|max:255',
-        'no_sk' => 'required|string|max:100',
-        'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-        'tempat_lahir' => 'required|string|max:100',
-        'tanggal_lahir' => 'required|date',
-        'usia' => 'required|integer|min:0',
-        'tmk' => 'required|date',
-        'mkmk' => 'required|string|max:50',
-        'tpst' => 'required|date',
-        'mkmp' => 'required|date',
-        'kode_peserta' => 'required|string|max:50',
-        'status_kawin' => 'required|string|max:50',
-        'kode_ptkp' => 'required|string|max:50',
-        'alamat' => 'required|string',
-        'kelurahan' => 'required|string|max:100',
-        'kecamatan' => 'required|string|max:100',
-        'kabupaten_kota' => 'required|string|max:100',
-        'kode_pos' => 'required|string|max:20',
-        'telpon' => 'required|string|max:20',
-        'pendidikan' => 'required|string|max:100',
-        'jurusan' => 'required|string|max:100',
-        'golongan' => 'required|string|max:50',
-        'kode_dir' => 'required|string|max:50',
-        'jabatan' => 'required|string|max:100',
-        'tahun_jabat' => 'required|date',
-        'phdp' => 'required|numeric|min:0',
-        'akumulasi_ibhp' => 'required|numeric|min:0',
-        'cabang_id' => 'required|exists:cabangs,id',
-    ]);
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'nip' => 'required|string|max:50|unique:tablepeserta,nip',
+            'nama' => 'required|string|max:255',
+            'no_sk' => 'required|string|max:100',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'tempat_lahir' => 'required|string|max:100',
+            'tanggal_lahir' => 'required|date',
+            'usia' => 'required|integer|min:0',
+            'tmk' => 'required|date',
+            'mkmk' => 'required|string|max:50',
+            'tpst' => 'required|date',
+            'mkmp' => 'required|date',
+            'kode_peserta' => 'required|string|max:50',
+            'status_kawin' => 'required|string|max:50',
+            'kode_ptkp' => 'required|string|max:50',
+            'alamat' => 'required|string',
+            'kelurahan' => 'required|string|max:100',
+            'kecamatan' => 'required|string|max:100',
+            'kabupaten_kota' => 'required|string|max:100',
+            'kode_pos' => 'required|string|max:20',
+            'telpon' => 'required|string|max:20',
+            'pendidikan' => 'required|string|max:100',
+            'jurusan' => 'required|string|max:100',
+            'golongan' => 'required|string|max:50',
+            'kode_dir' => 'required|string|max:50',
+            'jabatan' => 'required|string|max:100',
+            'tahun_jabat' => 'required|date',
+            'phdp' => 'required|numeric|min:0',
+            'akumulasi_ibhp' => 'required|numeric|min:0',
+            'kode_cabang' => 'required|exists:tablecabang,kode_cabang',
+        ]);
 
-    // Jika validasi gagal
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Ambil semua input
+        $input = $request->all();
+
+        // Map jika 'cabang' dikirim tapi bukan 'kode_cabang'
+        if ($request->has('cabang') && !$request->has('kode_cabang')) {
+            $input['kode_cabang'] = $request->input('cabang');
+        }
+
+        // Simpan data ke database
+        Peserta::create($input);
+
+        return redirect()->route('operator.index')
+            ->with('success', 'Peserta berhasil ditambahkan.');
     }
-
-    // Ambil semua input
-    $input = $request->all();
-
-    // Map jika 'cabang' dikirim tapi bukan 'cabang_id'
-    if ($request->has('cabang') && !$request->has('cabang_id')) {
-        $input['cabang_id'] = $request->input('cabang');
-    }
-
-    // Simpan data ke database
-    Peserta::create($input);
-
-    return redirect()->route('operator.index')
-        ->with('success', 'Peserta berhasil ditambahkan.');
-}
 
 
 

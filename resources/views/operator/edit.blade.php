@@ -177,11 +177,11 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="cabang_id" class="form-label fw-semibold">Cabang</label>
-                                    <select class="form-select " id="cabang_id" name="cabang_id">
+                                    <label for="kode_cabang" class="form-label fw-semibold">Cabang</label>
+                                    <select class="form-select " id="kode_cabang" name="kode_cabang">
                                     <option value="">Pilih Cabang</option>
                                     @foreach($cabangs as $cabang)
-                                        <option value="{{ $cabang->id }}" {{ $peserta->cabang_id == $cabang->id ? 'selected' : '' }}>{{ $cabang->nama_cabang }}</option>
+                                        <option value="{{ $cabang->kode_cabang }}" {{ $peserta->kode_cabang == $cabang->kode_cabang ? 'selected' : '' }}>{{ $cabang->nama_cabang }}</option>
                                     @endforeach
                                     </select>
 

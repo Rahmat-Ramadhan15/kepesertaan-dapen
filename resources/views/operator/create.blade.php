@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="A table library that works everywhere">
-   <title>Gridjs | Nifty - Admin Template</title>
+   <title>Tambah | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -175,11 +175,11 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="cabang_id" class="form-label fw-semibold">Cabang</label>
-                                    <select class="form-select" id="cabang_id" name="cabang_id">
+                                    <label for="kode_cabang" class="form-label fw-semibold">Cabang</label>
+                                    <select class="form-select" id="kode_cabang" name="kode_cabang">
                                         <option value="">Pilih Cabang</option>
                                         @foreach($listCabang as $cabang)
-                                            <option value="{{ $cabang->id }}" {{ old('cabang_id') == $cabang->id ? 'selected' : '' }}>
+                                            <option value="{{ $cabang->kode_cabang }}" {{ old('kode_cabang') == $cabang->kode_cabang ? 'selected' : '' }}>
                                                 {{ $cabang->nama_cabang }}
                                             </option>
                                         @endforeach

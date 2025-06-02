@@ -5,7 +5,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="The login page allows a user to gain access to an application by entering their username and password or by authenticating using a social media login.">
-   <title>Login | Dapen - Bank Sulselbar</title>
+   <title>Reset Password | Dapen - Bank Sulselbar</title>
 
 
    <!-- STYLESHEETS -->
@@ -81,8 +81,8 @@
                   <div class="card-body p-4">
 
                      <div class="text-center">
-                        <h1 class="h3">Account Login</h1>
-                        <p>Sign In to your account</p>
+                        <h1 class="h3">Password Reset</h1>
+                        <p>Change password your account</p>
                      </div>
                      @if ($errors->any())
                      <div class="mb-4 text-red-600 text-sm">
@@ -93,81 +93,42 @@
                         </ul>
                      </div>
                      @endif
-                     <form method="POST" class="mt-4" action="{{ route('login') }}">
+                     <form method="POST" class="mt-4" action="{{ route('password.force.reset') }}">
                         @csrf
-                        <div class="mb-3">
-                           <input 
-                            type="text" 
-                            name="nip" 
-                            id="nip"
-                            placeholder="NIP" 
-                            required
-                            value="{{ old('nip') }}" class="form-control" placeholder="NIP" autofocus>
-                        </div>
+                        <div class="row mb-3">
+                                 <label for="_dm-wRegUsername" class="col-sm-4 col-xl-2 col-form-label">NIP</label>
+                                 <div class="col-sm-8 col-xl-10">
+                                    <input type="text" name="nip" class="form-control" required>
+                                 </div>
+                              </div>
 
-                        <div class="mb-3 position-relative">
-                           <div class="input-group">
-                              <input 
-                                    type="password" 
-                                    name="password" 
-                                    id="password"
-                                    class="form-control" 
-                                    placeholder="Password" 
-                                    value="{{ old('password') }}"
-                                    required>
-                              <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer;">
-                                    <ion-icon name="eye-off-outline" id="toggleIcon"></ion-icon>
-                              </span>
-                           </div>
-                        </div>
-                        <script>
-                        function togglePassword() {
-                           const input = document.getElementById("password");
-                           const icon = document.getElementById("toggleIcon");
+                              <div class="row mb-3">
+                                 <div class="col-xl-6 mb-3">
+                                    <div class="row align-items-center">
+                                       <label for="_dm-wRegPassword" class="col-sm-4 col-form-label">Password</label>
+                                       <div class="col-sm-8">
+                                          <input type="password" name="password" class="form-control" required>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-xl-6">
+                                    <div class="row align-items-center">
+                                       <label for="_dm-wRegRePasswird" class="col-sm-4 p-xl-0 text-xl-end col-form-label">Retype password</label>
+                                       <div class="col-sm-8">
+                                          <input type="password" name="password_confirmation" class="form-control" required>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
 
-                           if (input.type === "password") {
-                              input.type = "text";
-                              icon.setAttribute('name', 'eye-outline');
-                           } else {
-                              input.type = "password";
-                              icon.setAttribute('name', 'eye-off-outline');
-                           }
-                        }
-                        </script>
+                              <div class="d-flex">
+                                 <button data-next class="btn btn-primary ms-auto">Simpan</button>
+                              </div>
+                    </form>
 
-                        <div class="mb-3">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="flex-grow-1">
-                                <img src="{{ captcha_src() }}" id="captcha-image" class="img-fluid border rounded">
-                            </div>
-                            <button 
-                                type="button" 
-                                id="refresh-captcha"
-                                class="btn btn-icon btn-sm btn-primary"
-                                aria-label="Refresh Captcha"
-                            >
-                                <i class="demo-psi-repeat-2 fs-5"></i>
-                            </button>
-                        </div>
-                        </div>
-
-                        <div class="mb-3">
-                        <input 
-                            type="text" 
-                            name="captcha" 
-                            class="form-control"
-                            placeholder="Enter Captcha" 
-                            required>
-                        </div>
-
-                        <div class="d-grid mt-5">
-                           <button class="btn btn-primary btn-lg" type="submit">Sign In</button>
-                        </div>
-                     </form>
-
-                     <div class="d-flex justify-content-end gap-md-5 mt-4">
-                        <a href="{{ route('ganti-password') }}" class="btn-link text-decoration-none">Ganti Password ?</a>
-                     </div>
+                    <div class="d-flex justify-content-start gap-md-5 mt-4">
+                                 <a href="{{ route('login') }}" class="btn-link text-decoration-none">Laman Login</a>
+                              </div>
 
                      <div class="d-flex align-items-center justify-content-between border-top pt-3 mt-3">
                         <h5 class="m-0">Follow Media Sosial</h5>
@@ -438,36 +399,7 @@
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <!-- Nifty Settings [ DEMO ] -->
    <script src="./assets/js/demo-purpose-only.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-        });
-        
-        $(document).ready(function() {
-            // Captcha Refresh
-            $('#refresh-captcha').click(function(){
-                $.get('{{ route("captcha.refresh") }}', function(data) {
-                    $('#captcha-image').attr('src', data.captcha);
-                });
-            });
-
-            // Password Toggle
-            $('#togglePassword').click(function() {
-                const passwordInput = $('#password');
-                const passwordToggleIcon = $('#passwordToggleIcon');
-                const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
-                passwordInput.attr('type', type);
-                
-                if (type === 'text') {
-                    passwordToggleIcon.attr('data-lucide', 'eye-off');
-                } else {
-                    passwordToggleIcon.attr('data-lucide', 'eye');
-                }
-                lucide.createIcons();
-            });
-        });
-    </script>
-
+   
 </body>
 
 </html>
