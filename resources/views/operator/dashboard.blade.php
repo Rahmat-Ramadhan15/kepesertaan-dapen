@@ -333,6 +333,22 @@
                     </li>
 
                     <li class="nav-item">
+                                <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
+                                    <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
+                                    <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
+                                    <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
+                                </a>
+                            </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
                             <i class="fas fa-print me-2"></i>
                             <span class="nav-label">Menu Cetak</span>

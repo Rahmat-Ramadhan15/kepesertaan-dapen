@@ -27,6 +27,7 @@ use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\CetakController;
 use App\Http\Controllers\Operator\ManfaatPensiunController;
 use App\Http\Controllers\Operator\HitungIuranController;
+use App\Http\Controllers\Operator\OperatorParameterController;
 //Supervisor
 use App\Http\Controllers\Supervisor\SupervisorController;
 use App\Http\Controllers\Supervisor\ExportController;
@@ -96,6 +97,12 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
     Route::prefix('operator')->group(function () {
         Route::resource('operator', OperatorController::class); // Menghindari konflik dengan dashboard
         Route::get('{nip}/detail', [OperatorController::class, 'detail'])->name('operator.detail');
+    });
+
+    Route::prefix('operator/parameters')->name('operator.parameters.')->group(function () {
+        Route::get('databank', [OperatorParameterController::class, 'showDataBank'])->name('databank');
+        Route::get('datacabang', [OperatorParameterController::class, 'showDataCabang'])->name('datacabang');
+        Route::get('ptkp', [OperatorParameterController::class, 'showPtkp'])->name('ptkp');
     });
 
     //Manfaat Pensiun
