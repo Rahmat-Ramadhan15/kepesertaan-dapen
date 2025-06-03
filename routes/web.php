@@ -103,6 +103,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
         Route::get('databank', [OperatorParameterController::class, 'showDataBank'])->name('databank');
         Route::get('datacabang', [OperatorParameterController::class, 'showDataCabang'])->name('datacabang');
         Route::get('ptkp', [OperatorParameterController::class, 'showPtkp'])->name('ptkp');
+        Route::get('nilaisekarang', [OperatorParameterController::class, 'showNilaiSekarang'])->name('nilaisekarang');
+        Route::get('nsanak', [OperatorParameterController::class, 'showNsAnak'])->name('nsanak');
+        Route::get('nsjanda', [OperatorParameterController::class, 'showNsJanda'])->name('nsjanda');
+        Route::get('nspegawai', [OperatorParameterController::class, 'showNsPegawai'])->name('nspegawai');
     });
 
     //Manfaat Pensiun
