@@ -414,6 +414,7 @@
       <!-- MAIN NAVIGATION -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <nav id="mainnav-container" class="mainnav">
+    <nav id="mainnav-container" class="mainnav">
     <div class="mainnav__inner">
 
         <!-- Navigation menu -->
@@ -449,11 +450,58 @@
                 <ul class="mainnav__menu nav flex-column">
 
                     <li class="nav-item">
-                        <a href="{{ route('operator.index') }}" class="nav-link {{ request()->routeIs('operator.index') ? 'active' : '' }}">
+                        <a href="{{ route('operator.index') }}" class="nav-link  {{ request()->routeIs('operator.index') ? 'active' : '' }}">
                             <i class="fas fa-users me-2"></i>
                             <span class="nav-label">Data Peserta</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
+                           <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
+                           <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link dropdown-toggle {{ request()->is('operator/parameters/*') ? 'active' : '' }}" data-bs-toggle="collapse" href="#parameterSubmenu" role="button" aria-expanded="false" aria-controls="parameterSubmenu">
+                        <i class="fas fa-cogs me-2"></i>
+                        <span class="nav-label">Parameter</span>
+                     </a>
+                     <div class="collapse {{ request()->is('operator/parameters/*') ? 'show' : '' }}" id="parameterSubmenu">
+                        <ul class="nav flex-column ms-3">
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                                    <i class="fas fa-chart-line me-2"></i> Nilai Sekarang
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                                    <i class="fas fa-child me-2"></i> NS Anak
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                                    <i class="fas fa-female me-2"></i> NS Janda
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                                    <i class="fas fa-user-tie me-2"></i> NS Pegawai
+                                 </a>
+                              </li>
+                        </ul>
+                     </div>
+                  </li>
+
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
+                           <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
+                        </a>
+                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
@@ -470,7 +518,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('hitung.index') }}" class="nav-link active {{ request()->routeIs('hitung.index') ? 'active' : '' }}">
+                        <a href="{{ route('hitung.index') }}" class="nav-link {{ request()->routeIs('hitung.index') ? 'active' : '' }}">
                             <i class="fas fa-calculator me-2"></i>
                             <span class="nav-label">Hitung Iuran</span>
                         </a>

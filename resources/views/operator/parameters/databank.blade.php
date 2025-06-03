@@ -55,85 +55,147 @@
             </div>
         </header>
 
-        <nav id="mainnav-container" class="mainnav">
-            <div class="mainnav__inner">
-                <div class="mainnav__top-content scrollable-content pb-5">
-                    <div id="_dm-mainnavProfile" class="mainnav__widget my-3 hv-outline-parent">
-                        <div class="mininav-toggle text-center py-2">
-                            <img class="mainnav__avatar img-md rounded-circle hv-oc" src="{{ asset('assets/img/profile-photos/1.png') }}" alt="Profile Picture" loading="lazy">
-                        </div>
-                        <div class="mininav-content collapse d-mn-max">
-                            <span data-popper-arrow class="arrow"></span>
-                            <div class="d-grid">
-                                <button class="mainnav-widget-toggle d-block btn border-0 p-2" data-bs-toggle="collapse" aria-expanded="false" aria-controls="usernav">
-                                    <span class="d-flex justify-content-center align-items-center">
-                                        <h5 class="mb-0" style="margin-left: 0px;">Operator</h5>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mainnav__categoriy py-3">
-                        <ul class="mainnav__menu nav flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('operator.index') }}" class="nav-link {{ request()->routeIs('operator.index') ? 'active' : '' }}">
-                                    <i class="fas fa-users me-2"></i>
-                                    <span class="nav-label">Data Peserta</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
-                                    <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
-                                    <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
-                                    <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
-                                    <i class="fas fa-print me-2"></i>
-                                    <span class="nav-label">Menu Cetak</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('manfaat.index') }}" class="nav-link {{ request()->routeIs('manfaat.index') ? 'active' : '' }}">
-                                    <i class="fas fa-book me-2"></i>
-                                    <span class="nav-label">Manfaat Pensiun</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('hitung.index') }}" class="nav-link {{ request()->routeIs('hitung.index') ? 'active' : '' }}">
-                                    <i class="fas fa-calculator me-2"></i>
-                                    <span class="nav-label">Hitung Iuran</span>
-                                </a>
-                            </li>
+       <nav id="mainnav-container" class="mainnav">
+    <div class="mainnav__inner">
+
+        <!-- Navigation menu -->
+        <div class="mainnav__top-content scrollable-content pb-5">
+
+            <!-- Profile Widget -->
+               <div id="_dm-mainnavProfile" class="mainnav__widget my-3 hv-outline-parent">
+
+                  <!-- Profile picture  -->
+                  <div class="mininav-toggle text-center py-2">
+                     <img class="mainnav__avatar img-md rounded-circle hv-oc" src="{{ asset('assets/img/profile-photos/1.png') }}" alt="Profile Picture">
+                  </div>
+
+
+                  <div class="mininav-content collapse d-mn-max">
+                     <span data-popper-arrow class="arrow"></span>
+                     <div class="d-grid">
+
+                        <!-- User name and position -->
+                        <button class="mainnav-widget-toggle d-block btn border-0 p-2" data-bs-toggle="collapse" aria-expanded="false" aria-controls="usernav">
+                           <span class="d-flex justify-content-center align-items-center">
+                              <h5 class="mb-0" style="margin-left: 0px;">Operator</h5>
+                           </span>
+                        </button>
+                     </div>
+                  </div>
+
+               </div>
+               <!-- End - Profile widget -->
+
+            <!-- Navigation Category -->
+            <div class="mainnav__categoriy py-3">
+                <ul class="mainnav__menu nav flex-column">
+
+                    <li class="nav-item">
+                        <a href="{{ route('operator.index') }}" class="nav-link {{ request()->routeIs('operator.index') ? 'active' : '' }}">
+                            <i class="fas fa-users me-2"></i>
+                            <span class="nav-label">Data Peserta</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
+                           <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
+                           <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link dropdown-toggle {{ request()->is('operator/parameters/*') ? 'active' : '' }}" data-bs-toggle="collapse" href="#parameterSubmenu" role="button" aria-expanded="false" aria-controls="parameterSubmenu">
+                        <i class="fas fa-cogs me-2"></i>
+                        <span class="nav-label">Parameter</span>
+                     </a>
+                     <div class="collapse {{ request()->is('operator/parameters/*') ? 'show' : '' }}" id="parameterSubmenu">
+                        <ul class="nav flex-column ms-3">
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                                    <i class="fas fa-chart-line me-2"></i> Nilai Sekarang
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                                    <i class="fas fa-child me-2"></i> NS Anak
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                                    <i class="fas fa-female me-2"></i> NS Janda
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                                    <i class="fas fa-user-tie me-2"></i> NS Pegawai
+                                 </a>
+                              </li>
                         </ul>
-                    </div>
-                </div>
-                <div class="mt-auto"></div>
-                <div class="mainnav__bottom-content border-top pb-2">
-                    <ul id="mainnav" class="mainnav__menu nav flex-column">
-                        <li class="nav-item mt-5 pt-2">
-                            <a href="{{ route('logout') }}" class="nav-link text-danger"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt me-2"></i>
-                                <span class="nav-label">Logout</span>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                     </div>
+                  </li>
+
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
+                           <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
+                        </a>
+                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
+                            <i class="fas fa-print me-2"></i>
+                            <span class="nav-label">Menu Cetak</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('manfaat.index') }}" class="nav-link {{ request()->routeIs('manfaat.index') ? 'active' : '' }}">
+                            <i class="fas fa-book me-2"></i>
+                            <span class="nav-label">Manfaat Pensiun</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('hitung.index') }}" class="nav-link {{ request()->routeIs('hitung.index') ? 'active' : '' }}">
+                            <i class="fas fa-calculator me-2"></i>
+                            <span class="nav-label">Hitung Iuran</span>
+                        </a>
+                    </li>
+
+                    <!-- Tambahkan menu lainnya di sini -->
+
+                </ul>
             </div>
-        </nav>
+
+        </div>
+        <!-- End: top content -->
+
+        <!-- Spacer to push logout to bottom -->
+        <div class="mt-auto"></div>
+
+        <!-- Bottom navigation menu -->
+        <div class="mainnav__bottom-content border-top pb-2">
+            <ul id="mainnav" class="mainnav__menu nav flex-column">
+                <li class="nav-item mt-5 pt-2">
+                    <a href="{{ route('logout') }}" class="nav-link text-danger"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        <span class="nav-label">Logout</span>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <!-- End - Bottom navigation menu -->
+
+    </div>
+</nav>
 
         <section id="content" class="content">
             <div class="content__header content__boxed overlapping">
