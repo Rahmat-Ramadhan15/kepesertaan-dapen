@@ -343,6 +343,26 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                                    <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Nilai Sekarang</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                                    <i class="fas fa-sitemap me-2"></i> <span class="nav-label">NS anak</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                                    <i class="fas fa-sitemap me-2"></i> <span class="nav-label">NS Janda</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                                    <i class="fas fa-sitemap me-2"></i> <span class="nav-label">NS Pegawai</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
                                     <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
                                 </a>
