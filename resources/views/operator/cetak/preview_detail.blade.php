@@ -26,7 +26,7 @@
                     </tr>
                     <tr>
                         <td>Status Pernikahan</td>
-                        <td>: {{ $p->status_pernikahan }}</td>
+                        <td>: {{ $p->status_kawin }}</td>
                     </tr>
                     <tr>
                         <td>Pendidikan</td>
@@ -85,8 +85,8 @@
         @if(!empty($filters['cabang']))
             <li>Cabang: {{ App\Models\Cabang::find($filters['cabang'])->nama_cabang ?? 'Semua Cabang' }}</li>
         @endif
-        @if(!empty($filters['status_pernikahan']))
-            <li>Status Pernikahan: {{ $filters['status_pernikahan'] }}</li>
+        @if(!empty($filters['status_kawin']))
+            <li>Status Pernikahan: {{ $filters['status_kawin'] }}</li>
         @endif
         @if(!empty($filters['pendidikan']))
             <li>Pendidikan: {{ $filters['pendidikan'] }}</li>
