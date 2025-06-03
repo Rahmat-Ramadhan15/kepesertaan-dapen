@@ -262,7 +262,7 @@
 
         <!-- SIDEBAR -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        @include('admin.layouts.footer')
+        @include('admin.layouts.sidebar')
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- END - SIDEBAR -->
 
