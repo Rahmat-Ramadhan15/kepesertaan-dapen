@@ -1,525 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light" data-scheme="navy">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Cabang</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <meta name="description"
+        content="Nifty is a responsive admin dashboard template based on Bootstrap 5 framework. There are a lot of useful components.">
+    <title>Dashboard | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* SALIN SEMUA KODE CSS DARI FILE index.blade.php DATA BANK ANDA DI SINI */
-        :root {
-            --primary-color: #3f51b5;
-            --primary-light: #f5f7ff;
-            --primary-dark: #303f9f;
-            --light-gray: #f8f9fa;
-            --border-radius: 0.5rem;
-            --sidebar-width: 250px;
-            --sidebar-width-collapsed: 70px;
-            --header-height: 60px;
-        }
 
-        body {
-            background-color: var(--light-gray);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            overflow-x: hidden;
-        }
+    <!-- STYLESHEETS -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-        /* Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: var(--sidebar-width);
-            background-color: var(--primary-dark);
-            color: white;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
+    <!-- Fonts [ OPTIONAL ] -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Ubuntu:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
-        .sidebar.collapsed {
-            width: var(--sidebar-width-collapsed);
-            background-color: transparent;
-            box-shadow: none;
-        }
 
-        .sidebar-header {
-            padding: 1.5rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            height: var(--header-height);
-        }
+    <!-- Bootstrap CSS [ REQUIRED ] -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-        .sidebar.collapsed .sidebar-header {
-            border-bottom: none;
-            justify-content: center;
-            padding: 1.5rem 0;
-        }
+    <!-- Nifty CSS [ REQUIRED ] -->
+    <link rel="stylesheet" href="{{ asset('assets/css/nifty.min.css') }}">
 
-        .sidebar-title {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
+    <!-- Nifty Demo Icons [ OPTIONAL ] -->
+    <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-icons.min.css') }}">
 
-        .sidebar.collapsed .sidebar-title {
-            display: none;
-        }
+    <!-- Demo purpose CSS [ DEMO ] -->
+    <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-settings.min.css') }}">
 
-        .sidebar-toggle {
-            background: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            padding: 0.25rem;
-            font-size: 1.2rem;
-            line-height: 1;
-            transition: all 0.3s ease;
-        }
 
-        .sidebar.collapsed .sidebar-toggle {
-            color: var(--primary-dark);
-            padding: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            margin: 0;
-        }
+    <!-- Favicons [ OPTIONAL ] -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
 
-        .sidebar-menu {
-            margin-top: 1rem;
-            padding: 0;
-            list-style: none;
-        }
 
-        .sidebar-menu-item {
-            padding: 0;
-            display: block;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        .sidebar-menu-item a {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
+   [ REQUIRED ]
+   You must include this category in your project.
 
-        .sidebar.collapsed .sidebar-menu-item a {
-            justify-content: center;
-            padding: 0.75rem 0;
-        }
 
-        .sidebar-menu-item a:hover {
-            background-color: rgba(255, 254, 254, 0.1);
-            color: white;
-            cursor: pointer;
-        }
+   [ OPTIONAL ]
+   This is an optional plugin. You may choose to include it in your project.
 
-        .sidebar.collapsed .sidebar-menu-item a:hover {
-            background-color: transparent;
-        }
 
-        .sidebar.collapsed .sidebar-menu-item a i {
-            color: var(--primary-dark);
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 0.5rem;
-            border-radius: 50%;
-            margin: 0.5rem 0;
-        }
+   [ DEMO ]
+   Used for demonstration purposes only. This category should NOT be included in your project.
 
-        .sidebar-menu-item a i {
-            margin-right: 1rem;
-            width: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
 
-        .sidebar.collapsed .sidebar-menu-item a i {
-            margin-right: 0;
-        }
+   [ SAMPLE ]
+   Here's a sample script that explains how to initialize plugins and/or components: This category should NOT be included in your project.
 
-        .sidebar.collapsed .sidebar-menu-item a span {
-            display: none;
-        }
 
-        /* Main Content Styles */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
+   Detailed information and more samples can be found in the documentation.
 
-        .main-content.expanded {
-            margin-left: var(--sidebar-width-collapsed);
-        }
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
 
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .dashboard-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin: 0;
-        }
-
-        .card {
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .card-header {
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-            padding: 1rem 1.5rem;
-        }
-
-        .action-button {
-            padding: 0.6rem 1.2rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #aaa;
-        }
-
-        /* Logout button in sidebar */
-        .sidebar-logout {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            padding: 0 1rem;
-        }
-
-        .sidebar-logout-btn {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: 0.75rem 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            background-color: #dc3545;
-            border: none;
-            border-radius: var(--border-radius);
-            text-align: left;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .sidebar-logout-btn:hover {
-            background-color: #bb2d3b;
-            color: white;
-        }
-
-        .sidebar-logout-btn i {
-            margin-right: 1rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .sidebar.collapsed .sidebar-logout-btn span {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-logout-btn {
-            justify-content: center;
-            padding: 0.75rem 0;
-        }
-
-        .sidebar.collapsed .sidebar-logout-btn i {
-            margin-right: 0;
-            color: white;
-            background-color: transparent;
-            padding: 0;
-            margin: 0;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar-logout {
-                display: block;
-            }
-
-            .sidebar.collapsed .sidebar-logout-btn span {
-                display: inline;
-            }
-
-            .sidebar.collapsed .sidebar-logout-btn {
-                justify-content: flex-start;
-                padding: 0.75rem 1rem;
-            }
-
-            .sidebar.collapsed .sidebar-logout-btn i {
-                margin-right: 1rem;
-            }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: var(--sidebar-width-collapsed);
-                transform: translateX(-100%);
-            }
-
-            .sidebar.collapsed {
-                transform: translateX(0);
-                width: var(--sidebar-width);
-                background-color: var(--primary-dark);
-            }
-
-            .sidebar.collapsed .sidebar-header {
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                justify-content: space-between;
-                padding: 1.5rem 1rem;
-            }
-
-            .sidebar.collapsed .sidebar-toggle {
-                color: white;
-                background-color: transparent;
-                border-radius: 0;
-            }
-
-            .sidebar.collapsed .sidebar-title {
-                display: block;
-            }
-
-            .sidebar.collapsed .sidebar-menu-item a {
-                justify-content: flex-start;
-                padding: 0.75rem 1rem;
-            }
-
-            .sidebar.collapsed .sidebar-menu-item a i {
-                color: rgba(255, 255, 255, 0.8);
-                background-color: transparent;
-                padding: 0;
-                border-radius: 0;
-                margin-right: 1rem;
-                margin: 0 1rem 0 0;
-            }
-
-            .sidebar.collapsed .sidebar-menu-item a:hover {
-                background-color: rgba(255, 255, 255, 0.1);
-            }
-
-            .sidebar.collapsed .sidebar-menu-item a span {
-                display: inline;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-            }
-
-            .mobile-toggle {
-                display: block;
-                position: fixed;
-                top: 10px;
-                left: 10px;
-                z-index: 1001;
-                background-color: var(--primary-color);
-                color: white;
-                border: none;
-                border-radius: var(--border-radius);
-                padding: 0.5rem;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
-        }
-    </style>
 </head>
-<body>
-    @include('admin.layouts.sidebar')
 
-    <div class="modal fade" id="auditLogModal" tabindex="-1" aria-labelledby="auditLogModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="auditLogModalLabel">
-                        <i class="fas fa-clipboard-list me-2"></i> Log Aktivitas Pengguna
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body" id="auditLogContent">
-                    <div class="text-center text-muted py-5">
-                        <i class="fas fa-spinner fa-spin fa-2x"></i><br>
-                        Memuat data log...
+<body class="out-quart">
+
+
+
+    <!-- PAGE CONTAINER -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div id="root" class="root mn--max tm--expanded-hd">
+
+        <!-- CONTENTS -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Modal Log Aktivitas -->
+        <div class="modal fade" id="auditLogModal" tabindex="-1" aria-labelledby="auditLogModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="auditLogModalLabel">
+                            <i class="fas fa-clipboard-list me-2"></i> Log Aktivitas Pengguna
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body" id="auditLogContent">
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+                            Memuat data log...
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <button class="mobile-toggle d-lg-none" id="mobileToggle">
-        <i class="fas fa-bars"></i>
-    </button>
+        <!-- Mobile Toggle Button (only visible on small screens) -->
+        <button class="mobile-toggle d-lg-none" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </button>
 
-    <div class="main-content" id="mainContent">
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">
-                    <i class="fas fa-sitemap me-2"></i> Tambah Data Cabang
-                </h1>
-                <div>
-                    <a href="{{ route('cabang.index') }}" class="btn btn-secondary action-button">
-                        <i class="fas fa-arrow-left me-2"></i> Kembali
-                    </a>
-                </div>
-            </div>
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card p-4">
+                            <h3 class="dashboard-title">
+                                Tambah Cabang
+                            </h3>
+                            <form action="{{ route('cabang.store') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="kode_cabang" class="form-label">Kode Cabang</label>
+                                    <select class="form-select @error('kode_cabang') is-invalid @enderror"
+                                        id="kode_cabang" name="kode_cabang" required>
+                                        <option value="">Pilih Kode Cabang</option>
+                                        @foreach ($bank_data as $bank)
+                                            <option value="{{ $bank->kode_cabang }}"
+                                                data-nama-cabang="{{ $bank->nama_cabang }}"
+                                                data-alamat="{{ $bank->alamat }}"
+                                                {{ old('kode_cabang') == $bank->kode_cabang ? 'selected' : '' }}>
+                                                {{ $bank->kode_cabang }} - {{ $bank->nama_cabang }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('kode_cabang')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <form action="{{ route('cabang.store') }}" method="POST">
-                        @csrf
+                                <div class="mb-3">
+                                    <label for="nama_cabang_display" class="form-label">Nama Cabang</label>
+                                    <p class="form-control-plaintext" id="nama_cabang_display">{{ old('nama_cabang') }}
+                                    </p>
+                                    <input type="hidden" name="nama_cabang" id="nama_cabang"
+                                        value="{{ old('nama_cabang') }}" required>
+                                    @error('nama_cabang')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                        <div class="mb-3">
-                            <label for="kode_cabang" class="form-label">Kode Cabang</label>
-                            <select class="form-select @error('kode_cabang') is-invalid @enderror" id="kode_cabang" name="kode_cabang" required>
-                                <option value="">Pilih Kode Cabang</option>
-                                @foreach ($bank_data as $bank)
-                                    <option value="{{ $bank->kode_cabang }}"
-                                            data-nama-cabang="{{ $bank->nama_cabang }}"
-                                            data-alamat="{{ $bank->alamat }}"
-                                            {{ old('kode_cabang') == $bank->kode_cabang ? 'selected' : '' }}>
-                                        {{ $bank->kode_cabang }} - {{ $bank->nama_cabang }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('kode_cabang')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                <div class="mb-3">
+                                    <label for="alamat_display" class="form-label">Alamat</label>
+                                    <p class="form-control-plaintext" id="alamat_display">{{ old('alamat') }}</p>
+                                    <input type="hidden" name="alamat" id="alamat_hidden"
+                                        value="{{ old('alamat') }}" required>
+                                    @error('alamat')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kode_alias" class="form-label">Kode Alias</label>
+                                    <input type="text"
+                                        class="form-control @error('kode_alias') is-invalid @enderror" id="kode_alias"
+                                        name="kode_alias" value="{{ old('kode_alias') }}">
+                                    @error('kode_alias')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kota" class="form-label">Kota</label>
+                                    <input type="text" class="form-control @error('kota') is-invalid @enderror"
+                                        id="kota" name="kota" value="{{ old('kota') }}">
+                                    @error('kota')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kode_pos" class="form-label">Kode Pos</label>
+                                    <input type="text" class="form-control @error('kode_pos') is-invalid @enderror"
+                                        id="kode_pos" name="kode_pos" value="{{ old('kode_pos') }}">
+                                    @error('kode_pos')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="telepon" class="form-label">Telepon</label>
+                                    <input type="text" class="form-control @error('telepon') is-invalid @enderror"
+                                        id="telepon" name="telepon" value="{{ old('telepon') }}">
+                                    @error('telepon')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fax" class="form-label">Fax</label>
+                                    <input type="text" class="form-control @error('fax') is-invalid @enderror"
+                                        id="fax" name="fax" value="{{ old('fax') }}">
+                                    @error('fax')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                        id="email" name="email" value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary action-button">
+                                        <i class="fas fa-plus me-"></i> Simpan
+                                    </button>
+                                    <a href="{{ route('cabang.index') }}" class="btn btn-secondary action-button">
+                                        <i class="fas fa-arrow-left me-1"></i> Kembali
+                                    </a>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="nama_cabang_display" class="form-label">Nama Cabang</label>
-                            <p class="form-control-plaintext" id="nama_cabang_display">{{ old('nama_cabang') }}</p>
-                            <input type="hidden" name="nama_cabang" id="nama_cabang" value="{{ old('nama_cabang') }}" required>
-                            @error('nama_cabang')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="alamat_display" class="form-label">Alamat</label>
-                            <p class="form-control-plaintext" id="alamat_display">{{ old('alamat') }}</p>
-                            <input type="hidden" name="alamat" id="alamat_hidden" value="{{ old('alamat') }}" required>
-                            @error('alamat')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="kode_alias" class="form-label">Kode Alias</label>
-                            <input type="text" class="form-control @error('kode_alias') is-invalid @enderror" id="kode_alias" name="kode_alias" value="{{ old('kode_alias') }}">
-                            @error('kode_alias')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="kota" class="form-label">Kota</label>
-                            <input type="text" class="form-control @error('kota') is-invalid @enderror" id="kota" name="kota" value="{{ old('kota') }}">
-                            @error('kota')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="kode_pos" class="form-label">Kode Pos</label>
-                            <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" id="kode_pos" name="kode_pos" value="{{ old('kode_pos') }}">
-                            @error('kode_pos')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="telepon" class="form-label">Telepon</label>
-                            <input type="text" class="form-control @error('telepon') is-invalid @enderror" id="telepon" name="telepon" value="{{ old('telepon') }}">
-                            @error('telepon')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="fax" class="form-label">Fax</label>
-                            <input type="text" class="form-control @error('fax') is-invalid @enderror" id="fax" name="fax" value="{{ old('fax') }}">
-                            @error('fax')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-primary action-button">
-                            <i class="fas fa-plus me-2"></i> Tambah Data
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- END - CONTENTS -->
+
+
+        <!-- HEADER -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        @include('admin.layouts.header')
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- END - HEADER -->
+
+
+        <!-- MAIN NAVIGATION -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        @include('admin.layouts.main-nav')
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- END - MAIN NAVIGATION -->
+
+
+        <!-- SIDEBAR -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        @include('admin.layouts.sidebar')
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- END - SIDEBAR -->
+
+
     </div>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- END - PAGE CONTAINER -->
+
+
+    <!-- SCROLL TO TOP BUTTON -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="scroll-container">
+        <a href="#root" class="scroll-page ratio ratio-1x1" aria-label="Scroll button"></a>
+    </div>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- END - SCROLL TO TOP BUTTON -->
+
+
+    <!-- BOXED LAYOUT : BACKGROUND IMAGES CONTENT [ DEMO ] -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    @include('admin.layouts.boxed-layout')
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- END - BOXED LAYOUT : BACKGROUND IMAGES CONTENT [ DEMO ] -->
+
+
+    <!-- SETTINGS CONTAINER [ DEMO ] -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    @include('admin.layouts.setting-container')
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- END - SETTINGS CONTAINER [ DEMO ] -->
+
+
+    <!-- OFFCANVAS [ DEMO ] -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div id="_dm-offcanvas" class="offcanvas" tabindex="-1">
+
+        <!-- Offcanvas header -->
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Offcanvas Header</h5>
+            <button type="button" class="btn-close btn-lg text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+
+        <!-- Offcanvas content -->
+        <div class="offcanvas-body">
+            <h5>Content Here</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente eos nihil earum aliquam quod in dolor,
+                aspernatur obcaecati et at. Dicta, ipsum aut, fugit nam dolore porro non est totam sapiente animi
+                recusandae obcaecati dolorum, rem ullam cumque. Illum quidem reiciendis autem neque excepturi odit est
+                accusantium, facilis provident molestias, dicta obcaecati itaque ducimus fuga iure in distinctio
+                voluptate nesciunt dignissimos rem error a. Expedita officiis nam dolore dolores ea. Soluta repellendus
+                delectus culpa quo. Ea tenetur impedit error quod exercitationem ut ad provident quisquam omnis! Nostrum
+                quasi ex delectus vero, facilis aut recusandae deleniti beatae. Qui velit commodi inventore.</p>
+        </div>
+
+    </div>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- END - OFFCANVAS [ DEMO ] -->
+
+
+    <!-- JAVASCRIPTS -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+    <!-- Popper JS [ OPTIONAL ] -->
+    <script src="{{ asset('assets/vendors/popperjs/popper.min.js') }}"></script>
+
+
+    <!-- Bootstrap JS [ OPTIONAL ] -->
+    <script src="{{ asset('assets/vendors/bootstrap/bootstrap.min.js') }}"></script>
+
+
+    <!-- Nifty JS [ OPTIONAL ] -->
+    <script src="{{ asset('assets/js/nifty.js') }}"></script>
+
+
+    <!-- Nifty Settings [ DEMO ] -->
+    <script src="{{ asset('assets/js/demo-purpose-only.js') }}"></script>
+
+
+    <!-- Chart JS Scripts [ OPTIONAL ] -->
+    <script src="{{ asset('assets/vendors/chart.js/chart.umd.min.js') }}"></script>
+
+
+    <!-- Initialize [ SAMPLE ] -->
+    <script src="{{ asset('assets/pages/dashboard-1.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -599,4 +411,5 @@
         });
     </script>
 </body>
+
 </html>
