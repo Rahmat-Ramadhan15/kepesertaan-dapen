@@ -109,6 +109,22 @@
                         <i class="fas fa-id-card me-2"></i> Data Pribadi
                     </div>
                     <div class="card-body">
+                     @if ($errors->any())
+                        <div id="alert-error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                           <strong>Terjadi kesalahan:</strong>
+                           <ul class="mb-0">
+                                 @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                 @endforeach
+                           </ul>
+                        </div>
+                     @endif
+
+                     @if (session('success'))
+                        <div id="alert-success" class="alert alert-success alert-dismissible fade show" role="alert">
+                           {{ session('success') }}
+                        </div>
+                     @endif
                         <form action="{{ route('keluarga.store') }}" method="POST" class="mt-3">
                         @csrf
                         <div class="row g-3">
@@ -302,6 +318,58 @@
                             <span class="nav-label">Data Peserta</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
+                           <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
+                           <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
+                        </a>
+                     </li>
+                     <li class="nav-item has-sub">
+
+
+                        <a href="#" class="mininav-toggle nav-link collapsed"><i class="fas fa-cogs me-2"></i>
+                           <span class="nav-label ms-1">Parameter</span>
+                        </a>
+
+                        <!-- Dashboard submenu list -->
+                        <ul class="mininav-content nav collapse">
+                           <li data-popper-arrow class="arrow"></li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                                    <i class="fas fa-chart-line me-2"></i> Nilai Sekarang
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                                    <i class="fas fa-child me-2"></i> NS Anak
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                                    <i class="fas fa-female me-2"></i> NS Janda
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                                    <i class="fas fa-user-tie me-2"></i> NS Pegawai
+                                 </a>
+                           </li>
+
+                        </ul>
+                        <!-- END : Dashboard submenu list -->
+
+                     </li>
+
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
+                           <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
+                        </a>
+                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
@@ -1284,6 +1352,16 @@
 
    <!-- Initialize [ SAMPLE ] -->
    <script src="{{ asset('assets/pages/dashboard-1.js') }}"></script>
+
+   <script>
+      setTimeout(() => {
+         const alertError = document.getElementById('alert-error');
+         const alertSuccess = document.getElementById('alert-success');
+
+         if (alertError) alertError.style.display = 'none';
+         if (alertSuccess) alertSuccess.style.display = 'none';
+      }, 3000);
+   </script>
 
 
 </body>

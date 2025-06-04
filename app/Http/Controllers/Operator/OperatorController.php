@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Peserta;
 use App\Models\Cabang;
+use App\Models\KodePeserta;
+use App\Models\ptkp;
 use Illuminate\Support\Facades\Validator;
 
 class OperatorController extends Controller
@@ -52,11 +54,10 @@ class OperatorController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
             'nip' => 'required|string|max:50|unique:tablepeserta,nip',
             'nama' => 'required|string|max:255',
-            'no_sk' => 'required|string|max:100',
+            // 'no_sk' => 'string|max:100',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
@@ -83,33 +84,66 @@ class OperatorController extends Controller
             'phdp' => 'required|numeric|min:0',
             'akumulasi_ibhp' => 'required|numeric|min:0',
             'kode_cabang' => 'required|exists:tablecabang,kode_cabang',
+        ], [
+            'required' => ':attribute wajib diisi.',
+            // 'string' => ':attribute harus berupa teks.',
+            'max' => ':attribute maksimal :max karakter.',
+            'unique' => ':attribute sudah digunakan.',
+            'in' => ':attribute tidak valid.',
+            'date' => ':attribute harus berupa tanggal yang benar.',
+            'integer' => ':attribute harus berupa angka bulat.',
+            'numeric' => ':attribute harus berupa angka.',
+            'exists' => ':attribute tidak ditemukan dalam database.',
         ]);
 
-        // Jika validasi gagal
+        $validator->setAttributeNames([
+            'nip' => 'NIP',
+            'nama' => 'Nama Lengkap',
+            'no_sk' => 'Nomor SK',
+            'jenis_kelamin' => 'Jenis Kelamin',
+            'tempat_lahir' => 'Tempat Lahir',
+            'tanggal_lahir' => 'Tanggal Lahir',
+            'usia' => 'Usia',
+            'tmk' => 'Tanggal Masuk Kerja',
+            'mkmk' => 'MKMK',
+            'tpst' => 'TPST',
+            'mkmp' => 'MKMP',
+            'kode_peserta' => 'Kode Peserta',
+            'status_kawin' => 'Status Kawin',
+            'kode_ptkp' => 'Kode PTKP',
+            'alamat' => 'Alamat',
+            'kelurahan' => 'Kelurahan',
+            'kecamatan' => 'Kecamatan',
+            'kabupaten_kota' => 'Kabupaten/Kota',
+            'kode_pos' => 'Kode Pos',
+            'telpon' => 'Nomor Telepon',
+            'pendidikan' => 'Pendidikan',
+            'jurusan' => 'Jurusan',
+            'golongan' => 'Golongan',
+            'kode_dir' => 'Kode Direktorat',
+            'jabatan' => 'Jabatan',
+            'tahun_jabat' => 'Tahun Menjabat',
+            'phdp' => 'PhDP',
+            'akumulasi_ibhp' => 'Akumulasi IBHP',
+            'kode_cabang' => 'Kode Cabang',
+        ]);
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        // Ambil semua input
         $input = $request->all();
 
-        // Map jika 'cabang' dikirim tapi bukan 'kode_cabang'
         if ($request->has('cabang') && !$request->has('kode_cabang')) {
             $input['kode_cabang'] = $request->input('cabang');
         }
 
-        // Simpan data ke database
         Peserta::create($input);
 
-        return redirect()->route('operator.index')
-            ->with('success', 'Peserta berhasil ditambahkan.');
+        return redirect()->route('operator.index')->with('success', 'Peserta berhasil ditambahkan.');
     }
-
-
-
-
     /**
      * Display the specified resource.
      */
@@ -128,11 +162,14 @@ class OperatorController extends Controller
     {
         $peserta = Peserta::where('nip', $nip)->firstOrFail();
         $cabangs = Cabang::all();
-        return view('operator.edit', compact('peserta','cabangs'));
+        $kdpeserta = KodePeserta::all();
+        $kdptkp = ptkp::all();
+        return view('operator.edit', compact('peserta','cabangs','kdpeserta','kdptkp'));
     }
 
     public function update(Request $request, $nip)
     {
+        // dd($request->all());
         $peserta = Peserta::where('nip', $nip)->firstOrFail();
         $peserta->update($request->all());
 

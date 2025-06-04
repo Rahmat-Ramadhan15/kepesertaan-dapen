@@ -82,7 +82,7 @@
                <h1 class="page-title mb-0 mt-2">Menu Cetak</h1>
 
                <p class="lead">
-                  General form-control live preview. You can copy our examples and paste them into your project!
+                  Menu Cetak
                </p>
             </div>
 

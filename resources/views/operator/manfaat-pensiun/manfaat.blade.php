@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="Interactive Tables and Data Grids for JavaScript.">
-   <title>Tabulator | Nifty - Admin Template</title>
+   <title>Manfaat | Nifty - Admin Template</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -83,7 +83,7 @@
                <h1 class="page-title mb-0 mt-2">Manfaat Penisun</h1>
 
                <p class="lead">
-                  Interactive Tables and Data Grids for JavaScript.
+                  Manfaat Penisun
                </p>
             </div>
 

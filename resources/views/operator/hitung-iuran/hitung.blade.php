@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="General form-control live preview. You can copy our examples and paste them into your project!">
-   <title>General | Nifty - Admin Template</title>
+   <title>Hitung | Nifty - Admin Template</title>
 
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -83,7 +83,7 @@
                <h1 class="page-title mb-0 mt-2">Hitung Iuran</h1>
 
                <p class="lead">
-                  General form-control live preview. You can copy our examples and paste them into your project!
+                  Hitung Iuran
                </p>
             </div>
 
@@ -223,7 +223,7 @@
                            <div class="card-body">
                               <h5 class="card-title">Informasi Iuran Pensiun</h5>
 
-<div class="card-body">
+                           <div class="card-body">
                             <div class="mb-4">
                                 <h5 class="fw-bold">Penghasilan Dasar Pensiun (PhDP)</h5>
                                 <p>PhDP adalah jumlah gaji pokok dan tunjangan tetap yang menjadi dasar perhitungan iuran dan manfaat pensiun.</p>
