@@ -191,24 +191,16 @@
         <!-- Bottom navigation menu -->
         <div class="mainnav__bottom-content border-top pb-2">
             <ul id="mainnav" class="mainnav__menu nav flex-column">
-                <li class="nav-item has-sub">
-                    <a href="#" class="nav-link mininav-toggle collapsed" aria-expanded="false">
-                        <i class="demo-pli-unlock fs-5 me-2"></i>
-                        <span class="nav-label ms-1">Logout</span>
+                <li class="nav-item mt-5 pt-2">
+                    <a href="{{ route('logout') }}" class="nav-link text-danger"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        <span class="nav-label">Logout</span>
                     </a>
-                    <ul class="mininav-content nav flex-column collapse">
-                        <li data-popper-arrow class="arrow"></li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">This device only</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">All Devices</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Lock
-                                screen</a>
-                        </li>
-                    </ul>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </div>
