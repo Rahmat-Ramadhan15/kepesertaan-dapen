@@ -327,12 +327,12 @@
          <!-- FOOTER -->
 
          <footer class="mt-auto">
-            <div class="content__boxed">
-               <div class="content__wrap py-3 py-md-1 d-flex flex-column flex-md-row align-items-md-center">
-                  <div class="text-nowrap mb-4 mb-md-0">Copyright &copy; 2024 <a href="#" class="ms-1 btn-link fw-bold">Sulselbar</a></div>
-               </div>
-            </div>
-         </footer>
+                <div class="content__boxed">
+                    <div class="content__wrap py-3 py-md-1 d-flex flex-column flex-md-row align-items-md-center">
+                        <div class="text-nowrap mb-4 mb-md-0">Copyright &copy; 2025 <a href="#" class="ms-1 btn-link fw-bold">Dapen Bank Sulselbar</a></div>
+                    </div>
+                </div>
+            </footer>
 
          <!-- END - FOOTER -->
 
@@ -414,7 +414,6 @@
       <!-- MAIN NAVIGATION -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <nav id="mainnav-container" class="mainnav">
-    <nav id="mainnav-container" class="mainnav">
     <div class="mainnav__inner">
 
         <!-- Navigation menu -->
@@ -450,7 +449,7 @@
                 <ul class="mainnav__menu nav flex-column">
 
                     <li class="nav-item">
-                        <a href="{{ route('operator.index') }}" class="nav-link  {{ request()->routeIs('operator.index') ? 'active' : '' }}">
+                        <a href="{{ route('operator.index') }}" class="nav-link {{ request()->routeIs('operator.index') ? 'active' : '' }}">
                             <i class="fas fa-users me-2"></i>
                             <span class="nav-label">Data Peserta</span>
                         </a>
@@ -466,36 +465,41 @@
                            <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
                         </a>
                      </li>
-                     <li class="nav-item">
-                     <a class="nav-link dropdown-toggle {{ request()->is('operator/parameters/*') ? 'active' : '' }}" data-bs-toggle="collapse" href="#parameterSubmenu" role="button" aria-expanded="false" aria-controls="parameterSubmenu">
-                        <i class="fas fa-cogs me-2"></i>
-                        <span class="nav-label">Parameter</span>
-                     </a>
-                     <div class="collapse {{ request()->is('operator/parameters/*') ? 'show' : '' }}" id="parameterSubmenu">
-                        <ul class="nav flex-column ms-3">
-                              <li class="nav-item">
-                                 <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                     <li class="nav-item has-sub">
+
+
+                        <a href="#" class="mininav-toggle nav-link collapsed"><i class="fas fa-cogs me-2"></i>
+                           <span class="nav-label ms-1">Parameter</span>
+                        </a>
+
+                        <!-- Dashboard submenu list -->
+                        <ul class="mininav-content nav collapse">
+                           <li data-popper-arrow class="arrow"></li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
                                     <i class="fas fa-chart-line me-2"></i> Nilai Sekarang
                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
                                     <i class="fas fa-child me-2"></i> NS Anak
                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
                                     <i class="fas fa-female me-2"></i> NS Janda
                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
                                     <i class="fas fa-user-tie me-2"></i> NS Pegawai
                                  </a>
-                              </li>
+                           </li>
+
                         </ul>
-                     </div>
-                  </li>
+                        <!-- END : Dashboard submenu list -->
+
+                     </li>
 
                      <li class="nav-item">
                         <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
