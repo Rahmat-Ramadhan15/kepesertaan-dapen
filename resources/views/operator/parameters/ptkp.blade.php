@@ -77,9 +77,9 @@
             <div class="content__header content__boxed overlapping">
                 <div class="content__wrap">
                     <h1 class="page-title mb-2">Tabel PTKP</h1> <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('operator.parameters.ptkp') }}">Tabel PTKP</a></li>
-                        </ol>
+                        <p class="lead">
+                            Tabel PTKP
+                        </p>
                     </nav>
                 </div>
             </div>

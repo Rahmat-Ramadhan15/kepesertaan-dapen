@@ -35,16 +35,33 @@ class KeluargaController extends Controller
         $request->validate([
             'nip' => 'required|exists:tablepeserta,nip',
             'nama' => 'required|string|max:255',
-            'hubungan' => 'required|string',
+            'hubungan' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'tanggal_lahir' => 'required|date',
             'usia' => 'required|numeric|min:0',
+        ], [
+            'required' => ':attribute wajib diisi.',
+            'exists' => ':attribute tidak ditemukan di database.',
+            'string' => ':attribute harus berupa teks.',
+            'max' => ':attribute maksimal :max karakter.',
+            'in' => ':attribute harus salah satu dari: :values.',
+            'date' => ':attribute harus berupa tanggal yang valid.',
+            'numeric' => ':attribute harus berupa angka.',
+            'min' => ':attribute minimal bernilai :min.',
+        ], [
+            'nip' => 'NIP Peserta',
+            'nama' => 'Nama Keluarga',
+            'hubungan' => 'Hubungan Keluarga',
+            'jenis_kelamin' => 'Jenis Kelamin',
+            'tanggal_lahir' => 'Tanggal Lahir',
+            'usia' => 'Usia',
         ]);
 
         Keluarga::create($request->all());
 
-        return redirect()->back()->with('success', 'Keluarga berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Data keluarga berhasil ditambahkan.');
     }
+
 
     /**
      * Display the specified resource.

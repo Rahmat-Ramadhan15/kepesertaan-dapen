@@ -108,6 +108,22 @@
                         <i class="fas fa-id-card me-2"></i> Data Pribadi
                     </div>
                     <div class="card-body">
+                            @if ($errors->any())
+                              <div id="alert-error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                 <strong>Terjadi kesalahan:</strong>
+                                 <ul class="mb-0">
+                                       @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                       @endforeach
+                                 </ul>
+                              </div>
+                           @endif
+
+                           @if (session('success'))
+                              <div id="alert-success" class="alert alert-success alert-dismissible fade show" role="alert">
+                                 {{ session('success') }}
+                              </div>
+                           @endif
                         <form action="{{ route('operator.store') }}" method="POST">
                          @csrf
                             <div class="row g-3">
@@ -250,8 +266,24 @@
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" step="0.01" class="form-control" id="phdp" name="phdp" value="{{ old('phdp') }}" placeholder="0.00">
                                     </div>
-                                    <label class="form-label fw-semibold  mt-3">Kode PTKP</label>
-                                    <input type="number" class="form-control" id="kode_ptkp" name="kode_ptkp" value="{{ old('kode_ptkp') }}" placeholder="Masukkan kode PTKP">
+                                    <label class="form-label fw-semibold mt-3" for="kode_ptkp">Kode PTKP</label>
+                                    <select class="form-select" id="kode_ptkp" name="kode_ptkp">
+                                       <option value="">Pilih Kode PTKP</option>
+                                       <option value="0" {{ old('kode_ptkp') == '0' ? 'selected' : '' }}>0</option>
+                                       <option value="D0" {{ old('kode_ptkp') == 'D0' ? 'selected' : '' }}>D0</option>
+                                       <option value="D1" {{ old('kode_ptkp') == 'D1' ? 'selected' : '' }}>D1</option>
+                                       <option value="D2" {{ old('kode_ptkp') == 'D2' ? 'selected' : '' }}>D2</option>
+                                       <option value="D3" {{ old('kode_ptkp') == 'D3' ? 'selected' : '' }}>D3</option>
+                                       <option value="J0" {{ old('kode_ptkp') == 'J0' ? 'selected' : '' }}>J0</option>
+                                       <option value="J1" {{ old('kode_ptkp') == 'J1' ? 'selected' : '' }}>J1</option>
+                                       <option value="J2" {{ old('kode_ptkp') == 'J2' ? 'selected' : '' }}>J2</option>
+                                       <option value="J3" {{ old('kode_ptkp') == 'J3' ? 'selected' : '' }}>J3</option>
+                                       <option value="K0" {{ old('kode_ptkp') == 'K0' ? 'selected' : '' }}>K0</option>
+                                       <option value="K1" {{ old('kode_ptkp') == 'K1' ? 'selected' : '' }}>K1</option>
+                                       <option value="K2" {{ old('kode_ptkp') == 'K2' ? 'selected' : '' }}>K2</option>
+                                       <option value="K3" {{ old('kode_ptkp') == 'K3' ? 'selected' : '' }}>K3</option>
+                                       <option value="TK" {{ old('kode_ptkp') == 'TK' ? 'selected' : '' }}>TK</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold ">Akumulasi IBHP</label>
@@ -259,9 +291,22 @@
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" step="0.01" class="form-control" id="akumulasi_ibhp" name="akumulasi_ibhp" value="{{ old('akumulasi_ibhp') }}" placeholder="0.00">
                                     </div>
-                                    <label class="form-label fw-semibold  mt-3">Kode Peserta</label>
-                                    <input type="number" class="form-control" id="kode_peserta" name="kode_peserta" value="{{ old('kode_peserta') }}" placeholder="Masukkan kode peserta">
-                                </div>
+                                    <label class="form-label fw-semibold mt-3" for="kode_peserta">Kode Peserta</label>
+                                    <select class="form-select" id="kode_peserta" name="kode_peserta">
+                                       <option value="">Pilih Kode Peserta</option>
+                                       <option value="0" {{ old('kode_peserta') == '0' ? 'selected' : '' }}>0</option>
+                                       <option value="1" {{ old('kode_peserta') == '1' ? 'selected' : '' }}>1</option>
+                                       <option value="21" {{ old('kode_peserta') == '21' ? 'selected' : '' }}>21</option>
+                                       <option value="22" {{ old('kode_peserta') == '22' ? 'selected' : '' }}>22</option>
+                                       <option value="23" {{ old('kode_peserta') == '23' ? 'selected' : '' }}>23</option>
+                                       <option value="24" {{ old('kode_peserta') == '24' ? 'selected' : '' }}>24</option>
+                                       <option value="25" {{ old('kode_peserta') == '25' ? 'selected' : '' }}>25</option>
+                                       <option value="26" {{ old('kode_peserta') == '26' ? 'selected' : '' }}>26</option>
+                                       <option value="27" {{ old('kode_peserta') == '27' ? 'selected' : '' }}>27</option>
+                                       <option value="28" {{ old('kode_peserta') == '28' ? 'selected' : '' }}>28</option>
+                                       <option value="3" {{ old('kode_peserta') == '3' ? 'selected' : '' }}>3</option>
+                                    </select>
+                                    </div>
                                 </div>
                             </div>
                             </div>
@@ -438,7 +483,7 @@
 
       <!-- MAIN NAVIGATION -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <nav id="mainnav-container" class="mainnav">
+     <nav id="mainnav-container" class="mainnav">
     <div class="mainnav__inner">
 
         <!-- Navigation menu -->
@@ -479,6 +524,58 @@
                             <span class="nav-label">Data Peserta</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
+                           <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
+                           <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
+                        </a>
+                     </li>
+                     <li class="nav-item has-sub">
+
+
+                        <a href="#" class="mininav-toggle nav-link collapsed"><i class="fas fa-cogs me-2"></i>
+                           <span class="nav-label ms-1">Parameter</span>
+                        </a>
+
+                        <!-- Dashboard submenu list -->
+                        <ul class="mininav-content nav collapse">
+                           <li data-popper-arrow class="arrow"></li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                                    <i class="fas fa-chart-line me-2"></i> Nilai Sekarang
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                                    <i class="fas fa-child me-2"></i> NS Anak
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                                    <i class="fas fa-female me-2"></i> NS Janda
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                                    <i class="fas fa-user-tie me-2"></i> NS Pegawai
+                                 </a>
+                           </li>
+
+                        </ul>
+                        <!-- END : Dashboard submenu list -->
+
+                     </li>
+
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
+                           <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
+                        </a>
+                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
@@ -1465,6 +1562,21 @@
    <!-- Initialize [ SAMPLE ] -->
    <script src="{{ asset('assets/pages/dashboard-1.js') }}"></script>
 
+   <script>
+      setTimeout(() => {
+         let errorBox = document.getElementById('alert-error');
+         let successBox = document.getElementById('alert-success');
+
+         if (errorBox) {
+               errorBox.classList.remove('show');
+               errorBox.classList.add('fade');
+         }
+         if (successBox) {
+               successBox.classList.remove('show');
+               successBox.classList.add('fade');
+         }
+      }, 3000);
+   </script>
 
 </body>
 

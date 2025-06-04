@@ -109,6 +109,11 @@
                         <i class="fas fa-id-card me-2"></i> Data Pribadi
                     </div>
                     <div class="card-body">
+                     @if(session('success'))
+                        <div class="alert alert-success">
+                           {{ session('success') }}
+                        </div>
+                     @endif
                         <form id="formEditPeserta" action="{{ route('operator.update', $peserta->nip) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -250,8 +255,17 @@
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" step="0.01" class="form-control" id="phdp" name="phdp" value="{{ $peserta->phdp }}" placeholder="0.00">
                                     </div>
-                                    <label class="form-label fw-semibold  mt-3">Kode PTKP</label>
-                                    <input type="text" class="form-control" id="kode_ptkp" name="kode_ptkp" value="{{ $peserta->kode_ptkp }}" placeholder="Masukkan kode PTKP">
+                                    <label class="form-label fw-semibold mt-3" for="kode_ptkp">Kode PTKP</label>
+                                    <select class="form-select" id="kode_ptkp" name="kode_ptkp">
+                                       <option value="">Pilih Kode PTKP</option>
+
+                                       @foreach ($kdptkp as $option)
+                                          <option value="{{ $option->kode_ptkp }}"
+                                                {{ (old('kode_ptkp') == $option->kode_ptkp || (isset($peserta) && $peserta->kode_ptkp == $option->kode_ptkp)) ? 'selected' : '' }}>
+                                                {{ $option->kode_ptkp }}
+                                          </option>
+                                       @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold ">Akumulasi IBHP</label>
@@ -259,8 +273,14 @@
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" step="0.01" class="form-control" id="akumulasi_ibhp" name="akumulasi_ibhp" value="{{ $peserta->akumulasi_ibhp }}" placeholder="0.00">
                                     </div>
-                                    <label class="form-label fw-semibold  mt-3">Kode Peserta</label>
-                                    <input type="text" class="form-control" id="kode_peserta" name="kode_peserta" value="{{ $peserta->kode_peserta }}" placeholder="Masukkan kode peserta">
+                                    <label class="form-label fw-semibold mt-3">Kode Peserta</label>
+                                    <select class="form-control" id="kode_peserta" name="kode_peserta">
+                                       @foreach($kdpeserta as $kode)
+                                          <option value="{{ $kode->kode_peserta }}" {{ $kode->kode_peserta == $peserta->kode_peserta ? 'selected' : '' }}>
+                                                {{ $kode->kode_peserta }}
+                                          </option>
+                                       @endforeach
+                                    </select>
                                 </div>
                                 </div>
                             </div>
@@ -451,6 +471,58 @@
                             <span class="nav-label">Data Peserta</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('operator.parameters.databank') }}" class="nav-link {{ request()->routeIs('operator.parameters.databank') ? 'active' : '' }}">
+                           <i class="fas fa-landmark me-2"></i> <span class="nav-label">Data Bank</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.datacabang') }}" class="nav-link {{ request()->routeIs('operator.parameters.datacabang') ? 'active' : '' }}">
+                           <i class="fas fa-sitemap me-2"></i> <span class="nav-label">Data Cabang</span>
+                        </a>
+                     </li>
+                     <li class="nav-item has-sub">
+
+
+                        <a href="#" class="mininav-toggle nav-link collapsed"><i class="fas fa-cogs me-2"></i>
+                           <span class="nav-label ms-1">Parameter</span>
+                        </a>
+
+                        <!-- Dashboard submenu list -->
+                        <ul class="mininav-content nav collapse">
+                           <li data-popper-arrow class="arrow"></li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nilaisekarang') }}" class="nav-link {{ request()->routeIs('operator.parameters.nilaisekarang') ? 'active' : '' }}">
+                                    <i class="fas fa-chart-line me-2"></i> Nilai Sekarang
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsanak') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsanak') ? 'active' : '' }}">
+                                    <i class="fas fa-child me-2"></i> NS Anak
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nsjanda') }}" class="nav-link {{ request()->routeIs('operator.parameters.nsjanda') ? 'active' : '' }}">
+                                    <i class="fas fa-female me-2"></i> NS Janda
+                                 </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('operator.parameters.nspegawai') }}" class="nav-link {{ request()->routeIs('operator.parameters.nspegawai') ? 'active' : '' }}">
+                                    <i class="fas fa-user-tie me-2"></i> NS Pegawai
+                                 </a>
+                           </li>
+
+                        </ul>
+                        <!-- END : Dashboard submenu list -->
+
+                     </li>
+
+                     <li class="nav-item">
+                        <a href="{{ route('operator.parameters.ptkp') }}" class="nav-link {{ request()->routeIs('operator.parameters.ptkp') ? 'active' : '' }}">
+                           <i class="fas fa-percent me-2"></i> <span class="nav-label">Tabel PTKP</span>
+                        </a>
+                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('cetak.index') }}" class="nav-link {{ request()->routeIs('cetak.index') ? 'active' : '' }}">
