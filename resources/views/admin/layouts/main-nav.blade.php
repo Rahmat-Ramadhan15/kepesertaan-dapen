@@ -58,7 +58,7 @@
                     <!-- Menu daftar pengguna -->
                     <li class="nav-item ">
                         <a href="{{ route('admin.dashboard') }}" class="nav-link mininav-toggle active"><i
-                                class="demo-pli-gear fs-5 me-2"></i>
+                                class="ti-user fs-5 me-2"></i>
                             <span data-popper-arrow class="arrow">Daftar Pengguna</span>
                         </a>
                     </li>
@@ -121,7 +121,7 @@
 
                     <!-- Menu data cabang -->
                     <li class="nav-item">
-                        <a href="{{ route('admin.parameter.databank.index') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('cabang.index') }}" class="nav-link mininav-toggle"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -159,7 +159,8 @@
 
                     <!-- Menu kenaikan -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link mininav-toggle"><i class="demo-pli-gear fs-5 me-2"></i>
+                        <a href="{{ route('admin.parameter.kenaikan.index') }}" class="nav-link mininav-toggle"><i
+                                class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
                                 <span data-popper-arrow class="arrow"></span>
