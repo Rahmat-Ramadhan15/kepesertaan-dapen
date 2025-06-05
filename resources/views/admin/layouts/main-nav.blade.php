@@ -121,7 +121,7 @@
 
                     <!-- Menu data cabang -->
                     <li class="nav-item">
-                        <a href="{{ route('cabang.index') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('admin.parameter.databank.index') }}" class="nav-link mininav-toggle"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
