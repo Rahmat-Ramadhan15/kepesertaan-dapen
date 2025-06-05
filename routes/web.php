@@ -28,6 +28,7 @@ use App\Http\Controllers\Operator\CetakController;
 use App\Http\Controllers\Operator\ManfaatPensiunController;
 use App\Http\Controllers\Operator\HitungIuranController;
 use App\Http\Controllers\Operator\OperatorParameterController;
+
 //Supervisor
 use App\Http\Controllers\Supervisor\SupervisorController;
 use App\Http\Controllers\Supervisor\ExportController;
@@ -101,6 +102,14 @@ Route::middleware(['auth', RoleMiddleware::class . ':supervisor'])->group(functi
 //Operator
 Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function () {
     Route::get('/operator', [OperatorController::class, 'index'])->name('operator.dashboard');
+
+    Route::prefix('operator/hitung')->name('operator.hitung.')->group(function () {
+        Route::get('/', [HitungIuranController::class, 'index'])->name('index');
+        Route::get('/{nip}/detail', [HitungIuranController::class, 'detail'])->name('detail');
+        Route::post('/process', [HitungIuranController::class, 'hitung'])->name('process');
+        Route::delete('/histori/{id}', [HitungIuranController::class, 'destroyHistori'])->name('destroyHistori');
+        Route::get('/get-previous-month-data', [HitungIuranController::class, 'getPreviousMonthData'])->name('getPreviousMonthData'); // Rute AJAX
+    });
 
     Route::prefix('operator')->group(function () {
         Route::resource('operator', OperatorController::class); // Menghindari konflik dengan dashboard
