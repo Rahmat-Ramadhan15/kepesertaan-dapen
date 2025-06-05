@@ -165,10 +165,6 @@
                         </div>
                      </form>
 
-                     <div class="d-flex justify-content-end gap-md-5 mt-4">
-                        <a href="{{ route('ganti-password') }}" class="btn-link text-decoration-none">Ganti Password ?</a>
-                     </div>
-
                      <div class="d-flex align-items-center justify-content-between border-top pt-3 mt-3">
                         <h5 class="m-0">Follow Media Sosial</h5>
 

@@ -81,7 +81,7 @@
                   <div class="card-body p-4">
 
                      <div class="text-center">
-                        <h1 class="h3">Password Reset</h1>
+                        <h1 class="h3">Change Password</h1>
                         <p>Change your account password</p>
                      </div>
 
@@ -95,7 +95,7 @@
                      </div>
                      @endif
 
-                     <form method="POST" class="mt-4" action="{{ route('post.ganti-password') }}">
+                     <form method="POST" class="mt-4" action="{{ route('ubah-password.update') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -164,6 +164,10 @@ function togglePassword(inputId, iconId) {
                            <button type="submit" class="btn btn-primary ms-auto">Simpan</button>
                         </div>
                      </form>
+
+                     <div class="d-flex justify-content-start gap-md-5 mt-4">
+                        <a href="{{ route('operator.dashboard') }}" class="btn-link text-decoration-none">Back to Home</a>
+                     </div>
 
                      <div class="d-flex align-items-center justify-content-between border-top pt-3 mt-3">
                         <h5 class="m-0">Follow Media Sosial</h5>
