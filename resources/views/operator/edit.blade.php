@@ -1509,6 +1509,34 @@
    <!-- Initialize [ SAMPLE ] -->
    <script src="{{ asset('assets/pages/dashboard-1.js') }}"></script>
 
+   <script>
+      document.addEventListener('DOMContentLoaded', function () {
+         const tanggalInput = document.getElementById('tanggal_lahir');
+         const usiaInput = document.getElementById('usia');
+
+         function hitungUsia(tanggalLahir) {
+               const today = new Date();
+               const birthDate = new Date(tanggalLahir);
+               let usia = today.getFullYear() - birthDate.getFullYear();
+               const m = today.getMonth() - birthDate.getMonth();
+               if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                  usia--;
+               }
+               return usia;
+         }
+
+         tanggalInput.addEventListener('change', function () {
+               const usia = hitungUsia(this.value);
+               usiaInput.value = usia >= 0 ? usia : '';
+         });
+
+         // Hitung otomatis jika ada value awal
+         if (tanggalInput.value) {
+               usiaInput.value = hitungUsia(tanggalInput.value);
+         }
+      });
+   </script>
+
 
 </body>
 
