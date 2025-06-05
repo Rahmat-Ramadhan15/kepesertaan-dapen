@@ -8,6 +8,7 @@ use App\Models\Peserta;
 use App\Models\Cabang;
 use App\Models\KodePeserta;
 use App\Models\ptkp;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 
 class OperatorController extends Controller
@@ -48,6 +49,58 @@ class OperatorController extends Controller
         $listCabang = Cabang::all();
         return view('operator.create', compact('listCabang'));
     }
+    public function generatePDF($nip)
+{
+    try {
+        // Ambil data peserta dengan relasi keluarga dan cabang
+        $peserta = Peserta::with('keluargas', 'cabang')->where('nip', $nip)->firstOrFail();
+        
+        // Load view untuk PDF
+        $pdf = PDF::loadView('pdf.detail-peserta', compact('peserta'));
+        
+        // Set paper size dan orientasi
+        $pdf->setPaper('A4', 'portrait');
+        
+        // Set options untuk PDF
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'defaultFont' => 'Arial'
+        ]);
+        
+        // Download PDF dengan nama file yang sesuai
+        return $pdf->download('Detail-Peserta-' . $peserta->nama . '-' . $peserta->nip . '.pdf');
+        
+    } catch (\Exception $e) {
+        return back()->with('error', 'Gagal membuat PDF: ' . $e->getMessage());
+    }
+}
+public function viewPDF($nip)
+{
+    try {
+        // Ambil data peserta dengan relasi keluarga dan cabang
+        $peserta = Peserta::with('keluargas', 'cabang')->where('nip', $nip)->firstOrFail();
+        
+        // Load view untuk PDF
+        $pdf = PDF::loadView('pdf.detail-peserta', compact('peserta'));
+        
+        // Set paper size dan orientasi
+        $pdf->setPaper('A4', 'portrait');
+        
+        // Set options untuk PDF
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'defaultFont' => 'Arial'
+        ]);
+        
+        // Stream PDF (tampilkan di browser tanpa download)
+        return $pdf->stream('Detail-Peserta-' . $peserta->nama . '-' . $peserta->nip . '.pdf');
+        
+    } catch (\Exception $e) {
+        return back()->with('error', 'Gagal membuat PDF: ' . $e->getMessage());
+    }
+}
 
     /**
      * Store a newly created resource in storage.

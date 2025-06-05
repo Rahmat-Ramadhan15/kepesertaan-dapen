@@ -122,6 +122,20 @@
                   <span class="vr"></span>
                   Tambah Keluarga
             </a>
+            <!-- Tombol Cetak PDF - TAMBAHKAN INI -->
+            <a href="{{ route('operator.pdf', $peserta->nip) }}" class="btn btn-success hstack gap-2" target="_blank">
+               <i class="fas fa-file-pdf fs-5"></i>
+               <span class="vr"></span>
+               Cetak PDF
+            </a>
+
+            <!-- Tombol Lihat PDF di Browser (Optional) -->
+            <a href="{{ route('operator.view-pdf', $peserta->nip) }}" class="btn btn-info hstack gap-2" target="_blank">
+               <i class="fas fa-eye fs-5"></i>
+               <span class="vr"></span>
+               Lihat PDF
+            </a>
+
          </div>
 
         <!-- Data Pribadi & Kepegawaian -->
@@ -224,6 +238,10 @@
                     -
                   @endif
                 </div>
+                <!-- Tambahkan tombol PDF di bagian button actions -->
+<div 
+
+   
 
                 <label class="form-label fw-semibold  mt-3">MKMP</label>
                 <div class="form-control bg-light border-1 rounded-3" readonly>

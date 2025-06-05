@@ -28,6 +28,7 @@ use App\Http\Controllers\Operator\CetakController;
 use App\Http\Controllers\Operator\ManfaatPensiunController;
 use App\Http\Controllers\Operator\HitungIuranController;
 use App\Http\Controllers\Operator\OperatorParameterController;
+
 //Supervisor
 use App\Http\Controllers\Supervisor\SupervisorController;
 use App\Http\Controllers\Supervisor\ExportController;
@@ -146,7 +147,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
     Route::post('/cetak/preview', [CetakController::class, 'preview'])->name('cetak.preview');
     Route::post('/cetak/export', [CetakController::class, 'export'])->name('cetak.export');
 
-
+    // Tambahkan route ini di routes/web.php
+    Route::get('/operator/{nip}/pdf', [OperatorController::class, 'generatePDF'])->name('operator.pdf');
+    Route::get('/operator/{nip}/view-pdf', [OperatorController::class, 'viewPDF'])->name('operator.view-pdf');
+    
 });
 
 
