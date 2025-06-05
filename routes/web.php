@@ -12,7 +12,6 @@ use App\Models\User;
 use App\Http\Middleware\RoleMiddleware;
 //Auth
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\PasswordController;
 //Admin
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuditLogController;
@@ -38,8 +37,15 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('/password-expired', [PasswordController::class, 'showPasswordResetForm'])->name('ganti-password');
-Route::post('/password-reset', [PasswordController::class, 'forcePasswordReset'])->name('password.force.reset');
+Route::get('/ganti-password', [AuthController::class, 'showChangePasswordForm'])->name('ganti-password');
+Route::post('/ganti-password', [AuthController::class, 'changePassword'])->name('post.ganti-password');
+
+// Ganti password biasa (setelah login)
+Route::middleware('auth')->group(function () {
+    Route::get('/ubah-password', [AuthController::class, 'showUpdatePasswordForm'])->name('ubah-password.form');
+    Route::post('/ubah-password', [AuthController::class, 'updatePassword'])->name('ubah-password.update');
+});
+
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

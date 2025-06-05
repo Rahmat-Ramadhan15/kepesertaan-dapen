@@ -493,7 +493,7 @@
                <div id="_dm-mainnavProfile" class="mainnav__widget my-3 hv-outline-parent">
 
                   <!-- Profile picture  -->
-                  <div class="mininav-toggle text-center py-2">
+                  <div class="mininav-toggle text-center py-2 " >
                      <img class="mainnav__avatar img-md rounded-circle hv-oc" src="{{ asset('assets/img/profile-photos/1.png') }}" alt="Profile Picture">
                   </div>
 
@@ -503,11 +503,18 @@
                      <div class="d-grid">
 
                         <!-- User name and position -->
-                        <button class="mainnav-widget-toggle d-block btn border-0 p-2" data-bs-toggle="collapse" aria-expanded="false" aria-controls="usernav">
+                        <button class="mainnav-widget-toggle d-block btn border-0 p-2" data-bs-toggle="collapse" data-bs-target="#usernav" aria-expanded="false" aria-controls="usernav">
                            <span class="d-flex justify-content-center align-items-center">
                               <h5 class="mb-0" style="margin-left: 0px;">Operator</h5>
                            </span>
                         </button>
+                        <!-- Collapsed user menu -->
+                        <div id="usernav" class="nav flex-column collapse">
+                           <a href="{{ route('ubah-password.form') }}" class="nav-link">
+                              <i class="fas fa-key me-2"></i>
+                              <span class="ms-1">Ganti Password</span>
+                           </a>
+                        </div>
                      </div>
                   </div>
 
