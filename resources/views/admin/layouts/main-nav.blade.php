@@ -172,7 +172,8 @@
 
                     <!-- Menu audit trail -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link mininav-toggle"><i class="demo-pli-gear fs-5 me-2"></i>
+                        <a href="{{ route('admin.audit-log') }}" class="nav-link mininav-toggle"><i
+                                class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
                                 <span data-popper-arrow class="arrow"></span>
