@@ -9,15 +9,12 @@ use Illuminate\Http\Request;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PesertaExport;
-use App\Exports\PesertaCetak;
 use Carbon\Carbon;
 
 class CetakController extends Controller
 {
     /**
      * Display the printing index page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -66,11 +63,9 @@ class CetakController extends Controller
             'total' => $peserta->count()
         ]);
     }
+
     /**
      * Get preview data based on filters.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function preview(Request $request)
     {
@@ -91,79 +86,97 @@ class CetakController extends Controller
 
     /**
      * Generate PDF report.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function generatePDF(Request $request)
     {
-        // Validate filters (same as preview)
-        $validated = $request->validate([
-            'jenis_laporan' => 'required|in:umum,detail,keluarga',
-            'umur_min' => 'required|numeric|min:18',
-            'umur_max' => 'required|numeric|max:65',
-            'cabang' => 'nullable|exists:cabang,id',
-            'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
-            'status_pernikahan' => 'nullable|in:Kawin,Belum Kawin,Cerai Hidup,Cerai Mati',
-            'pendidikan' => 'nullable|in:SD,SMP,SMA/SMK,D3,S1,S2,S3',
-            'phdp_min' => 'nullable|numeric|min:0',
-            'phdp_max' => 'nullable|numeric',
-            'golongan' => 'nullable|in:I,II,III,IV',
-        ]);
+        try {
+            // Get filters from request
+            $filters = $request->except(['_token']);
+            $jenis_laporan = $request->input('jenis_laporan', 'umum');
 
-        // Get filtered data
-        $query = Peserta::applyPrintFilter($validated);
-        $peserta = $query->get();
-        
-        // Format data
-        $peserta = $peserta->map(function ($item) {
-            $item->formatted_tanggal_lahir = date('d-m-Y', strtotime($item->tanggal_lahir));
-            $item->formatted_tanggal_masuk = date('d-m-Y', strtotime($item->tanggal_masuk));
-            return $item;
-        });
+            // Get filtered data
+            $peserta = Peserta::applyPrintFilter($filters)->get();
+            
+            // Format data for PDF
+            $peserta = $peserta->map(function ($item) {
+                if ($item->tanggal_lahir) {
+                    $item->formatted_tanggal_lahir = date('d-m-Y', strtotime($item->tanggal_lahir));
+                }
+                if ($item->tmk) { // Changed from tanggal_masuk to tmk based on your model
+                    $item->formatted_tanggal_masuk = date('d-m-Y', strtotime($item->tmk));
+                }
+                return $item;
+            });
 
-        // Set data for PDF view
-        $data = [
-            'peserta' => $peserta,
-            'filters' => $validated,
-            'jenis_laporan' => $validated['jenis_laporan'],
-            'total' => $peserta->count(),
-            'date' => now()->format('d F Y'),
-        ];
+            // Set data for PDF view
+            $data = [
+                'peserta' => $peserta,
+                'filters' => $filters,
+                'jenis_laporan' => $jenis_laporan,
+                'total' => $peserta->count(),
+                'date' => now()->format('d F Y'),
+            ];
 
-        // Generate PDF
-        $pdf = PDF::loadView('cetak.pdf.' . $validated['jenis_laporan'], $data);
-        
-        // Set paper size and orientation
-        if ($validated['jenis_laporan'] == 'detail' || $validated['jenis_laporan'] == 'keluarga') {
-            $pdf->setPaper('a4', 'portrait');
-        } else {
-            $pdf->setPaper('a4', 'landscape');
+            // Determine the correct view path based on jenis_laporan
+            $viewPath = '';
+            switch ($jenis_laporan) {
+                case 'detail':
+                    $viewPath = 'pdf.detail'; // This should match your actual view path
+                    break;
+                case 'keluarga':
+                    $viewPath = 'pdf.keluarga'; // This should match your actual view path
+                    break;
+                default:
+                    $viewPath = 'pdf.umum'; // This should match your actual view path
+                    break;
+            }
+
+            // Generate PDF
+            $pdf = PDF::loadView($viewPath, $data);
+            
+            // Set paper size and orientation
+            if ($jenis_laporan == 'detail' || $jenis_laporan == 'keluarga') {
+                $pdf->setPaper('a4', 'portrait');
+            } else {
+                $pdf->setPaper('a4', 'landscape');
+            }
+            
+            // Generate filename
+            $filename = 'laporan_' . $jenis_laporan . '_peserta_' . date('Ymd_His') . '.pdf';
+            
+            // Download PDF
+            return $pdf->download($filename);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal membuat PDF: ' . $e->getMessage()
+            ], 500);
         }
-        
-        // Download PDF
-        return $pdf->download('laporan_peserta_' . date('Ymd_His') . '.pdf');
     }
 
     /**
      * Export data to Excel.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    
-     public function export(Request $request)
-     {
-         // Mengambil semua filter dari request
-         $filters = $request->all();
- 
-         // Membuat instance export dengan filter yang diterima
-         $export = new PesertaExport($filters);
- 
-         // Tentukan nama file ekspor (bisa disesuaikan)
-         $fileName = 'peserta_report_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
- 
-         // Menggunakan Laravel Excel untuk mengekspor file dan mengunduhnya
-         return Excel::download($export, $fileName);
-     }
+    public function export(Request $request)
+    {
+        try {
+            // Get filters and report type
+            $filters = $request->except(['_token']);
+            $jenis_laporan = $request->input('jenis_laporan', 'umum');
+
+            // Create export instance
+            $export = new PesertaExport($filters, $jenis_laporan);
+
+            // Generate filename
+            $filename = 'laporan_' . $jenis_laporan . '_peserta_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+
+            // Download Excel file
+            return Excel::download($export, $filename);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal membuat Excel: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
