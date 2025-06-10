@@ -57,8 +57,9 @@
                 <ul class="mainnav__menu nav flex-column">
                     <!-- Menu daftar pengguna -->
                     <li class="nav-item ">
-                        <a href="{{ route('admin.dashboard') }}" class="nav-link mininav-toggle active"><i
-                                class="ti-user fs-5 me-2"></i>
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.dashboard', 'admin.edit-user') ? 'active' : '' }}"><i
+                                class="demo-pli-gear fs-5 me-2"></i>
                             <span data-popper-arrow class="arrow">Daftar Pengguna</span>
                         </a>
                     </li>
@@ -66,7 +67,8 @@
 
                     <!-- Menu tambah operator -->
                     <li class="nav-item">
-                        <a href="{{ route('admin.create-operator') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('admin.create-operator') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.create-operator') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -79,7 +81,8 @@
 
                     <!-- Menu nilai sekarang -->
                     <li class="nav-item has-sub">
-                        <a href="#" class="mininav-toggle nav-link collapsed"><i
+                        <a href="#"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.ns*') ? 'active' : '' }}"><i
                                 class="demo-pli-split-vertical-2 fs-5 me-2"></i>
                             <span class="nav-label ms-1">Nilai Sekarang</span>
                         </a>
@@ -108,7 +111,8 @@
 
                     <!-- Menu data cabang -->
                     <li class="nav-item">
-                        <a href="{{ route('cabang.index') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('cabang.index') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('cabang.index', 'cabang.edit', 'cabang.create') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -121,7 +125,8 @@
 
                     <!-- Menu data cabang -->
                     <li class="nav-item">
-                        <a href="{{ route('admin.parameter.databank.index') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('admin.parameter.databank.index') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.databank.index', 'admin.parameter.databank.create', 'admin.parameter.databank.edit') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -134,7 +139,8 @@
 
                     <!-- Menu data cabang -->
                     <li class="nav-item">
-                        <a href="{{ route('admin.parameter.ptkp.index') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('admin.parameter.ptkp.index') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.ptkp.index', 'admin.parameter.ptkp.create', 'admin.parameter.ptkp.edit') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -159,7 +165,8 @@
 
                     <!-- Menu kenaikan -->
                     <li class="nav-item">
-                        <a href="{{ route('admin.parameter.kenaikan.index') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('admin.parameter.kenaikan.index') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.kenaikan.index', 'admin.parameter.kenaikan.create', 'admin.parameter.kenaikan.edit') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -172,7 +179,8 @@
 
                     <!-- Menu audit trail -->
                     <li class="nav-item">
-                        <a href="{{ route('admin.audit-log') }}" class="nav-link mininav-toggle"><i
+                        <a href="{{ route('admin.audit-log') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.audit-log') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
