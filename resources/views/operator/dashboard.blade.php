@@ -77,6 +77,33 @@
          <div class="content__header content__boxed overlapping">
             <div class="content__wrap">
 
+               @if(session('password_warning'))
+                  <div id="passwordWarning" class="fixed top-4 right-4 bg-yellow-300 text-black px-4 py-2 rounded shadow-lg z-50 animate-fadeIn flex items-center gap-2">
+                  <span class="text-xl">⚠️</span>
+                  <span>{{ session('password_warning') }}</span>
+               </div>
+
+                  <script>
+                     setTimeout(() => {
+                           const warning = document.getElementById('passwordWarning');
+                           if (warning) {
+                              warning.style.display = 'none';
+                           }
+                     }, 10000);
+                  </script>
+
+                  <style>
+                     @keyframes fadeIn {
+                           from { opacity: 0; transform: translateY(-10px); }
+                           to { opacity: 1; transform: translateY(0); }
+                     }
+
+                     .animate-fadeIn {
+                           animation: fadeIn 0.3s ease-out;
+                     }
+                  </style>
+               @endif
+
 
                <!-- Page title and information -->
                <h1 class="page-title mb-2">Data Peserta</h1>
@@ -101,6 +128,7 @@
                   <div class="card-header">
                      <div class="row">
 
+                     
                        <!-- Toolbar dalam satu baris -->
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
 

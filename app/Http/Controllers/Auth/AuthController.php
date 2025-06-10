@@ -67,6 +67,12 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        // Cek apakah sudah hampir 3 bulan sejak ganti password terakhir (misal 2.5 bulan / 75 hari)
+        $lastChange = Carbon::parse($user->last_password_changed);
+        if ($lastChange->diffInDays(Carbon::now()) >= 75) {
+            session()->flash('password_warning', 'Disarankan mengganti password Anda segera.');
+        }
+
         AuditLog::create([
             'user_id' => $user->nip,
             'model' => 'User',
