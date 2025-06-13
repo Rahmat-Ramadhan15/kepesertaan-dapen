@@ -11,10 +11,8 @@
         <button type="button" class="btn btn-danger me-2" onclick="downloadPDF()">
             <i class="fas fa-file-pdf"></i> Download PDF
         </button>
-        <button type="button" class="btn btn-success" onclick="exportExcel()">
-            <i class="fas fa-file-excel"></i> Export Excel
-        </button>
     </div>
+</div>
 </div>
 
 <div class="table-responsive">

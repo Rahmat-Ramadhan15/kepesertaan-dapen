@@ -18,33 +18,69 @@
             margin: 0;
             font-size: 12px;
             font-weight: bold;
+            color: #0066cc; /* Blue color for title */
         }
         .header p {
             margin: 3px 0;
             font-size: 9px;
         }
-        table {
+        .total-info {
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 8px;
+        }
+        .card {
+            border: 1px solid #000;
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+        .card-header {
+            background-color: #ADD8E6; /* Light blue background for participant names */
+            color: #333; /* Dark text on light blue background */
+            padding: 4px 6px;
+            font-weight: bold;
+            font-size: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .card-body {
+            padding: 6px;
+        }
+        .detail-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 15px;
             font-size: 7px;
         }
-        table, th, td {
-            border: 1px solid #000;
-        }
-        th {
-            background-color: #f2f2f2;
-            padding: 3px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 7px;
-        }
-        td {
-            padding: 2px;
+        .detail-table td {
+            padding: 2px 4px;
             vertical-align: top;
+            border: none;
+            line-height: 1.3;
         }
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
+        .detail-table .label {
+            width: 30%;
+            font-weight: bold;
+        }
+        .detail-table .separator {
+            width: 5%;
+            text-align: center;
+        }
+        .detail-table .value {
+            width: 65%;
+        }
+        .two-column {
+            display: table;
+            width: 100%;
+        }
+        .column {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+            padding-right: 10px;
+        }
+        .column:last-child {
+            padding-right: 0;
+            padding-left: 10px;
+        }
         .filter-info {
             margin-top: 10px;
             font-size: 7px;
@@ -61,10 +97,17 @@
         .filter-info li {
             margin-bottom: 1px;
         }
-        .total-info {
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 8px;
+        .status-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 1px 4px;
+            font-size: 6px;
+            border-radius: 2px;
+        }
+        @media print {
+            .card {
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
@@ -78,46 +121,94 @@
         Total Data: {{ $total ?? 0 }} peserta
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th style="width: 3%;">No</th>
-                <th style="width: 8%;">NIP</th>
-                <th style="width: 15%;">Nama</th>
-                <th style="width: 8%;">Tempat Lahir</th>
-                <th style="width: 8%;">Tgl Lahir</th>
-                <th style="width: 5%;">Umur</th>
-                <th style="width: 8%;">JK</th>
-                <th style="width: 8%;">Status</th>
-                <th style="width: 15%;">Alamat</th>
-                <th style="width: 7%;">Pendidikan</th>
-                <th style="width: 5%;">Gol</th>
-                <th style="width: 10%;">PHDP</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($peserta as $key => $p)
-            <tr>
-                <td class="text-center">{{ $key + 1 }}</td>
-                <td>{{ $p->nip ?? '-' }}</td>
-                <td>{{ $p->nama ?? '-' }}</td>
-                <td>{{ $p->tempat_lahir ?? '-' }}</td>
-                <td class="text-center">{{ $p->tanggal_lahir ? date('d-m-Y', strtotime($p->tanggal_lahir)) : '-' }}</td>
-                <td class="text-center">{{ ($p->umur ?? 0) }}th</td>
-                <td>{{ $p->jenis_kelamin ?? '-' }}</td>
-                <td>{{ $p->status_kawin ?? '-' }}</td>
-                <td>{{ $p->alamat ?? '-' }}</td>
-                <td>{{ $p->pendidikan ?? '-' }}</td>
-                <td class="text-center">{{ $p->golongan ?? '-' }}</td>
-                <td class="text-right">{{ number_format($p->phdp ?? 0, 0, ',', '.') }}</td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="12" class="text-center">Tidak ada data yang sesuai dengan filter</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+    @forelse($peserta as $key => $p)
+    <div class="card">
+        <div class="card-header">
+            {{ $key + 1 }}. {{ $p->nama ?? '-' }} ({{ $p->nip ?? '-' }})
+        </div>
+        <div class="card-body">
+            <div class="two-column">
+                <div class="column">
+                    <table class="detail-table">
+                        <tr>
+                            <td class="label">Jenis Kelamin</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->jenis_kelamin ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Tempat Lahir</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->tempat_lahir ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Tanggal Lahir</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->tanggal_lahir ? date('d-m-Y', strtotime($p->tanggal_lahir)) : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Umur</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ ($p->umur ?? 0) }} tahun</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Status Pernikahan</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->status_kawin ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Pendidikan</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->pendidikan ?? '-' }}{{ $p->jurusan ? ' - '.$p->jurusan : '' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Alamat</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->alamat ?? '-' }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="column">
+                    <table class="detail-table">
+                        <tr>
+                            <td class="label">Cabang</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->cabang->nama_cabang ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Golongan</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->golongan ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Tanggal Masuk</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->tmk ? date('d-m-Y', strtotime($p->tmk)) : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Masa Kerja</td>
+                            <td class="separator">:</td>
+                            <td class="value">{{ $p->masa_kerja ?? '-' }} tahun</td>
+                        </tr>
+                        <tr>
+                            <td class="label">PHDP</td>
+                            <td class="separator">:</td>
+                            <td class="value">Rp {{ number_format($p->phdp ?? 0, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Status</td>
+                            <td class="separator">:</td>
+                            <td class="value"><span class="status-badge">Aktif</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @empty
+    <div style="text-align: center; padding: 20px; font-size: 9px; border: 1px solid #ccc; background-color: #f8f9fa;">
+        <strong>Tidak ada data yang sesuai dengan filter</strong>
+    </div>
+    @endforelse
 
     <div class="filter-info">
         <h4>Filter yang diterapkan:</h4>
