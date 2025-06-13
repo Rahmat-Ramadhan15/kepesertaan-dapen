@@ -90,6 +90,22 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+
+                                 <form action="{{ route('operator.hitung.import') }}" method="POST" enctype="multipart/form-data" class="d-flex flex-wrap align-items-center gap-2 m-0">
+                                    @csrf
+
+                                    <input type="file" name="file" class="form-control" required style="width: auto;">
+
+                                    <input type="number" name="tahun" class="form-control" placeholder="Tahun" required style="width: auto;">
+                                    <input type="number" name="bulan" class="form-control" placeholder="Bulan" min="1" max="12" required style="width: auto;">
+                                    <input type="number" step="0.01" name="ir" class="form-control" placeholder="IR (%)" required style="width: auto;">
+
+                                    <button type="submit" class="btn btn-success">
+                                       <i class="fas fa-file-import me-1"></i> Import
+                                    </button>
+                                 </form>
+
+
                                 <form action="{{ route('operator.hitung.index') }}" method="GET" class="d-flex flex-wrap align-items-center gap-2 m-0">
                                     <select name="cabang_id" class="form-select" style="width: auto;">
                                         <option value="">Semua Cabang</option>
