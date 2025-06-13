@@ -158,6 +158,9 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
     // Tambahkan route ini di routes/web.php
     Route::get('/operator/{nip}/pdf', [OperatorController::class, 'generatePDF'])->name('operator.pdf');
     Route::get('/operator/{nip}/view-pdf', [OperatorController::class, 'viewPDF'])->name('operator.view-pdf');
+
+    Route::post('/hitung/import', [HitungIuranController::class, 'import'])->name('operator.hitung.import');
+
     
 });
 
