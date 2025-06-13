@@ -98,12 +98,6 @@
                         <button type="button" id="btnPreview" class="btn btn-primary action-button me-2">
                             <i class="fas fa-eye me-1"></i> Preview
                         </button>
-                        <button type="button" id="btnPrint" class="btn btn-success action-button me-2">
-                            <i class="fas fa-print me-1"></i> Cetak
-                        </button>
-                        <button type="button" id="btnExport" class="btn btn-secondary action-button">
-                            <i class="fas fa-file-export me-1"></i> Export
-                        </button>
                     </div>
                 </div>
 

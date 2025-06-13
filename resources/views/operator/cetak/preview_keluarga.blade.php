@@ -3,6 +3,17 @@
     <p>Per Tanggal: {{ date('d F Y') }}</p>
 </div>
 
+<div class="mb-3 d-flex justify-content-between align-items-center">
+    <div>
+        <strong>Total Data: {{ $peserta->count() }} peserta</strong>
+    </div>
+    <div>
+        <button type="button" class="btn btn-danger me-2" onclick="downloadPDF()">
+            <i class="fas fa-file-pdf"></i> Download PDF
+        </button>
+    </div>
+</div>
+
 @forelse($peserta as $key => $p)
 <div class="card mb-4">
     <div class="card-header bg-light">
@@ -106,5 +117,87 @@
     </ul>
 </div>
 
-<!-- Hidden span for JavaScript to get count -->
-<span class="d-none peserta-count" data-count="{{ $peserta->count() }}"></span>
+<!-- Hidden data for JavaScript -->
+<div id="filter-data" style="display: none;">
+    {{ json_encode($filters) }}
+</div>
+
+<script>
+function downloadPDF() {
+    const filters = JSON.parse(document.getElementById('filter-data').textContent);
+    
+    // Create form untuk POST request
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{{ route("generate-pdf") }}';
+    form.style.display = 'none';
+    
+    // Add CSRF token
+    const csrfToken = document.createElement('input');
+    csrfToken.type = 'hidden';
+    csrfToken.name = '_token';
+    csrfToken.value = '{{ csrf_token() }}';
+    form.appendChild(csrfToken);
+    
+    // Add jenis_laporan
+    const jenisLaporan = document.createElement('input');
+    jenisLaporan.type = 'hidden';
+    jenisLaporan.name = 'jenis_laporan';
+    jenisLaporan.value = 'keluarga';
+    form.appendChild(jenisLaporan);
+    
+    // Add filters
+    Object.keys(filters).forEach(key => {
+        if (filters[key] !== null && filters[key] !== '') {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = filters[key];
+            form.appendChild(input);
+        }
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+
+function exportExcel() {
+    const filters = JSON.parse(document.getElementById('filter-data').textContent);
+    
+    // Create form untuk POST request
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{{ route("export") }}';
+    form.style.display = 'none';
+    
+    // Add CSRF token
+    const csrfToken = document.createElement('input');
+    csrfToken.type = 'hidden';
+    csrfToken.name = '_token';
+    csrfToken.value = '{{ csrf_token() }}';
+    form.appendChild(csrfToken);
+    
+    // Add jenis_laporan
+    const jenisLaporan = document.createElement('input');
+    jenisLaporan.type = 'hidden';
+    jenisLaporan.name = 'jenis_laporan';
+    jenisLaporan.value = 'keluarga';
+    form.appendChild(jenisLaporan);
+    
+    // Add filters
+    Object.keys(filters).forEach(key => {
+        if (filters[key] !== null && filters[key] !== '') {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = filters[key];
+            form.appendChild(input);
+        }
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+</script>

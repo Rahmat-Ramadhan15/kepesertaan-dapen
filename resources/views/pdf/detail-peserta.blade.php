@@ -110,7 +110,7 @@
 
     <!-- Data Pribadi -->
     <div class="section">
-        <div class="section-title">📋 Data Pribadi</div>
+        <div class="section-title">Data Pribadi</div>
         <div class="two-column">
             <div class="column">
                 <div class="field-row">
@@ -158,7 +158,7 @@
 
     <!-- Data Kepegawaian -->
     <div class="section">
-        <div class="section-title">💼 Data Kepegawaian</div>
+        <div class="section-title">Data Kepegawaian</div>
         <div class="two-column">
             <div class="column">
                 <div class="field-row">
@@ -249,7 +249,7 @@
 
     <!-- Data Pendidikan -->
     <div class="section">
-        <div class="section-title">🎓 Data Pendidikan</div>
+        <div class="section-title">Data Pendidikan</div>
         <div class="two-column">
             <div class="column">
                 <div class="field-row">
@@ -270,7 +270,7 @@
 
     <!-- Data Keuangan -->
     <div class="section">
-        <div class="section-title">💰 Data Keuangan</div>
+        <div class="section-title">Data Keuangan</div>
         <div class="two-column">
             <div class="column">
                 <div class="field-row">
@@ -301,7 +301,7 @@
 
     <!-- Data Alamat -->
     <div class="section">
-        <div class="section-title">📍 Data Alamat</div>
+        <div class="section-title">Data Alamat</div>
         <div class="field-row">
             <span class="field-label">Alamat Lengkap</span>
             <span class="field-colon">:</span>
@@ -342,7 +342,7 @@
 
     <!-- Data Keluarga -->
     <div class="section">
-        <div class="section-title">👨‍👩‍👧‍👦 Data Keluarga</div>
+        <div class="section-title">Data Keluarga</div>
         @if($peserta->keluargas->isEmpty())
             <div class="no-data">Tidak ada data keluarga.</div>
         @else
