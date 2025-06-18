@@ -128,6 +128,9 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
 
     //Manfaat Pensiun
     Route::resource('manfaat', ManfaatPensiunController::class);
+    Route::get('manfaat/{nip}/detail', [ManfaatPensiunController::class, 'detail'])->name('manfaat.detail');
+    Route::post('/manfaat/proses', [ManfaatPensiunController::class, 'proses'])->name('manfaat.proses');
+
 
     //Hitung Iuran
     Route::resource('hitung', HitungIuranController::class);

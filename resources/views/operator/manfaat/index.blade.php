@@ -5,8 +5,8 @@
 <head>
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-   <meta name="description" content="Interactive Tables and Data Grids for JavaScript.">
-   <title>Manfaat | Nifty - Admin Template</title>
+   <meta name="description" content="Nifty is a responsive admin dashboard template based on Bootstrap 5 framework. There are a lot of useful components.">
+   <title>Peserta | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -20,16 +20,16 @@
 
 
    <!-- Bootstrap CSS [ REQUIRED ] -->
-   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
    <!-- Nifty CSS [ REQUIRED ] -->
-   <link rel="stylesheet" href="./assets/css/nifty.min.css">
+   <link rel="stylesheet" href="{{ asset('assets/css/nifty.min.css') }}">
 
    <!-- Nifty Demo Icons [ OPTIONAL ] -->
-   <link rel="stylesheet" href="./assets/css/demo-purpose/demo-icons.min.css">
+   <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-icons.min.css') }}">
 
    <!-- Demo purpose CSS [ DEMO ] -->
-   <link rel="stylesheet" href="./assets/css/demo-purpose/demo-settings.min.css">
+   <link rel="stylesheet" href="{{ asset('assets/css/demo-purpose/demo-settings.min.css') }}">
 
 
    <!-- Favicons [ OPTIONAL ] -->
@@ -37,8 +37,6 @@
    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
    <link rel="manifest" href="./site.webmanifest">
-   <!-- Tabulator Style [ OPTIONAL ] -->
-   <link rel="stylesheet" href="./assets/vendors/tabulator/tabulator.min.css">
 
 
    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,239 +74,133 @@
       <!-- CONTENTS -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <section id="content" class="content">
-         <div class="content__header content__boxed overlapping">
-            <div class="content__wrap">
-
-
-               <h1 class="page-title mb-0 mt-2">Manfaat Penisun</h1>
-
-               <p class="lead">
-                  Manfaat Penisun
-               </p>
+            <div class="content__header content__boxed overlapping">
+                <div class="content__wrap">
+                    <h1 class="page-title mb-2">Manfaat Pensiun</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('manfaat.index') }}">Manfaat Pensiun</a></li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
 
-         </div>
+            <div class="content__boxed">
+                <div class="content__wrap">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
 
+                                <form action="{{ route('manfaat.index') }}" method="GET" class="d-flex flex-wrap align-items-center gap-2 m-0">
+                                    <select name="cabang_id" class="form-select" style="width: auto;">
+                                        <option value="">Semua Cabang</option>
+                                        @foreach($listCabang as $cabang)
+                                            <option value="{{ $cabang->kode_cabang }}" {{ request('cabang_id') == $cabang->kode_cabang ? 'selected' : '' }}>
+                                                {{ $cabang->nama_cabang }}
+                                            </option>
+                                        @endforeach
+                                    </select>
 
-         <div class="content__boxed">
-            <div class="content__wrap">
-               <div class="row">
-                  <div class="col-xl-6 mb-3">
-                     <div class="card">
+                                    <input type="text" name="nip" class="form-control" placeholder="Cari NIP..." value="{{ request('nip') }}" style="width: auto;">
+                                    <input type="text" name="nama" class="form-control" placeholder="Cari Nama..." value="{{ request('nama') }}" style="width: auto;">
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-filter me-1"></i> Filter
+                                    </button>
+                                    <a href="{{ route('manfaat.index') }}" class="btn btn-primary">
+                                        <i class="fas fa-sync-alt me-1"></i> Reset
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
+
                         <div class="card-body">
-                           <h3 class="h4">Jenis Manfaat Pensiun</h3>
-
-                           <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover benefit-table">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Jenis Manfaat</th>
-                                            <th>Persyaratan</th>
+                                            <th>NIP</th>
+                                            <th>Nama</th>
+                                            <th>Cabang</th>
+                                            <th>PHDP (Master)</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse($pesertas as $peserta)
                                         <tr>
-                                            <td><strong>Manfaat Pensiun Normal</strong></td>
-                                            <td>Usia pensiun 56 tahun</td>
+                                            <td class="fw-semibold">{{ $peserta->nip }}</td>
+                                            <td>{{ $peserta->nama }}</td>
+                                            <td>{{ $peserta->cabang->nama_cabang ?? 'N/A' }}</td>
+                                            <td>{{ number_format($peserta->phdp, 2, ',', '.') }}</td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" 
+                                                   class="btn btn-sm btn-primary hitung-mp-btn" 
+                                                   data-nip="{{ $peserta->nip }}" 
+                                                   data-nama="{{ $peserta->nama }}">
+                                                   <i class="fas fa-calculator me-1"></i> Hitung MP
+                                                </a>
+                                            </td>
                                         </tr>
+                                        @empty
                                         <tr>
-                                            <td><strong>Manfaat Pensiun Dipercepat</strong></td>
-                                            <td>Usia minimal 46 tahun dengan masa kerja minimal 10 tahun</td>
+                                            <td colspan="5" class="text-center">Tidak ada data peserta ditemukan.</td>
                                         </tr>
-                                        <tr>
-                                            <td><strong>Manfaat Pensiun Cacat</strong></td>
-                                            <td>Cacat total dan tetap berdasarkan keterangan dokter</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Pensiun Ditunda</strong></td>
-                                            <td>Berhenti bekerja sebelum usia pensiun dengan masa kerja minimal 3 tahun</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Manfaat Pensiun Janda/Duda</strong></td>
-                                            <td>Peserta meninggal dunia sebelum atau setelah pensiun</td>
-                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
+
+                                <!-- Modal Hitung MP -->
+                                 <div class="modal fade" id="hitungMpModal" tabindex="-1" aria-labelledby="hitungMpModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                    <form action="{{ route('manfaat.proses') }}" method="POST">
+                                       @csrf
+                                       <input type="hidden" name="nip" id="modalNip">
+
+                                       <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title">Tanggal Pensiun: <span id="modalTanggalPensiun">14-03-2025</span></h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <label for="jenis_pensiun" class="form-label">Pilih Jenis Pensiun:</label>
+                                          <select name="jenis_pensiun" id="jenis_pensiun" class="form-select" required>
+                                             <option value="normal">Pensiun Normal</option>
+                                             <option value="dipercepat">Pensiun Dipercepat</option>
+                                             <option value="cacat">Pensiun Cacat</option>
+                                             <option value="janda_duda">Pensiun Janda / Duda</option>
+                                             <option value="anak">Pensiun Anak</option>
+                                             <option value="pihak_ditunjuk">Pensiun Pihak Yang Ditunjuk</option>
+                                             <option value="pengembalian">Pengembalian Iuran</option>
+                                             <option value="alih_dp">Pengalihan Dana Ke DP Lain</option>
+                                             <option value="ditunda">Pensiun Ditunda</option>
+                                          </select>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <button type="submit" class="btn btn-primary">Hitung MP</button>
+                                       </div>
+                                       </div>
+                                    </form>
+                                 </div>
+                                 </div>
                             </div>
-                        </div>
 
-                        </div>
-                     </div>
-
-                  </div>
-                  <div class="col-xl-6 mb-3">
-                     <div class="card">
-                        <div class="card-body">
-                           <h3 class="h4">Formula Perhitungan Manfaat Pensiun</h3>
-
-                           <div class="card-body">
-                            <div class="mb-3">
-                                <h5 class="fw-bold">Formula Dasar</h5>
-                                <p>Manfaat Pensiun Normal (MPN) = Faktor Penghargaan Masa Kerja × PhDP × Masa Kerja</p>
-                                <ul>
-                                    <li>Faktor Penghargaan = 2.5%</li>
-                                    <li>PhDP = Penghasilan Dasar Pensiun</li>
-                                    <li>Masa Kerja = Jumlah tahun masa kerja peserta</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <h5 class="fw-bold">Manfaat Pensiun Dipercepat</h5>
-                                <p>MPN × Faktor Diskonto</p>
-                                <ul>
-                                    <li>Faktor diskonto berbeda untuk setiap usia</li>
-                                    <li>Semakin muda usia pensiun, semakin kecil faktor diskonto</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h5 class="fw-bold">Manfaat Pensiun Janda/Duda</h5>
-                                <p>60% × Manfaat Pensiun yang menjadi hak peserta</p>
-                            </div>
-                        </div>
-
-                        </div>
-                     </div>
-
-                  </div>
-               </div>
-
-
-               <div class="card mb-3">
-                  <div class="card-body">
-                     <h3 class="h4">Persyaratan Dokumen</h3>
-
-                     <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 class="fw-bold mb-3">Pensiun Normal & Dipercepat</h5>
-                            <ol>
-                                <li>Formulir permohonan manfaat pensiun</li>
-                                <li>Fotokopi KTP</li>
-                                <li>Fotokopi Kartu Keluarga</li>
-                                <li>Fotokopi Buku Rekening Bank</li>
-                                <li>Surat Keputusan Pemberhentian dari Perusahaan</li>
-                                <li>Pas foto ukuran 4x6 (2 lembar)</li>
-                            </ol>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="fw-bold mb-3">Pensiun Janda/Duda</h5>
-                            <ol>
-                                <li>Formulir permohonan manfaat pensiun</li>
-                                <li>Fotokopi KTP penerima manfaat</li>
-                                <li>Fotokopi Kartu Keluarga</li>
-                                <li>Fotokopi Buku Rekening Bank</li>
-                                <li>Surat Keterangan Kematian</li>
-                                <li>Pas foto ukuran 4x6 (2 lembar)</li>
-                                <li>Fotokopi Surat Nikah</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                  </div>
-               </div>
-
-
-               <div class="card">
-                  <div class="card-header">
-                     <h3 class="h4 card-title">Pertanyaan Umum (FAQ)</h3>
-
-                  </div>
-                  <div class="card-body">
-
-
-                     <div class="card-body">
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq1">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                    Kapan saya bisa mengajukan pensiun dini?
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Anda dapat mengajukan pensiun dipercepat (dini) jika sudah mencapai usia minimal 46 tahun dan memiliki masa kepesertaan minimal 10 tahun. Pengajuan harus disetujui oleh perusahaan dan Dana Pensiun.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    Bagaimana cara pembayaran manfaat pensiun?
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Manfaat pensiun dibayarkan setiap bulan melalui transfer ke rekening bank penerima manfaat. Pembayaran dilakukan setiap tanggal 25 bulan berjalan.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    Apakah manfaat pensiun dikenakan pajak?
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Ya, manfaat pensiun dikenakan pajak penghasilan (PPh) pasal 21 sesuai dengan ketentuan perpajakan yang berlaku. Dana Pensiun akan memotong pajak tersebut sebelum membayarkan manfaat pensiun Anda.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    Bagaimana jika saya meninggal sebelum menerima manfaat pensiun?
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Jika peserta meninggal sebelum menerima manfaat pensiun, maka janda/duda akan menerima manfaat pensiun janda/duda sebesar 60% dari manfaat pensiun yang seharusnya diterima peserta. Jika tidak ada janda/duda, manfaat akan diberikan kepada anak yang memenuhi syarat.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq5">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                                    Apakah manfaat pensiun dapat diambil sekaligus?
-                                </button>
-                            </h2>
-                            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Sesuai dengan peraturan, maksimal 20% dari total nilai manfaat pensiun dapat diambil sekaligus, sedangkan sisanya akan dibayarkan secara berkala setiap bulan. Pengambilan sekaligus ini harus diajukan pada saat pengajuan pembayaran manfaat pensiun.
-                                </div>
+                            <div class="mt-4 d-flex justify-content-center">
+                                {{ $pesertas->links() }}
                             </div>
                         </div>
                     </div>
                 </div>
-
-                  </div>
-               </div>
-
             </div>
-         </div>
 
-
-         <!-- FOOTER -->
-
-         <footer class="mt-auto">
+            <footer class="mt-auto">
                 <div class="content__boxed">
                     <div class="content__wrap py-3 py-md-1 d-flex flex-column flex-md-row align-items-md-center">
                         <div class="text-nowrap mb-4 mb-md-0">Copyright &copy; 2025 <a href="#" class="ms-1 btn-link fw-bold">Dapen Bank Sulselbar</a></div>
                     </div>
                 </div>
             </footer>
-
-         <!-- END - FOOTER -->
-
-
-      </section>
+        </section>
 
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- END - CONTENTS -->
@@ -384,7 +276,7 @@
 
       <!-- MAIN NAVIGATION -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-     <nav id="mainnav-container" class="mainnav">
+      <nav id="mainnav-container" class="mainnav">
     <div class="mainnav__inner">
 
         <!-- Navigation menu -->
@@ -537,6 +429,7 @@
 
     </div>
 </nav>
+
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- END - MAIN NAVIGATION -->
 
@@ -1286,7 +1179,7 @@
 
                            <!-- Scheme Button -->
                            <button type="button" class="_dm-colorModeBtn btn p-1 shadow-none" data-color-mode="tm--expanded-hd">
-                              <img src="./assets/img/color-schemes/expanded-header.png" alt="color scheme illusttration" loading="lazy">
+                              <img src="{{ asset('assets/img/color-schemes/expanded-header.png') }}" alt="color scheme illusttration" loading="lazy">
                            </button>
 
                         </div>
@@ -1300,7 +1193,7 @@
 
                            <!-- Scheme Button -->
                            <button type="button" class="_dm-colorModeBtn btn p-1 shadow-none" data-color-mode="tm--fair-hd">
-                              <img src="./assets/img/color-schemes/fair-header.png" alt="color scheme illusttration" loading="lazy">
+                              <img src="{{ asset('assets/img/color-schemes/fair-header.png') }}" alt="color scheme illusttration" loading="lazy">
                            </button>
 
                         </div>
@@ -1314,7 +1207,7 @@
 
                            <!-- Scheme Button -->
                            <button type="button" class="_dm-colorModeBtn btn p-1 shadow-none" data-color-mode="tm--full-hd">
-                              <img src="./assets/img/color-schemes/full-header.png" alt="color scheme illusttration" loading="lazy">
+                              <img src="{{ asset('assets/img/color-schemes/full-header.png') }}" alt="color scheme illusttration" loading="lazy">
                            </button>
 
                         </div>
@@ -1330,7 +1223,7 @@
 
                            <!-- Scheme Button -->
                            <button type="button" class="_dm-colorModeBtn btn p-1 shadow-none" data-color-mode="tm--primary-mn">
-                              <img src="./assets/img/color-schemes/navigation.png" alt="color scheme illusttration" loading="lazy">
+                              <img src="{{ asset('assets/img/color-schemes/navigation.png') }}" alt="color scheme illusttration" loading="lazy">
                            </button>
 
                         </div>
@@ -1343,7 +1236,7 @@
 
                            <!-- Scheme Button -->
                            <button type="button" class="_dm-colorModeBtn btn p-1 shadow-none" data-color-mode="tm--primary-brand">
-                              <img src="./assets/img/color-schemes/brand.png" alt="color scheme illusttration" loading="lazy">
+                              <img src="{{ asset('assets/img/color-schemes/brand.png') }}" alt="color scheme illusttration" loading="lazy">
                            </button>
 
                         </div>
@@ -1355,7 +1248,7 @@
 
                            <!-- Scheme Button -->
                            <button type="button" class="_dm-colorModeBtn btn p-1 shadow-none" data-color-mode="tm--tall-hd">
-                              <img src="./assets/img/color-schemes/tall-header.png" alt="color scheme illusttration" loading="lazy">
+                              <img src="{{ asset('assets/img/color-schemes/tall-header.png') }}" alt="color scheme illusttration" loading="lazy">
                            </button>
 
                         </div>
@@ -1448,28 +1341,44 @@
 
 
    <!-- Popper JS [ OPTIONAL ] -->
-   <script src="./assets/vendors/popperjs/popper.min.js"></script>
+   <script src="{{ asset('assets/vendors/popperjs/popper.min.js') }}"></script>
 
 
    <!-- Bootstrap JS [ OPTIONAL ] -->
-   <script src="./assets/vendors/bootstrap/bootstrap.min.js"></script>
+   <script src="{{ asset('assets/vendors/bootstrap/bootstrap.min.js') }}"></script>
 
 
    <!-- Nifty JS [ OPTIONAL ] -->
-   <script src="./assets/js/nifty.js"></script>
+   <script src="{{ asset('assets/js/nifty.js') }}"></script>
 
 
    <!-- Nifty Settings [ DEMO ] -->
-   <script src="./assets/js/demo-purpose-only.js"></script>
+   <script src="{{ asset('assets/js/demo-purpose-only.js') }}"></script>
 
 
-   <!-- Tabulator Scripts [ OPTIONAL ] -->
-   <script src="./assets/vendors/tabulator/tabulator.min.js"></script>
+   <!-- Chart JS Scripts [ OPTIONAL ] -->
+   <script src="{{ asset('assets/vendors/chart.js/chart.umd.min.js') }}"></script>
 
 
    <!-- Initialize [ SAMPLE ] -->
-   <script src="./assets/pages/tabulator.js"></script>
+   <script src="{{ asset('assets/pages/dashboard-1.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = new bootstrap.Modal(document.getElementById('hitungMpModal'));
+
+        document.querySelectorAll('.hitung-mp-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const nip = this.getAttribute('data-nip');
+                document.getElementById('modalNip').value = nip;
+
+                modal.show();
+            });
+        });
+    });
+</script>
 
 </body>
 
