@@ -33,6 +33,7 @@ public function store(Request $request)
     $validated = $request->validate([
         'usia' => ['required', 'integer'],
         'nilai_sekarang' => ['required', 'numeric', 'min:0', 'regex:/^\d+(\.\d{1,6})?$/'],
+
     ]);
 
     NilaiSekarang::create($validated);
@@ -64,6 +65,7 @@ public function update(Request $request, string $id)
     $validated = $request->validate([
         'usia' => ['required', 'integer'],
         'nilai_sekarang' => ['required', 'numeric', 'min:0', 'regex:/^\d+(\.\d{1,6})?$/'],
+
     ]);
 
     $nilaiSekarang = NilaiSekarang::findOrFail($id);

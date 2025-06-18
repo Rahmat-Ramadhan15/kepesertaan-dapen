@@ -119,21 +119,24 @@
                                 </div>
                                 <div class="row mb-3">
                                     <label for="nilai_sekarang" class="form-label">Nilai Sekarang</label>
-                                    <input class="form-control" id="nilai_sekarang" name="nilai_sekarang" rows="3"
-                                        type="number" class="form-control" step="0.000001"
-                                        oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''" required>
+                                    <input type="text" class="form-control" id="nilai_sekarang" name="nilai_sekarang"
+                                        inputmode="decimal" pattern="^\d+(\.\d{1,6})?$" placeholder="Contoh: 1.234567"
+                                        required
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^([^.]*\.)|\./g, '$1').match(/^\d*\.?\d{0,6}/)?.[0] || ''" />
                                 </div>
                                 <div class="row mb-3">
                                     <label for="ns_janda" class="form-label">NS Janda/Duda</label>
-                                    <input class="form-control" id="ns_janda" name="ns_janda" rows="3"
-                                        type="number" class="form-control" step="0.000001"
-                                        oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''" required>
+                                    <input type="text" class="form-control" id="ns_janda" name="ns_janda"
+                                        inputmode="decimal" pattern="^\d+(\.\d{1,6})?$" placeholder="Contoh: 1.234567"
+                                        required
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^([^.]*\.)|\./g, '$1').match(/^\d*\.?\d{0,6}/)?.[0] || ''" />
                                 </div>
                                 <div class="row mb-3">
                                     <label for="ns_anak" class="form-label">NS Anak</label>
-                                    <input class="form-control" id="ns_anak" name="ns_anak" rows="3"
-                                        type="number" class="form-control" step="0.000001"
-                                        oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''" required>
+                                    <input type="text" class="form-control" id="ns_anak" name="ns_anak"
+                                        inputmode="decimal" pattern="^\d+(\.\d{1,6})?$"
+                                        placeholder="Contoh: 1.234567" required
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^([^.]*\.)|\./g, '$1').match(/^\d*\.?\d{0,6}/)?.[0] || ''" />
                                 </div>
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-primary">

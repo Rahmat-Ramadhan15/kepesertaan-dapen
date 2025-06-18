@@ -119,10 +119,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nilai_sekarang" class="form-label">Nilai Sekarang</label>
-                                    <input type="number" class="form-control" id="nilai_sekarang" name="nilai_sekarang"
-                                        step="0.000001"
-                                        oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''"
-                                        value="{{ $data->nilai_sekarang }}" required>
+                                    <input type="text" class="form-control" id="nilai_sekarang" name="nilai_sekarang"
+                                        inputmode="decimal" pattern="^\d+(\.\d{1,6})?$" placeholder="Contoh: 1.234567"
+                                        required
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^([^.]*\.)|\./g, '$1').match(/^\d*\.?\d{0,6}/)?.[0] || ''"
+                                        value="{{ $data->nilai_sekarang }}" />
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save me-1"></i> Update

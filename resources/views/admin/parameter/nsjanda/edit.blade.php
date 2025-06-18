@@ -119,17 +119,19 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nilai_sekarang" class="form-label">Nilai Sekarang</label>
-                                    <input type="number" class="form-control" id="nilai_sekarang" name="nilai_sekarang"
-                                        step="0.000001"
-                                        oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''"
-                                        value="{{ $data->nilai_sekarang }}" required>
+                                    <input type="text" class="form-control" id="nilai_sekarang" name="nilai_sekarang"
+                                        inputmode="decimal" pattern="^\d+(\.\d{1,6})?$" placeholder="Contoh: 1.234567"
+                                        required
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^([^.]*\.)|\./g, '$1').match(/^\d*\.?\d{0,6}/)?.[0] || ''"
+                                        value="{{ $data->nilai_sekarang }}" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="ns_anak" class="form-label">NS Anak</label>
-                                    <input type="number" class="form-control" id="ns_anak" name="ns_anak"
-                                        step="0.000001"
-                                        oninput="this.value = this.value.match(/^\d*\.?\d{0,6}/)?.[0] || ''"
-                                        value="{{ $data->ns_anak }}" required>
+                                    <input type="text" class="form-control" id="ns_anak" name="ns_anak"
+                                        inputmode="decimal" pattern="^\d+(\.\d{1,6})?$"
+                                        placeholder="Contoh: 1.234567" required
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^([^.]*\.)|\./g, '$1').match(/^\d*\.?\d{0,6}/)?.[0] || ''"
+                                        value="{{ $data->ns_anak }}" />
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save me-1"></i> Update
