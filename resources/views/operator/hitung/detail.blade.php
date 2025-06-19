@@ -165,6 +165,26 @@
                                 </select>
                                 <button type="submit" class="btn btn-sm btn-outline-primary">Tampilkan</button>
                             </form>
+                            <form action="{{ route('operator.hitung.detail', ['nip' => $peserta->nip]) }}" method="GET" class="d-flex flex-wrap align-items-center gap-2 mb-3">
+ 
+    
+    @if($historiIuran->count() > 0)
+        <a href="{{ route('operator.hitung.pdf', ['nip' => $peserta->nip, 'tahun' => request('tahun', date('Y'))]) }}" 
+           class="btn btn-sm btn-danger" 
+           target="_blank" 
+           title="Cetak PDF Histori Iuran Tahun {{ request('tahun', date('Y')) }}">
+            <i class="fas fa-file-pdf"></i> Lihat PDF
+        </a>
+    @endif
+</form>
+
+<!-- Alert jika tidak ada data untuk PDF -->
+@if($historiIuran->count() == 0)
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i>
+        Tidak ada histori iuran untuk tahun {{ request('tahun', date('Y')) }}. Silakan lakukan perhitungan terlebih dahulu atau pilih tahun lain.
+    </div>
+@endif
 
 
                             <h5 class="mt-4 mb-3">Histori Perhitungan Iuran (Tahun {{ $tahun }})</h5>
