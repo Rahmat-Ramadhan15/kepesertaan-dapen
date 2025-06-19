@@ -109,6 +109,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
         Route::post('/process', [HitungIuranController::class, 'hitung'])->name('process');
         Route::delete('/histori/{id}', [HitungIuranController::class, 'destroyHistori'])->name('destroyHistori');
         Route::get('/get-previous-month-data', [HitungIuranController::class, 'getPreviousMonthData'])->name('getPreviousMonthData'); // Rute AJAX
+        Route::get('/{nip}/pdf', [HitungIuranController::class, 'generatePDF'])->name('pdf'); // Route untuk PDF
     });
 
     Route::prefix('operator')->group(function () {
@@ -166,6 +167,3 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
 
     
 });
-
-
-
