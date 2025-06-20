@@ -95,42 +95,52 @@ class HitungIuranController extends Controller
     }
 
     /**
-     * Generate PDF untuk histori iuran peserta
-     */
-    public function generatePDF($nip, Request $request)
-    {
-        $peserta = Peserta::where('nip', $nip)->firstOrFail();
-        $tahun = $request->input('tahun', date('Y'));
-        
-        // Ambil histori iuran untuk tahun yang dipilih
-        $historiIuran = HistoriIuranPeserta::where('nip', $nip)
-                                        ->where('tahun', $tahun)
-                                        ->orderBy('bulan', 'asc')
-                                        ->get();
+ * Generate PDF untuk histori iuran peserta
+ */
+public function generatePDF($nip, Request $request)
+{
+    $peserta = Peserta::where('nip', $nip)->firstOrFail();
+    $tahun = $request->input('tahun', date('Y'));
+    
+    // Ambil histori iuran untuk tahun yang dipilih
+    $historiIuran = HistoriIuranPeserta::where('nip', $nip)
+                                    ->where('tahun', $tahun)
+                                    ->orderBy('bulan', 'asc')
+                                    ->get();
 
-        // Jika tidak ada data histori, redirect dengan pesan error
-        if ($historiIuran->isEmpty()) {
-            return redirect()->back()->with('error', 'Tidak ada data histori iuran untuk tahun ' . $tahun);
-        }
-
-        // Data untuk PDF
-        $data = [
-            'peserta' => $peserta,
-            'historiIuran' => $historiIuran,
-            'tahun' => $tahun,
-            'tanggal_cetak' => Carbon::now()->format('d/m/Y H:i:s')
-        ];
-
-        // Generate PDF
-        $pdf = Pdf::loadView('operator.hitung.pdf', $data);
-        $pdf->setPaper('A4', 'landscape'); // Set orientation ke landscape untuk tabel yang lebar
-
-        // Return PDF sebagai download atau view
-        $filename = 'Histori_Iuran_' . $peserta->nama . '_' . $tahun . '.pdf';
-        
-        return $pdf->stream($filename);
+    // Jika tidak ada data histori, redirect dengan pesan error
+    if ($historiIuran->isEmpty()) {
+        return redirect()->back()->with('error', 'Tidak ada data histori iuran untuk tahun ' . $tahun);
     }
 
+    // Data untuk PDF
+    $data = [
+        'peserta' => $peserta,
+        'historiIuran' => $historiIuran,
+        'tahun' => $tahun,
+        'tanggal_cetak' => Carbon::now()->format('d/m/Y H:i:s')
+    ];
+
+    // Generate PDF
+    $pdf = Pdf::loadView('operator.hitung.pdf', $data);
+    $pdf->setPaper('A4', 'portrait'); // Set orientation ke portrait
+    
+    // Set margin yang lebih kecil untuk portrait
+    $pdf->setOptions([
+        'defaultFont' => 'sans-serif',
+        'isHtml5ParserEnabled' => true,
+        'isPhpEnabled' => true,
+        'margin-top' => 5,
+        'margin-right' => 5,
+        'margin-bottom' => 5,
+        'margin-left' => 5,
+    ]);
+
+    // Return PDF sebagai download atau view
+    $filename = 'Histori_Iuran_' . $peserta->nama . '_' . $tahun . '.pdf';
+    
+    return $pdf->stream($filename);
+}
     /**
      * Memproses perhitungan iuran untuk satu peserta dan menyimpan hasilnya.
      */

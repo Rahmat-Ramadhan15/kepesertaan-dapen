@@ -183,7 +183,7 @@ class CetakController extends Controller
             if ($jenis_laporan == 'detail' || $jenis_laporan == 'keluarga') {
                 $pdf->setPaper('a4', 'portrait');
             } else {
-                $pdf->setPaper('a4', 'landscape');
+                $pdf->setPaper('a4', 'potrait');
             }
             
             // Generate filename
