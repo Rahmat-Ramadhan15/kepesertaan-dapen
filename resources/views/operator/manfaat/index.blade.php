@@ -159,7 +159,7 @@
 
                                        <div class="modal-content">
                                        <div class="modal-header">
-                                          <h5 class="modal-title">Tanggal Pensiun: <span id="modalTanggalPensiun">14-03-2025</span></h5>
+                                          <h5 class="modal-title">Tanggal Pensiun: <span id="modalTanggalPensiun"></span></h5>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                        </div>
                                        <div class="modal-body">
@@ -1379,6 +1379,20 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const span = document.getElementById('modalTanggalPensiun');
+        const today = new Date();
+
+        const tanggal = today.getDate().toString().padStart(2, '0');
+        const bulan = (today.getMonth() + 1).toString().padStart(2, '0'); // bulan dimulai dari 0
+        const tahun = today.getFullYear();
+
+        span.textContent = `${tanggal}-${bulan}-${tahun}`;
+    });
+</script>
+
 
 </body>
 
