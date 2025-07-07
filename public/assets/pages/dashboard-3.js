@@ -134,7 +134,53 @@ document.addEventListener( "DOMContentLoaded", () => {
       }
    });
 
+      const ctxRataRata = document.getElementById('_dm-lineChartLaporan');
 
+if (ctxRataRata && window.avgLineChartData) {
+   lineChartLaporan = new Chart(ctxRataRata, {
+      type: 'line',
+      data: {
+         labels: window.avgLineChartData.labels,
+         datasets: window.avgLineChartData.datasets
+      },
+      options: {
+         plugins: {
+            title: {
+               display: true,
+               color: headingsColor,
+               text: 'Grafik Rata-rata PhDP & Saldo per Bulan'
+            },
+            legend: {
+               display: true,
+               labels: {
+                  color: headingsColor,
+                  boxWidth: 10
+               }
+            }
+         },
+         interaction: { intersect: false },
+         responsive: true,
+         maintainAspectRatio: false,
+         scales: {
+            x: {
+               grid: { color: getGridXColor },
+               ticks: { color: headingsColor }
+            },
+            y: {
+               grid: { color: getGridYColor },
+               ticks: { color: headingsColor }
+            }
+         },
+         elements: {
+            point: { radius: 3, hoverRadius: 6 },
+            line: { tension: 0.4 }
+         }
+      }
+   });
+}
+
+
+   
    // Doughnut Chart
    // ----------------------------------------------
    const doughnutChart = new Chart(document.getElementById("_dm-doughnutChart"), {
@@ -182,6 +228,21 @@ const updateDashboardChart = function() {
    lineChart.options.scales.x.ticks.color = headingsColor;
 
    lineChart.update();
+
+      // Update chart laporan
+   lineChartLaporan.data.datasets[0].borderColor = primaryColor;
+   lineChartLaporan.data.datasets[0].backgroundColor = primaryColor;
+   lineChartLaporan.data.datasets[1].borderColor = warningColor;
+   lineChartLaporan.data.datasets[1].backgroundColor = warningColor;
+   lineChartLaporan.options.plugins.title.color = headingsColor;
+   lineChartLaporan.options.plugins.legend.labels.color = primaryColor;
+   lineChartLaporan.options.scales.y.grid.color = getGridYColor;
+   lineChartLaporan.options.scales.x.grid.color = getGridXColor;
+   lineChartLaporan.options.scales.y.ticks.color = headingsColor;
+   lineChartLaporan.options.scales.x.ticks.color = headingsColor;
+
+   lineChartLaporan.update();
+   
 
 };
 

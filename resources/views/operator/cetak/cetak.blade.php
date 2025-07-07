@@ -148,7 +148,7 @@
                             <select id="filter_cabang" class="form-select" name="cabang">
                                 <option value="">Semua Cabang</option>
                                 @foreach($cabang as $c)
-                                <option value="{{ $c->id }}">{{ $c->nama_cabang }}</option>
+                                <option value="{{ $c->kode_cabang }}">{{ $c->nama_cabang }}</option>
                                 @endforeach
                             </select>
                             </div>

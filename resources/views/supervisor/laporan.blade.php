@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-scheme="ocean">
 
@@ -79,74 +78,22 @@
 
                <!-- Page title and information -->
                <div class="text-center">
-                  <h1 class="page-title mb-3 mt-4">Dashboard</h1>
-                  <p class="lead mb-0">Hi Supervisor! Welcome back to the Dashboard.</p>
+                  <h1 class="page-title mb-3 mt-4">Laporan</h1>
                </div>
                <!-- END : Page title and information -->
 
+               
+
                <div class="py-4 my-5">
 
-
                   <!-- Line Chart -->
-                  <div style="height: 300px">
-                     <canvas id="_dm-lineChart"></canvas>
+                  <div>
+                     <canvas id="rataRataIuranChart" height="300"></canvas>
+
                   </div>
                   <!-- END : Line Chart -->
 
 
-               </div>
-
-               <div class="row mb-4">
-                  <div class="col-md-7">
-
-
-                     <!-- Statistic list -->
-                     <h3>Statistics</h3>
-                        <ol class="list-group list-group-borderless mb-4">
-                        <li class="list-group-item text-body-emphasis d-flex justify-content-between align-items-start px-0">
-                            <div class="me-auto">
-                                <div class="text-reset fs-5 fw-semibold">Total Peserta</div>
-                                <small class="text-reset opacity-50">Jumlah seluruh peserta.</small>
-                            </div>
-                            <span class="badge bg-success rounded-pill">{{ $totalPeserta }}</span>
-                        </li>
-                        <li class="list-group-item text-body-emphasis d-flex justify-content-between align-items-start px-0">
-                            <div class="me-auto">
-                                <div class="text-reset fs-5 fw-semibold">Laki-laki</div>
-                                <small class="text-reset opacity-50">Peserta laki-laki.</small>
-                            </div>
-                            <span class="badge bg-info rounded-pill">{{ $totalLaki }}</span>
-                        </li>
-                        <li class="list-group-item text-body-emphasis d-flex justify-content-between align-items-start px-0">
-                            <div class="me-auto">
-                                <div class="text-reset fs-5 fw-semibold">Perempuan</div>
-                                <small class="text-reset opacity-50">Peserta perempuan.</small>
-                            </div>
-                            <span class="badge bg-danger rounded-pill">{{ $totalPerempuan }}</span>
-                        </li>
-                        <li class="list-group-item text-body-emphasis d-flex justify-content-between align-items-start px-0">
-                            <div class="me-auto">
-                                <div class="text-reset fs-5 fw-semibold">Total PHDP</div>
-                                <small class="text-reset opacity-50">Jumlah total PHDP dari semua peserta.</small>
-                            </div>
-                            <span class="badge bg-success rounded-pill">Rp {{ number_format($totalPHDP, 0, ',', '.') }}</span>
-                        </li>
-                        </ol>
-
-                     <!-- END : Statistic list -->
-
-
-                  </div>
-                  <div class="col-md-5">
-
-
-                     <!-- Doughnut Chart -->
-                     <div class="pt-4" style="height: 250px">
-                        <canvas id="_dm-doughnutChart"></canvas>
-                     </div>
-                     <!-- END : Doughnut Chart -->
-
-                  </div>
                </div>
 
 
@@ -213,7 +160,6 @@
                            </div>
                         </div>
                      </div>
-                     END : Stat widget
 
 
                   </div>
@@ -249,34 +195,52 @@
                         <div class="card-body">
                            <h5 class="card-title">Top Users</h5>
                            <div class="table-responsive">
-                              <table class="table table-striped">
-                                 <thead>
-                                    <tr>
-                                        <th>NIP</th>
-                                        <th>Nama</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Jabatan</th>
-                                        <th>PHDP</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    @foreach ($peserta as $p)
+                              <h2>Laporan Iuran Pensiun Bulan {{ $bulan }} Tahun {{ $tahun }}</h2>
+
+                                <form method="GET" action="{{ route('supervisor.laporan') }}">
+                                    <label>Bulan:</label>
+                                    <select name="bulan">
+                                        @for ($i = 1; $i <= 12; $i++)
+                                            <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                                                {{ DateTime::createFromFormat('!m', $i)->format('F') }}
+                                            </option>
+                                        @endfor
+                                    </select>
+
+                                    <label>Tahun:</label>
+                                    <input type="number" name="tahun" value="{{ $tahun }}">
+
+                                    <button type="submit">Tampilkan</button>
+                                </form>
+
+                                <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px;">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $p->nip }}</td>
-                                            <td>{{ $p->nama }}</td>
-                                            <td>
-                                                @if($p->jenis_kelamin == 'Laki-laki')
-                                                    <span class="badge bg-primary"><i class="fas fa-male me-1"></i> L</span>
-                                                @else
-                                                    <span class="badge bg-danger"><i class="fas fa-female me-1"></i> P</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $p->jabatan }}</td>
-                                            <td>Rp {{ number_format($p->phdp, 0, ',', '.') }}</td>
+                                            <th>NIP</th>
+                                            <th>PhDP</th>
+                                            <th>Iuran Peserta</th>
+                                            <th>Hasil Pengembangan Peserta</th>
+                                            <th>Saldo Akhir Peserta</th>
+                                            <th>Iuran Pemberi Kerja</th>
+                                            <th>Hasil Pengembangan Pemberi Kerja</th>
+                                            <th>Saldo Akhir Pemberi Kerja</th>
                                         </tr>
-                                    @endforeach
-                                 </tbody>
-                              </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($data as $row)
+                                        <tr>
+                                            <td>{{ $row->nip }}</td>
+                                            <td>{{ number_format($row->phdp_bulan_ini, 2) }}</td>
+                                            <td>{{ number_format($row->iuran_peserta, 2) }}</td>
+                                            <td>{{ number_format($row->hasil_pengembangan_peserta, 2) }}</td>
+                                            <td>{{ number_format($row->saldo_akhir_peserta, 2) }}</td>
+                                            <td>{{ number_format($row->iuran_pemberi_kerja, 2) }}</td>
+                                            <td>{{ number_format($row->hasil_pengembangan_pemberi_kerja, 2) }}</td>
+                                            <td>{{ number_format($row->saldo_akhir_pemberi_kerja, 2) }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                            </div>
 
                         </div>
@@ -393,7 +357,7 @@
 
                   <!-- Profile picture  -->
                   <div class="mininav-toggle text-center py-2">
-                     <img class="mainnav__avatar img-md rounded-circle hv-oc" src="./assets/img/profile-photos/1.png" alt="Profile Picture">
+                     <img class="mainnav__avatar img-md rounded-circle hv-oc" src="{{ asset('assets/img/profile-photos/1.png') }}" alt="Profile Picture">
                   </div>
 
 
@@ -423,7 +387,7 @@
                      <li class="nav-item has-sub">
 
 
-                        <a href="#" class=" nav-link active"><i class="demo-pli-home fs-5 me-2"></i>
+                        <a href="{{ route('supervisor.dashboard') }}" class=" nav-link"><i class="demo-pli-home fs-5 me-2"></i>
                            <span class="nav-label ms-1">Dashboard</span>
                         </a>
 
@@ -435,7 +399,7 @@
 
                      <!-- Regular menu link -->
                      <li class="nav-item">
-                        <a href="{{ route('supervisor.laporan') }}" class="nav-link mininav-toggle"><i class="demo-pli-file fs-5 me-2"></i>
+                        <a href="{{ route('supervisor.laporan') }}" class="nav-link active"><i class="demo-pli-file fs-5 me-2"></i>
 
                            <span class="nav-label mininav-content ms-1">
                               <span data-popper-arrow class="arrow"></span>
@@ -1131,42 +1095,123 @@
 
 
    <!-- Popper JS [ OPTIONAL ] -->
-   <script src="./assets/vendors/popperjs/popper.min.js"></script>
+   <script src="{{ asset('assets/vendors/popperjs/popper.min.js') }}"></script>
 
 
    <!-- Bootstrap JS [ OPTIONAL ] -->
-   <script src="./assets/vendors/bootstrap/bootstrap.min.js"></script>
+   <script src="{{ asset('assets/vendors/bootstrap/bootstrap.min.js') }}"></script>
 
 
    <!-- Nifty JS [ OPTIONAL ] -->
-   <script src="./assets/js/nifty.js"></script>
+   <script src="{{ asset('assets/js/nifty.js') }}"></script>
 
 
    <!-- Nifty Settings [ DEMO ] -->
-   <script src="./assets/js/demo-purpose-only.js"></script>
+   <script src="{{ asset('assets/js/demo-purpose-only.js') }}"></script>
 
 
    <!-- Chart JS Scripts [ OPTIONAL ] -->
-   <script src="./assets/vendors/chart.js/chart.umd.min.js"></script>
+   <script src="{{ asset('assets/vendors/chart.js/chart.umd.min.js') }}"></script>
 
-   <script>
-      const lineData = [
-         @foreach($phdpPerJabatan as $jabatan => $avgPhdp)
-            { elapsed: "{{ $jabatan }}", value: {{ $avgPhdp }} },
-         @endforeach
-      ];
-   </script>
+    <!-- Initialize [ SAMPLE ] -->
+    <script src="{{ asset('assets/pages/dashboard-3.js') }}"></script>
 
-   <script>
-      window.jumlahPerJabatan = @json($jumlahPerJabatan);
-      window.doughnutLabels = Object.keys(window.jumlahPerJabatan);
-      window.doughnutData   = Object.values(window.jumlahPerJabatan);
-   </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-   <!-- Initialize [ SAMPLE ] -->
-   <script src="{{ asset('assets/pages/dashboard-3.js') }}"></script>
+    <script>
+    // Siapkan data dari Laravel untuk JavaScript
+    const avgPerMonthData = @json($avgPerMonth);
 
-    
+    const labels = avgPerMonthData.map(item => item.bulan);
+    const avgPhdp = avgPerMonthData.map(item => item.phdp);
+    const avgSaldoPeserta = avgPerMonthData.map(item => item.saldo_peserta);
+    const avgSaldoPemberi = avgPerMonthData.map(item => item.saldo_pemberi);
+
+    const ctx = document.getElementById('rataRataIuranChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar', // Menggunakan tipe grafik batang
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Rata-rata PHDP',
+                data: avgPhdp,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', // Warna hijau kebiruan
+                borderColor: 'rgb(0, 255, 255)',
+                borderWidth: 1
+            }, {
+                label: 'Rata-rata Saldo Akhir Peserta',
+                data: avgSaldoPeserta,
+                backgroundColor: 'rgba(153, 102, 255, 0.6)', // Warna ungu
+                borderColor: 'rgb(85, 0, 255)',
+                borderWidth: 1
+            }, {
+                label: 'Rata-rata Saldo Akhir Pemberi Kerja',
+                data: avgSaldoPemberi,
+                backgroundColor: 'rgba(255, 159, 64, 0.6)', // Warna oranye
+                borderColor: 'rgb(252, 126, 0)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Penting agar grafik bisa menyesuaikan ukuran div
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Jumlah (IDR)',
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    },
+                    ticks: {
+                        // Mengubah warna teks label sumbu Y
+                        color: 'rgb(255, 255, 255)' // Contoh warna abu-abu sedikit lebih terang
+                    }
+                },
+                
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Bulan',
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    },
+                    ticks: {
+                        // Mengubah warna teks label sumbu Y
+                        color: 'rgb(255, 255, 255)' // Contoh warna abu-abu sedikit lebih terang
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Perbandingan Rata-rata PHDP dan Saldo per Bulan',
+                    color: 'rgb(255, 255, 255)'
+                },
+                legend: {
+                    labels: {
+                        // Mengubah warna teks pada label datasets di legenda
+                        color: 'rgb(255, 255, 255)' // Ini akan mengatur warna teks 'Rata-rata PHDP', 'Rata-rata Saldo Akhir Peserta', dll.
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>
