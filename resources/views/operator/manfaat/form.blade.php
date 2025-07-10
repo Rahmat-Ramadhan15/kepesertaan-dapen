@@ -75,104 +75,87 @@
 
         <!-- CONTENTS -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <section id="content" class="content">
-            <div class="content__header content__boxed overlapping">
-                <div class="content__wrap">
-                    <h1 class="page-title mb-2">Manfaat Pensiun</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('manfaat.index') }}">Manfaat Pensiun</a></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+        <!-- CONTENTS -->
+        <section id="content" class="content d-flex align-items-center justify-content-center"
+            style="min-height: 100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
 
-            <div class="content__boxed">
-                <div class="content__wrap">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                        {{-- Pesan error dari session --}}
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
-                                <form action="{{ route('manfaat.index') }}" method="GET"
-                                    class="d-flex flex-wrap align-items-center gap-2 m-0">
-                                    <select name="cabang_id" class="form-select" style="width: auto;">
-                                        <option value="">Semua Cabang</option>
-                                        @foreach ($listCabang as $cabang)
-                                            <option value="{{ $cabang->kode_cabang }}"
-                                                {{ request('cabang_id') == $cabang->kode_cabang ? 'selected' : '' }}>
-                                                {{ $cabang->nama_cabang }}
+                        {{-- Error dari validasi bawaan Laravel --}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4 class="text-center mb-4">Form Hitung MP untuk {{ $peserta->nama }}</h4>
+
+                                <form method="POST" action="{{ route('manfaat.hitung') }}">
+                                    @csrf
+                                    <input type="hidden" name="nip" value="{{ $peserta->nip }}">
+
+                                    <div class="mb-3">
+                                        <label for="jenis" class="form-label">Jenis Pensiun</label>
+                                        <select id="jenis" name="jenis" class="form-select" required>
+                                            <option value="" disabled selected>-- Pilih Jenis Pensiun --</option>
+                                            <option value="normal">Normal</option>
+                                            <option value="dipercepat">Dipercepat</option>
+                                            <option value="cacat">Cacat</option>
+                                            <option value="janda/duda">Janda/Duda</option>
+                                            <option value="anak">Anak</option>
+                                            <option value="pihakyangditunjuk">Pihak Yang Ditunjuk</option>
+                                            <option value="pengembalianiuran">Pengembalian Iuran</option>
+                                            <option value="pengalihandana">Pengalihan Dana Ke DP Lain</option>
+                                            <option value="ditunda">Ditunda</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="metode" class="form-label">Metode Pembayaran</label>
+                                        <select id="metode" name="metode" class="form-select" required>
+                                            <option value="" disabled selected>-- Pilih Metode Pembayaran --
                                             </option>
-                                        @endforeach
-                                    </select>
+                                            <option value="bulanan">100% Bulanan</option>
+                                            <option value="sekaligus">100% Sekaligus</option>
+                                        </select>
+                                    </div>
 
-                                    <input type="text" name="nip" class="form-control" placeholder="Cari NIP..."
-                                        value="{{ request('nip') }}" style="width: auto;">
-                                    <input type="text" name="nama" class="form-control" placeholder="Cari Nama..."
-                                        value="{{ request('nama') }}" style="width: auto;">
+                                    <div class="mb-4">
+                                        <label for="kenaikan" class="form-label">Kenaikan</label>
+                                        <select id="kenaikan" name="kenaikan" class="form-select" required>
+                                            <option value="" disabled selected>-- Pilih Kenaikan --</option>
+                                            <option value="300000">300.000 (Pegawai)</option>
+                                            <option value="900000">900.000 (Direksi)</option>
+                                        </select>
+                                    </div>
 
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-filter me-1"></i> Filter
-                                    </button>
-                                    <a href="{{ route('manfaat.index') }}" class="btn btn-primary">
-                                        <i class="fas fa-sync-alt me-1"></i> Reset
-                                    </a>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Hitung Manfaat Pensiun</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
 
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Cabang</th>
-                                            <th>PHDP (Master)</th>
-                                            <th class="text-center">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($pesertas as $peserta)
-                                            <tr>
-                                                <td class="fw-semibold">{{ $peserta->nip }}</td>
-                                                <td>{{ $peserta->nama }}</td>
-                                                <td>{{ $peserta->cabang->nama_cabang ?? 'N/A' }}</td>
-                                                <td>{{ number_format($peserta->phdp, 2, ',', '.') }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('manfaat.form', ['nip' => $peserta->nip]) }}"
-                                                        class="btn btn-sm btn-primary">
-                                                        <i class="fas fa-calculator me-1"></i> Hitung MP
-                                                    </a>
-
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="5" class="text-center">Tidak ada data peserta ditemukan.
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="mt-4 d-flex justify-content-center">
-                                {{ $pesertas->links() }}
-                            </div>
-                        </div>
+                        <footer class="text-center mt-4 small text-muted">
+                            &copy; 2025 Dapen Bank Sulselbar
+                        </footer>
                     </div>
                 </div>
             </div>
-
-            <footer class="mt-auto">
-                <div class="content__boxed">
-                    <div class="content__wrap py-3 py-md-1 d-flex flex-column flex-md-row align-items-md-center">
-                        <div class="text-nowrap mb-4 mb-md-0">Copyright &copy; 2025 <a href="#"
-                                class="ms-1 btn-link fw-bold">Dapen Bank Sulselbar</a></div>
-                    </div>
-                </div>
-            </footer>
         </section>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -94,19 +94,6 @@ class Peserta extends Model
         return 0;
     }
 
-    public function historiTerbaru()
-    {
-        return $this->hasOne(HistoriIuranPeserta::class, 'nip', 'nip')
-            ->orderByDesc('tahun')
-            ->orderByDesc('bulan');
-    }
-
-    public function getAkumulasiIbhpAttribute()
-    {
-        return $this->historiTerbaru?->saldo_akhir_peserta ?? 0;
-    }
-
-
     public static function scopeApplyPrintFilter($query, $filters)
     {
         $query = self::with(['cabang', 'keluargas']); // Gunakan keluargas()
