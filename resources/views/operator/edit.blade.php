@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="A table library that works everywhere">
-   <title>Gridjs | Nifty - Admin Template</title>
+   <title>Edit | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -168,10 +168,13 @@
                                     <input type="text" class="form-control " id="no_sk" name="no_sk" value="{{ $peserta->no_sk }}" placeholder="Masukkan nomor SK">
 
                                     <label for="tmk" class="form-label fw-semibold mt-3">TMK</label>
-                                    <input type="date" class="form-control " id="tmk" name="tmk" value="{{ $peserta->tmk ? (is_string($peserta->tmk) ? $peserta->tmk : $peserta->tmk->format('Y-m-d')) : '' }}">
+                                    <input type="date" class="form-control" id="tmk" name="tmk"
+                                       value="{{ $peserta->tmk ? (is_string($peserta->tmk) ? $peserta->tmk : $peserta->tmk->format('Y-m-d')) : '' }}">
 
                                     <label for="tpst" class="form-label fw-semibold mt-3">TPST</label>
-                                    <input type="date" class="form-control " id="tpst" name="tpst" value="{{ $peserta->tpst ? (is_string($peserta->tpst) ? $peserta->tpst : $peserta->tpst->format('Y-m-d')) : '' }}">
+                                    <input type="date" class="form-control" id="tpst" name="tpst"
+                                       value="{{ $peserta->tpst ? (is_string($peserta->tpst) ? $peserta->tpst : $peserta->tpst->format('Y-m-d')) : '' }}">
+
 
                                     <label for="golongan" class="form-label fw-semibold mt-3">Golongan</label>
                                     <select class="form-select " id="golongan" name="golongan">
@@ -190,11 +193,69 @@
                                     @endforeach
                                     </select>
 
-                                    <label for="mkmk" class="form-label fw-semibold mt-3">MKMK</label>
-                                    <input type="date" class="form-control " id="mkmk" name="mkmk" value="{{ $peserta->mkmk ? (is_string($peserta->mkmk) ? $peserta->mkmk : $peserta->mkmk->format('Y-m-d')) : '' }}">
+                                  <label class="form-label fw-semibold mt-3">MKMK</label>
+                                 <input type="text" class="form-control bg-light" id="mkmk_display" readonly>
+                                 <input type="hidden" name="mkmk" id="mkmk">
 
-                                    <label for="mkmp" class="form-label fw-semibold mt-3">MKMP</label>
-                                    <input type="date" class="form-control " id="mkmp" name="mkmp" value="{{ $peserta->mkmp ? (is_string($peserta->mkmp) ? $peserta->mkmp : $peserta->mkmp->format('Y-m-d')) : '' }}">
+                                 <label class="form-label fw-semibold mt-3">MKMP</label>
+                                 <input type="text" class="form-control bg-light" id="mkmp_display" readonly>
+                                 <input type="hidden" name="mkmp" id="mkmp">
+
+
+                                    <script>
+                                       function hitungMK(tanggal) {
+                                          if (!tanggal) return { durasi: '', todayFormatted: '' };
+
+                                          const tgl = new Date(tanggal);
+                                          const sekarang = new Date();
+
+                                          let tahun = sekarang.getFullYear() - tgl.getFullYear();
+                                          let bulan = sekarang.getMonth() - tgl.getMonth();
+                                          let hari = sekarang.getDate() - tgl.getDate();
+
+                                          if (hari < 0) {
+                                             bulan--;
+                                             const bulanLalu = new Date(sekarang.getFullYear(), sekarang.getMonth(), 0);
+                                             hari += bulanLalu.getDate();
+                                          }
+
+                                          if (bulan < 0) {
+                                             tahun--;
+                                             bulan += 12;
+                                          }
+
+                                          // Format hari ini untuk disimpan (YYYY-MM-DD)
+                                          const yyyy = sekarang.getFullYear();
+                                          const mm = String(sekarang.getMonth() + 1).padStart(2, '0');
+                                          const dd = String(sekarang.getDate()).padStart(2, '0');
+                                          const todayFormatted = `${yyyy}-${mm}-${dd}`;
+
+                                          return {
+                                             durasi: `${tahun} Tahun ${bulan} Bulan ${hari} Hari`,
+                                             todayFormatted: todayFormatted
+                                          };
+                                       }
+
+                                       function updateMK() {
+                                          const tmk = document.getElementById('tmk').value;
+                                          const tpst = document.getElementById('tpst').value;
+
+                                          const hasilMKMK = hitungMK(tmk);
+                                          const hasilMKMP = hitungMK(tpst);
+
+                                          document.getElementById('mkmk_display').value = hasilMKMK.durasi;
+                                          document.getElementById('mkmp_display').value = hasilMKMP.durasi;
+
+                                          document.getElementById('mkmk').value = hasilMKMK.todayFormatted;
+                                          document.getElementById('mkmp').value = hasilMKMP.todayFormatted;
+                                       }
+
+                                       window.onload = updateMK;
+                                       document.getElementById('tmk').addEventListener('change', updateMK);
+                                       document.getElementById('tpst').addEventListener('change', updateMK);
+                                       </script>
+
+
 
                                     <label for="jabatan" class="form-label fw-semibold mt-3">Jabatan</label>
                                     <input type="text" class="form-control " id="jabatan" name="jabatan" value="{{ $peserta->jabatan }}" placeholder="Masukkan jabatan">
