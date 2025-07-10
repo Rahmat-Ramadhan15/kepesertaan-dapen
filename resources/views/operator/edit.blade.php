@@ -329,11 +329,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold ">Akumulasi IBHP</label>
+                                    <label class="form-label fw-semibold">Akumulasi IBHP</label>
                                     <div class="input-group">
-                                        <span class="input-group-text">Rp</span>
-                                        <input type="number" step="0.01" class="form-control" id="akumulasi_ibhp" name="akumulasi_ibhp" value="{{ $peserta->akumulasi_ibhp }}" placeholder="0.00">
+                                       <span class="input-group-text">Rp</span>
+                                       <input type="text" class="form-control bg-light" readonly
+                                             value="{{ number_format($peserta->akumulasi_ibhp, 2, ',', '.') }}">
                                     </div>
+
                                     <label class="form-label fw-semibold mt-3">Kode Peserta</label>
                                     <select class="form-control" id="kode_peserta" name="kode_peserta">
                                        @foreach($kdpeserta as $kode)
