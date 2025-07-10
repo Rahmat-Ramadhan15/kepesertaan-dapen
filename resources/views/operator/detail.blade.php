@@ -323,10 +323,10 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label fw-semibold ">Akumulasi IBHP</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  Rp {{ number_format($peserta->akumulasi_ibhp ?? 0, 2, ',', '.') }}
-                </div>
+                <label class="form-label fw-semibold">Akumulasi IBHP</label>
+               <div class="form-control bg-light border rounded-3" readonly>
+               Rp {{ number_format($peserta->akumulasi_ibhp, 2, ',', '.') }}
+               </div>
                 <label class="form-label fw-semibold  mt-3">Kode Peserta</label>
                 <div class="form-control bg-light border rounded-3" readonly>
                   {{ $peserta->kode_peserta ?? '-' }}

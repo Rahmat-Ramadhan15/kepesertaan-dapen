@@ -343,10 +343,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold ">Akumulasi IBHP</label>
+                                    <label class="form-label fw-semibold">Akumulasi IBHP</label>
                                     <div class="input-group">
-                                        <span class="input-group-text">Rp</span>
-                                        <input type="number" step="0.01" class="form-control" id="akumulasi_ibhp" name="akumulasi_ibhp" value="{{ old('akumulasi_ibhp') }}" placeholder="0.00">
+                                       <span class="input-group-text">Rp</span>
+                                       <input type="number" step="0.01" class="form-control" id="akumulasi_ibhp"
+                                          name="akumulasi_ibhp"
+                                          value="{{ old('akumulasi_ibhp', 0) }}"
+                                          placeholder="0.00">
                                     </div>
                                     <label class="form-label fw-semibold mt-3" for="kode_peserta">Kode Peserta</label>
                                     <select class="form-select" id="kode_peserta" name="kode_peserta">
