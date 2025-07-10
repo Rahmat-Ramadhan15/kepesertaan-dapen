@@ -201,14 +201,71 @@
                                         @endforeach
                                     </select>
 
-                                    <label for="mkmk" class="form-label fw-semibold mt-3">MKMK</label>
-                                    <input type="date" class="form-control" id="mkmk" name="mkmk" value="{{ old('mkmk') }}" placeholder="Masukkan MKMK">
+                                    <label class="form-label fw-semibold mt-3">MKMK</label>
+                                    <input type="text" class="form-control bg-light" id="mkmk_display" readonly>
+                                    <input type="hidden" name="mkmk" id="mkmk">
 
-                                    <label for="mkmp" class="form-label fw-semibold mt-3">MKMP</label>
-                                    <input type="date" class="form-control" id="mkmp" name="mkmp" value="{{ old('mkmp') }}" placeholder="Masukkan MKMP">
+                                    <label class="form-label fw-semibold mt-3">MKMP</label>
+                                    <input type="text" class="form-control bg-light" id="mkmp_display" readonly>
+                                    <input type="hidden" name="mkmp" id="mkmp">
 
                                     <label for="jabatan" class="form-label fw-semibold mt-3">Jabatan</label>
                                     <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan') }}" placeholder="Masukkan jabatan">
+
+                                    <script>
+                                       function hitungMK(tanggal) {
+                                          if (!tanggal) return { durasi: '', todayFormatted: '' };
+
+                                          const tgl = new Date(tanggal);
+                                          const sekarang = new Date();
+
+                                          let tahun = sekarang.getFullYear() - tgl.getFullYear();
+                                          let bulan = sekarang.getMonth() - tgl.getMonth();
+                                          let hari = sekarang.getDate() - tgl.getDate();
+
+                                          if (hari < 0) {
+                                             bulan--;
+                                             const bulanLalu = new Date(sekarang.getFullYear(), sekarang.getMonth(), 0);
+                                             hari += bulanLalu.getDate();
+                                          }
+
+                                          if (bulan < 0) {
+                                             tahun--;
+                                             bulan += 12;
+                                          }
+
+                                          // Format hari ini untuk disimpan (YYYY-MM-DD)
+                                          const yyyy = sekarang.getFullYear();
+                                          const mm = String(sekarang.getMonth() + 1).padStart(2, '0');
+                                          const dd = String(sekarang.getDate()).padStart(2, '0');
+                                          const todayFormatted = `${yyyy}-${mm}-${dd}`;
+
+                                          return {
+                                             durasi: `${tahun} Tahun ${bulan} Bulan ${hari} Hari`,
+                                             todayFormatted: todayFormatted
+                                          };
+                                       }
+
+                                       function updateMK() {
+                                          const tmk = document.getElementById('tmk').value;
+                                          const tpst = document.getElementById('tpst').value;
+
+                                          const hasilMKMK = hitungMK(tmk);
+                                          const hasilMKMP = hitungMK(tpst);
+
+                                          document.getElementById('mkmk_display').value = hasilMKMK.durasi;
+                                          document.getElementById('mkmp_display').value = hasilMKMP.durasi;
+
+                                          document.getElementById('mkmk').value = hasilMKMK.todayFormatted;
+                                          document.getElementById('mkmp').value = hasilMKMP.todayFormatted;
+                                       }
+
+                                       window.onload = updateMK;
+                                       document.getElementById('tmk').addEventListener('change', updateMK);
+                                       document.getElementById('tpst').addEventListener('change', updateMK);
+                                       </script>
+
+
                                 </div>
                                 </div>
 

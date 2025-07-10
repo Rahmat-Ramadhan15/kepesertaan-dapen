@@ -226,35 +226,33 @@
                 <label class="form-label fw-semibold ">Cabang</label>
                 <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->cabang->nama_cabang ?? 'Tidak ada cabang' }}</div>
 
-                <label class="form-label fw-semibold  mt-3">MKMK</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-                  @if($peserta->mkmk)
-                    @if(is_string($peserta->mkmk))
-                      {{ \Carbon\Carbon::parse($peserta->mkmk)->format('d M Y') }}
-                    @else
-                      {{ $peserta->mkmk->format('d M Y') }}
-                    @endif
-                  @else
-                    -
-                  @endif
-                </div>
-                <!-- Tambahkan tombol PDF di bagian button actions -->
-<div 
+               <label class="form-label fw-semibold mt-3">MKMK</label>
+               <div class="form-control bg-light border-1 rounded-3">
+               @if($peserta->tmk)
+                  @php
+                     $start = \Carbon\Carbon::parse($peserta->tmk);
+                     $now = \Carbon\Carbon::now();
+                     $selisih = $start->diff($now);
+                  @endphp
+                  {{ $selisih->y }} Tahun {{ $selisih->m }} Bulan {{ $selisih->d }} Hari
+               @else
+                  -
+               @endif
+               </div>
 
-   
-
-                <label class="form-label fw-semibold  mt-3">MKMP</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-                  @if($peserta->mkmp)
-                    @if(is_string($peserta->mkmp))
-                      {{ \Carbon\Carbon::parse($peserta->mkmp)->format('d M Y') }}
-                    @else
-                      {{ $peserta->mkmp->format('d M Y') }}
-                    @endif
-                  @else
-                    -
-                  @endif
-                </div>
+               <label class="form-label fw-semibold mt-3">MKMP</label>
+               <div class="form-control bg-light border-1 rounded-3">
+               @if($peserta->tpst)
+                  @php
+                     $start = \Carbon\Carbon::parse($peserta->tpst);
+                     $now = \Carbon\Carbon::now();
+                     $selisih = $start->diff($now);
+                  @endphp
+                  {{ $selisih->y }} Tahun {{ $selisih->m }} Bulan {{ $selisih->d }} Hari
+               @else
+                  -
+               @endif
+               </div>
 
                 <label class="form-label fw-semibold  mt-3">Jabatan</label>
                 <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->jabatan ?? '-' }}</div>
