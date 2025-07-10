@@ -1,45 +1,72 @@
-<div class="container mt-4">
-    <div class="card shadow rounded">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Hasil Perhitungan Manfaat Pensiun</h4>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <tr>
-                    <th>NIP</th>
-                    <td>{{ $peserta->nip }}</td>
-                </tr>
-                <tr>
-                    <th>Nama</th>
-                    <td>{{ $peserta->nama }}</td>
-                </tr>
-                <tr>
-                    <th>Jenis Pensiun</th>
-                    <td class="text-capitalize">{{ str_replace('_', ' ', $jenis) }}</td>
-                </tr>
-                <tr>
-                    <th>PhDP</th>
-                    <td>Rp {{ number_format($peserta->phdp, 2, ',', '.') }}</td>
-                </tr>
-                <tr>
-                    <th>Masa Kerja</th>
-                    <td>{{ $peserta->masa_kerja }} tahun</td>
-                </tr>
-                <tr>
-                    <th>Manfaat Pensiun</th>
-                    <td>
-                        @if(is_numeric($mp))
-                            <strong class="text-success">Rp {{ number_format($mp, 0, ',', '.') }}</strong>
-                        @else
-                            <strong class="text-warning">{{ $mp }}</strong>
-                        @endif
-                    </td>
-                </tr>
-            </table>
+<!DOCTYPE html>
+<html lang="id">
 
-            <a href="{{ route('manfaat.index') }}" class="btn btn-secondary mt-3">
-                <i class="fas fa-arrow-left me-1"></i> Kembali
-            </a>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Hasil Perhitungan MP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .value {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Hasil Perhitungan Manfaat Pensiun {{ ucfirst($hasil['jenis'] ?? '') }}</h2>
+
+    <br>
+    <h3>Data Peserta</h3>
+    <hr>
+    <div class="value"><span class="label">NIP:</span> {{ $peserta->nip }}</div>
+    <div class="value"><span class="label">Nama:</span> {{ $peserta->nama }}</div>
+    <div class="value">
+        <div class="value"><span class="label">Tanggal Lahir:</span>
+            {{ \Carbon\Carbon::parse($peserta->tanggal_lahir)->format('d-m-Y') }}</div>
+        <span class="label">Usia:</span>
+        {{ \Carbon\Carbon::parse($peserta->tanggal_lahir)->age }} tahun
     </div>
-</div>
+    <div class="value"><span class="label">Tanggal Masuk:</span>
+        {{ \Carbon\Carbon::parse($peserta->tmk)->format('d-m-Y') }}</div>
+    <div class="value"><span class="label">Tanggal Berhenti:</span>
+        {{ $peserta->tpst ? \Carbon\Carbon::parse($peserta->tpst)->format('d-m-Y') : 'Aktif' }}
+    </div>
+    <div class="value"><span class="label">Masa Kerja:</span> {{ number_format($hasil['masaKerja'], 6) }} tahun</div>
+    <div class="value"><span class="label">PhDP:</span> Rp{{ number_format($peserta->phdp, 0, ',', '.') }}</div>
+    <div class="value"><span class="label">Kenaikan:</span> Rp{{ number_format($hasil['kenaikan'], 0, ',', '.') }}
+    </div>
+
+    <br>
+    <h3>Perhitungan Manfaat Pensiun</h3>
+    <hr>
+
+    <div class="value"><span class="label">Rumus Dasar:</span> 2.5 × Masa Kerja × PhDP + Kenaikan</div>
+    <div class="value"><span class="label">PP:</span>
+        Rp{{ number_format($hasil['mp'], 0, ',', '.') }}</div>
+
+    @if (!is_null($hasil['maksimum']))
+        <div class="value"><span class="label">Maksimum (80% dari PhDP):</span>
+            Rp{{ number_format($hasil['maksimum'], 0, ',', '.') }}</div>
+    @endif
+
+</body>
+
+</html>

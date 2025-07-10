@@ -9,6 +9,8 @@ use App\Models\HistoriIuranPeserta; // Model Histori Iuran Peserta
 use App\Models\DataBank; // Untuk daftar cabang/bank di filter peserta
 use App\Models\Cabang; // Untuk daftar cabang di filter peserta
 use Carbon\Carbon; // Untuk manipulasi tanggal
+use App\Services\ManfaatPensiunService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\DB; // Untuk transaksi database
 use Illuminate\Support\Facades\Log; // Untuk logging error
@@ -141,90 +143,47 @@ class ManfaatPensiunController extends Controller
         //
     }
 
-    public function proses(Request $request)
+    public function form($nip)
     {
-        $request->validate([
-            'nip' => 'required',
-            'jenis_pensiun' => 'required',
-        ]);
-
-        $peserta = Peserta::where('nip', $request->nip)->firstOrFail();
-        $jenis = $request->jenis_pensiun;
-
-        $mk = $peserta->masa_kerja; // diasumsikan field masa kerja dalam bulan atau tahun
-        $phdp = $peserta->phdp;
-        $ns = 1; // NS = Nilai Sekarang (nilai default 1 jika tidak diberikan)
-        $isDireksi = $peserta->is_direksi; // boolean atau penanda
-
-        $mp = 0;
-
-        switch ($jenis) {
-            case 'normal':
-                $a = 0.025 * $mk * $phdp;
-                $a = min($a, 0.8 * $phdp);
-                $mp = $a + 300000;
-                if ($isDireksi) {
-                    $mp = min(0.025 * $mk * $phdp + 900000, 0.8 * $phdp);
-                }
-                break;
-
-            case 'dipercepat':
-                $a = $ns * 0.025 * $mk * $phdp;
-                $a = min($a, 0.8 * $phdp);
-                $mp = $a + 300000;
-                if ($isDireksi) {
-                    $mp = min(0.025 * $mk * $phdp + 900000, 0.8 * $phdp);
-                }
-                break;
-
-            case 'cacat':
-                $a = 0.025 * $mk * $phdp;
-                $a = min($a, 0.8 * $phdp);
-                $mp = $a + 300000;
-                if ($isDireksi) {
-                    $mp = min(0.025 * $mk * $phdp + 900000, 0.8 * $phdp);
-                }
-                break;
-
-            case 'janda_duda':
-            case 'anak':
-                $a = 0.75 * $ns * 0.025 * $mk * $phdp;
-                $mp = $a + 300000;
-                if ($isDireksi) {
-                    $mp = 0.75 * (0.025 * $mk * $phdp + 900000);
-                    $mp = min($mp, 0.8 * $phdp);
-                }
-                break;
-
-            case 'pihak_ditunjuk':
-                $mp = '100% sekaligus'; // ditampilkan sebagai keterangan
-                break;
-
-            case 'pengembalian':
-                $mp = 'Pengembalian Iuran'; // belum ada rumus
-                break;
-
-            case 'alih_dp':
-                $mp = 'Pengalihan Dana ke DP Lain'; // belum ada rumus
-                break;
-
-            case 'ditunda':
-                $a = $ns * 0.025 * $mk * $phdp;
-                $a = min($a, 0.8 * $phdp);
-                $mp = $a + 300000;
-                if ($isDireksi) {
-                    $mp = min(0.025 * $mk * $phdp + 900000, 0.8 * $phdp);
-                }
-                break;
-
-            default:
-                return back()->with('error', 'Jenis pensiun tidak dikenali.');
-        }
-
-        $mp = ceil($mp / 1000) * 1000; // pembulatan ke atas ribuan
-
-        return view('operator.manfaat.hasil', compact('peserta', 'mp', 'jenis'));
+        $peserta = Peserta::findOrFail($nip);
+        return view('operator.manfaat.form', compact('peserta'));
     }
 
+    public function hitung(Request $request)
+    {
+        $request->validate([
+            'nip' => 'required|exists:tablepeserta,nip',
+            'jenis'       => 'required|in:normal,dipercepat',
+            'metode'      => 'required|in:bulanan,sekaligus',
+            'kenaikan'    => 'required|numeric|min:0',
+        ]);
+
+        $peserta = Peserta::findOrFail($request->nip);
+
+        // Set tanggal berhenti ke hari ini (otomatis diisi saat proses hitung)
+        $peserta->tpst = now();
+        $peserta->save();
+
+        // Hitung manfaat pensiun lewat service
+        $service = new ManfaatPensiunService();
+        $hasil = $service->hitung(
+            $peserta,
+            $request->jenis,
+            $request->metode,
+            $request->kenaikan
+        );
+
+        // Tambahkan jenis pensiun ke hasil agar bisa digunakan di view
+        $hasil['jenis'] = $request->jenis;
+
+        // Jika ada error (misal usia belum cukup), tampilkan ke user
+        if (isset($hasil['error'])) {
+            return back()->withInput()->with('error', $hasil['error']);
+        }
+
+        // Jika berhasil, tampilkan hasil dalam bentuk PDF
+        $pdf = Pdf::loadView('operator.manfaat.hasil', compact('peserta', 'hasil'));
+        return $pdf->stream('manfaat-pensiun.pdf');
+    }
 
 }
