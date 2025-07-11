@@ -153,7 +153,7 @@ class ManfaatPensiunController extends Controller
     {
         $request->validate([
             'nip' => 'required|exists:tablepeserta,nip',
-            'jenis'       => 'required|in:normal,dipercepat',
+            'jenis'       => 'required|in:normal,dipercepat,cacat,janda/duda,anak,pihakyangditunjuk,pengembalianiuran,pengalihandana,ditunda',
             'metode'      => 'required|in:bulanan,sekaligus',
             'kenaikan'    => 'required|numeric|min:0',
         ]);

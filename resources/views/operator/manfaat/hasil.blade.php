@@ -59,9 +59,11 @@
     <hr>
 
     <div class="value"><span class="label">Rumus Dasar:</span> 2.5 × Masa Kerja × PhDP + Kenaikan</div>
-    <div class="value"><span class="label">PP:</span>
-        Rp{{ number_format($hasil['mp'], 0, ',', '.') }}</div>
-
+    <div class="value">
+        <span class="label">PP ({{ ucfirst($hasil['jenis']) }} -
+            {{ $hasil['metode'] === 'bulanan' ? 'Bulanan' : 'Sekaligus' }}):</span>
+        Rp{{ number_format($hasil['mp'], 0, ',', '.') }}
+    </div>
     @if (!is_null($hasil['maksimum']))
         <div class="value"><span class="label">Maksimum (80% dari PhDP):</span>
             Rp{{ number_format($hasil['maksimum'], 0, ',', '.') }}</div>
