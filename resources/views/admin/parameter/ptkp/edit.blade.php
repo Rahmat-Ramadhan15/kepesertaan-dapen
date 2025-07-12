@@ -109,13 +109,13 @@
                     <div class="card p-4">
                         <h3 class="card-title text-center">Edit PTKP</h3>
                         <div class="card-body">
-                            <form action="{{ route('admin.parameter.ptkp.update', $data->id) }}}" method="POST">
+                            <form action="{{ route('admin.parameter.ptkp.update', ['ptkp' => $data->kode_ptkp]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-3">
                                     <label for="kode_ptkp" class="form-label">Kode PTKP</label>
                                     <input type="text" class="form-control" id="kode_ptkp" name="kode_ptkp"
-                                        value="{{ $data->kode_ptkp }}"" required>
+                                        value="{{ $data->kode_ptkp }}" required>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="nilai_ptkp" class="form-label">Nilai PTKP</label>

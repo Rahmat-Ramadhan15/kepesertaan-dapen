@@ -157,12 +157,12 @@
                                                             {{ number_format($ptkp->nilai_ptkp, 2, ',', '.') }}</span>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a href="{{ route('admin.parameter.ptkp.edit', $ptkp->id) }}"
+                                                        <a href="{{ route('admin.parameter.ptkp.edit', $ptkp->kode_ptkp) }}"
                                                             class="btn btn-outline-primary btn-sm me-1">
                                                             <i class="fas fa-edit me-1"></i> Edit
                                                         </a>
                                                         <form
-                                                            action="{{ route('admin.parameter.ptkp.destroy', $ptkp->id) }}"
+                                                            action="{{ route('admin.parameter.ptkp.destroy', $ptkp->kode_ptkp) }}"
                                                             method="POST"
                                                             onsubmit="return confirm('Yakin ingin menghapus cabang ini?');">
                                                             @csrf
