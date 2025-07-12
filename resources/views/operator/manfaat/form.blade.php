@@ -134,9 +134,18 @@
                                         </select>
                                     </div>
 
-                                    <div class="mb-4">
+                                    <div id="status-kematian-group" class="mb-3 d-none">
+                                        <label for="status_kematian" class="form-label">Status Peserta</label>
+                                        <select id="status_kematian" name="status_kematian" class="form-select">
+                                            <option value="" disabled selected>-- Pilih Status Peserta --</option>
+                                            <option value="aktif">Meninggal Saat Aktif</option>
+                                            <option value="pensiun">Meninggal Saat Pensiun</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="kenaikan-group" class="mb-4 d-none">
                                         <label for="kenaikan" class="form-label">Kenaikan</label>
-                                        <select id="kenaikan" name="kenaikan" class="form-select" required>
+                                        <select id="kenaikan" name="kenaikan" class="form-select">
                                             <option value="" disabled selected>-- Pilih Kenaikan --</option>
                                             <option value="300000">300.000 (Pegawai)</option>
                                             <option value="900000">900.000 (Direksi)</option>
@@ -1513,6 +1522,31 @@
 
             span.textContent = `${tanggal}-${bulan}-${tahun}`;
         });
+        const jenis = document.getElementById('jenis');
+        const metode = document.getElementById('metode');
+        const statusGroup = document.getElementById('status-kematian-group');
+        const kenaikanGroup = document.getElementById('kenaikan-group');
+
+        function toggleFields() {
+            const jenisVal = jenis.value;
+            const metodeVal = metode.value;
+
+            if (jenisVal && metodeVal === 'bulanan') {
+                if (['janda/duda', 'anak'].includes(jenisVal)) {
+                    statusGroup.classList.remove('d-none');
+                    kenaikanGroup.classList.remove('d-none');
+                } else {
+                    statusGroup.classList.add('d-none');
+                    kenaikanGroup.classList.remove('d-none');
+                }
+            } else {
+                statusGroup.classList.add('d-none');
+                kenaikanGroup.classList.add('d-none');
+            }
+        }
+
+        jenis.addEventListener('change', toggleFields);
+        metode.addEventListener('change', toggleFields);
     </script>
 
 

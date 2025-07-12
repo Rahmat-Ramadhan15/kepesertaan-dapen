@@ -166,11 +166,12 @@ class ManfaatPensiunController extends Controller
 
         // Hitung manfaat pensiun lewat service
         $service = new ManfaatPensiunService();
+        $kenaikan = floatval($request->kenaikan);
         $hasil = $service->hitung(
             $peserta,
             $request->jenis,
             $request->metode,
-            $request->kenaikan
+            $kenaikan
         );
 
         // Tambahkan jenis pensiun ke hasil agar bisa digunakan di view

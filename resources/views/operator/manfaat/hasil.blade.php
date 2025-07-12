@@ -58,11 +58,31 @@
     <h3>Perhitungan Manfaat Pensiun</h3>
     <hr>
 
-    <div class="value"><span class="label">Rumus Dasar:</span> 2.5 × Masa Kerja × PhDP + Kenaikan</div>
+    @php
+        $rumus = '';
+
+        if ($hasil['jenis'] === 'janda/duda' && $hasil['metode'] === 'bulanan') {
+            $rumus = '0.75 × 2.5 × Masa Kerja × PhDP + Kenaikan';
+        } elseif ($hasil['jenis'] === 'anak' && $hasil['metode'] === 'bulanan') {
+            $rumus = '0.75 × 2.5 × Masa Kerja × PhDP + Kenaikan';
+        } elseif (
+            in_array($hasil['jenis'], ['normal', 'dipercepat', 'cacat', 'ditunda']) &&
+            $hasil['metode'] === 'bulanan'
+        ) {
+            $rumus = '2.5 × Masa Kerja × PhDP + Kenaikan';
+        } elseif ($hasil['metode'] === 'sekaligus') {
+            $rumus = 'Manfaat Pensiun × 12 bulan';
+        } else {
+            $rumus = 'Tidak tersedia';
+        }
+    @endphp
+
+    <div class="value"><span class="label">Rumus Dasar:</span> {{ $rumus }}</div>
+
     <div class="value">
         <span class="label">PP ({{ ucfirst($hasil['jenis']) }} -
             {{ $hasil['metode'] === 'bulanan' ? 'Bulanan' : 'Sekaligus' }}):</span>
-        Rp{{ number_format($hasil['mp'], 0, ',', '.') }}
+        Rp{{ number_format($hasil['mp'] + $hasil['kenaikan'], 0, ',', '.') }}
     </div>
     @if (!is_null($hasil['maksimum']))
         <div class="value"><span class="label">Maksimum (80% dari PhDP):</span>

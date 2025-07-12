@@ -29,6 +29,7 @@ class ManfaatPensiunService
     $mp = 2.5 * $masaKerja * $phdp;
     $maksimum = 0.8 * $phdp;
     $total = $mp + $kenaikan;
+    $hasil = 0;
 
     if ($jenis === 'normal' && $metode === 'bulanan') {
         $hasil = min($total, $maksimum);
@@ -67,12 +68,9 @@ class ManfaatPensiunService
         return compact('masaKerja', 'mp', 'kenaikan', 'maksimum', 'hasil', 'usia', 'jenis', 'metode');
     }
 
-    if ($jenis === 'janda/duda' && $metode === 'bulanan') {
-        $hasil = 7.5 * $mp + $kenaikan;
-        return compact('masaKerja', 'mp', 'kenaikan', 'hasil', 'usia');
-    }
-
     if ($jenis === 'anak' && $metode === 'bulanan') {
+        $mp = 0.75 * 2.5 * $masaKerja * $phdp;
+        $total = $mp + $kenaikan;
         $hasil = min($total, $maksimum);
         return compact('masaKerja', 'mp', 'kenaikan', 'maksimum', 'hasil', 'usia', 'jenis', 'metode');
     }
@@ -92,6 +90,17 @@ class ManfaatPensiunService
         return compact('masaKerja', 'mp', 'kenaikan', 'maksimum', 'hasil', 'usia', 'jenis', 'metode');
     }
 
-    return ['masaKerja' => $masaKerja, 'mp' => 0, 'kenaikan' => 0, 'maksimum' => null, 'hasil' => 0, 'usia' => $usia];
+    return [
+        'masaKerja' => $masaKerja,
+        'phdp'      => $phdp,
+        'mp'        => $mp,
+        'kenaikan'  => $kenaikan,
+        'maksimum'  => $metode === 'bulanan' ? $maksimum : null,
+        'hasil'     => $hasil,
+        'usia'      => $usia,
+        'jenis'     => $jenis,
+        'metode'    => $metode,
+    ];
+
     }
 }
