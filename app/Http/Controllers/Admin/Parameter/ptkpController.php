@@ -30,27 +30,27 @@ class PtkpController extends Controller
         return redirect()->route('admin.parameter.ptkp.index')->with('success', 'Data PTKP berhasil ditambahkan');
     }
 
-    public function edit(string $id)
+    public function edit(string $kode_ptkp)
     {
-        $data = Ptkp::findOrFail($id);
+        $data = Ptkp::findOrFail($kode_ptkp);
         return view('admin.parameter.ptkp.edit', compact('data'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $kode_ptkp)
     {
         $validated = $request->validate([
             'kode_ptkp' => 'required|string|max:20',
             'nilai_ptkp' => 'required|numeric|min:0',
         ]);
 
-        $ptkp = Ptkp::findOrFail($id);
+        $ptkp = Ptkp::findOrFail($kode_ptkp);
         $ptkp->update($validated);
         return redirect()->route('admin.parameter.ptkp.index')->with('success', 'Data PTKP berhasil diperbarui');
     }
 
-    public function destroy(string $id)
+    public function destroy(string $kode_ptkp)
     {
-        $ptkp = Ptkp::findOrFail($id);
+        $ptkp = Ptkp::findOrFail($kode_ptkp);
         $ptkp->delete();
         return redirect()->route('admin.parameter.ptkp.index')->with('success', 'Data PTKP berhasil dihapus');
     }
