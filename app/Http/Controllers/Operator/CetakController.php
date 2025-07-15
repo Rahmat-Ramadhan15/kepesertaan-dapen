@@ -107,6 +107,22 @@ class CetakController extends Controller
                 return view('operator.cetak.preview_anak25', compact('anak25','filters'));
             }
 
+            if ($jenis_laporan === 'rekap_cabang') {
+                $data = \DB::table('tablecabang as c')
+                    ->leftJoin('tablepeserta as p', 'c.kode_cabang', '=', 'p.kode_cabang')
+                    ->select(
+                        'c.kode_cabang',
+                        'c.nama_cabang',
+                        \DB::raw('COUNT(p.nip) as total_peserta'),
+                        \DB::raw('COALESCE(SUM(p.phdp), 0) as total_phdp')
+                    )
+                    ->groupBy('c.kode_cabang', 'c.nama_cabang')
+                    ->orderBy('c.nama_cabang')
+                    ->get();
+
+                return view('operator.cetak.preview_rekap_cabang', compact('data', 'filters'));
+            }
+
             // Build query with relationships
             $query = Peserta::with('cabang');
             
@@ -160,6 +176,30 @@ class CetakController extends Controller
 
                 $pdf = PDF::loadView('pdf.anak25', $data)->setPaper('a4', 'portrait');
                 $filename = 'laporan_anak25_peserta_' . date('Ymd_His') . '.pdf';
+
+                return $pdf->download($filename);
+            }
+
+            if ($jenis_laporan === 'rekap_cabang') {
+                $data = \DB::table('tablecabang as c')
+                    ->leftJoin('tablepeserta as p', 'c.kode_cabang', '=', 'p.kode_cabang')
+                    ->select(
+                        'c.kode_cabang',
+                        'c.nama_cabang',
+                        \DB::raw('COUNT(p.nip) as total_peserta'),
+                        \DB::raw('COALESCE(SUM(p.phdp), 0) as total_phdp')
+                    )
+                    ->groupBy('c.kode_cabang', 'c.nama_cabang')
+                    ->orderBy('c.nama_cabang')
+                    ->get();
+
+                $pdf = \PDF::loadView('pdf.rekap_cabang', [
+                    'data' => $data,
+                    'filters' => $filters,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                $filename = 'laporan_rekap_cabang_' . date('Ymd_His') . '.pdf';
 
                 return $pdf->download($filename);
             }

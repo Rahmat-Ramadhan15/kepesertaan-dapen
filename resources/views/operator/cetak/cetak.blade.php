@@ -128,6 +128,10 @@
                               <input id="laporanAnak25" class="form-check-input" type="radio" name="jenis_laporan" value="anak_25">
                               <label for="laporanAnak25" class="form-check-label">Daftar Anak yang Akan Berusia 25 Tahun</label>
                             </div>
+                            <div class="form-check mt-2">
+                                 <input id="laporanRekapCabang" class="form-check-input" type="radio" name="jenis_laporan" value="rekap_cabang">
+                                 <label for="laporanRekapCabang" class="form-check-label">Laporan Rekap Cabang</label>
+                           </div>
                             </div>
                         </div>
 
