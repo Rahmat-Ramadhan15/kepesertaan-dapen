@@ -132,6 +132,10 @@
                                  <input id="laporanRekapCabang" class="form-check-input" type="radio" name="jenis_laporan" value="rekap_cabang">
                                  <label for="laporanRekapCabang" class="form-check-label">Laporan Rekap Cabang</label>
                            </div>
+                            <div class="form-check mt-2">
+                                 <input id="laporanRekapBank" class="form-check-input" type="radio" name="jenis_laporan" value="rekap_bank">
+                                 <label for="laporanRekapBank" class="form-check-label">Laporan Rekap Bank</label>
+                           </div>
                             </div>
                         </div>
 
@@ -250,16 +254,6 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-eye me-2"></i> Preview Laporan</h5>
-
-                                <!-- Static Info -->
-                                <div class="row mb-3">
-                                    <label class="col-sm-4 col-form-label">Total Peserta</label>
-                                    <div class="col-sm-8">
-                                        <span class="badge bg-info py-2 px-3">
-                                            <i class="fas fa-users me-1"></i> <span id="totalPeserta">0</span> Peserta
-                                        </span>
-                                    </div>
-                                </div>
 
                                 <!-- Preview Content Placeholder -->
                                 <div class="row">

@@ -38,4 +38,10 @@ class DataBank extends Model
     {
         return 'kode_cabang';
     }
+
+    public function peserta()
+    {
+        return $this->hasMany(Peserta::class, 'kode_cabang', 'kode_cabang');
+    }
+
 }
