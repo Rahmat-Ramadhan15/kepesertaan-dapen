@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\Peserta;
 use App\Models\Cabang;
+use App\Models\Keluarga;
 use Illuminate\Http\Request;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
@@ -93,7 +94,19 @@ class CetakController extends Controller
         try {
             $filters = $request->except(['_token']);
             $jenis_laporan = $request->input('jenis_laporan', 'umum');
-            
+
+            if ($jenis_laporan === 'anak_25') {
+                $tanggalAwal = Carbon::now()->subYears(25); // 25 tahun yang lalu
+                $tanggalAkhir = Carbon::now()->subYears(22); // 22 tahun yang lalu
+
+                $anak25 = Keluarga::with('peserta')
+                    ->where('hubungan', 'Anak')
+                    ->whereBetween('tanggal_lahir', [$tanggalAwal, $tanggalAkhir])
+                    ->get();
+
+                return view('operator.cetak.preview_anak25', compact('anak25','filters'));
+            }
+
             // Build query with relationships
             $query = Peserta::with('cabang');
             
@@ -124,25 +137,43 @@ class CetakController extends Controller
     /**
      * Generate PDF report.
      */
-    public function generatePDF(Request $request)
+   public function generatePDF(Request $request)
     {
         try {
-            // Get filters from request
             $filters = $request->except(['_token']);
             $jenis_laporan = $request->input('jenis_laporan', 'umum');
 
-            // Build query with relationships
+            if ($jenis_laporan === 'anak_25') {
+                $tanggalAwal = Carbon::now()->subYears(25);
+                $tanggalAkhir = Carbon::now()->subYears(22);
+
+                $anak25 = Keluarga::with('peserta')
+                    ->where('hubungan', 'Anak')
+                    ->whereBetween('tanggal_lahir', [$tanggalAwal, $tanggalAkhir])
+                    ->get();
+
+                $data = [
+                    'anak25' => $anak25,
+                    'filters' => $filters,
+                    'date' => now()->format('d F Y'),
+                ];
+
+                $pdf = PDF::loadView('pdf.anak25', $data)->setPaper('a4', 'portrait');
+                $filename = 'laporan_anak25_peserta_' . date('Ymd_His') . '.pdf';
+
+                return $pdf->download($filename);
+            }
+
+
+            // ➤ Laporan selain anak_25 lanjut seperti biasa
             $query = Peserta::with('cabang');
-            
-            // Add keluargas relationship for keluarga report
+
             if ($jenis_laporan === 'keluarga') {
                 $query->with('keluargas');
             }
-            
-            // Get filtered data
+
             $peserta = $query->applyPrintFilter($filters)->get();
-            
-            // Format data for PDF
+
             $peserta = $peserta->map(function ($item) {
                 if ($item->tanggal_lahir) {
                     $item->formatted_tanggal_lahir = date('d-m-Y', strtotime($item->tanggal_lahir));
@@ -153,7 +184,6 @@ class CetakController extends Controller
                 return $item;
             });
 
-            // Set data for PDF view
             $data = [
                 'peserta' => $peserta,
                 'filters' => $filters,
@@ -162,36 +192,18 @@ class CetakController extends Controller
                 'date' => now()->format('d F Y'),
             ];
 
-            // Determine the correct view path based on jenis_laporan
-            $viewPath = '';
-            switch ($jenis_laporan) {
-                case 'detail':
-                    $viewPath = 'pdf.detail';
-                    break;
-                case 'keluarga':
-                    $viewPath = 'pdf.keluarga';
-                    break;
-                default:
-                    $viewPath = 'pdf.umum';
-                    break;
-            }
+            $viewPath = match($jenis_laporan) {
+                'detail' => 'pdf.detail',
+                'keluarga' => 'pdf.keluarga',
+                default => 'pdf.umum',
+            };
 
-            // Generate PDF
             $pdf = PDF::loadView($viewPath, $data);
-            
-            // Set paper size and orientation
-            if ($jenis_laporan == 'detail' || $jenis_laporan == 'keluarga') {
-                $pdf->setPaper('a4', 'portrait');
-            } else {
-                $pdf->setPaper('a4', 'potrait');
-            }
-            
-            // Generate filename
-            $filename = 'laporan_' . $jenis_laporan . '_peserta_' . date('Ymd_His') . '.pdf';
-            
-            // Download PDF
-            return $pdf->download($filename);
+            $pdf->setPaper('a4', ($jenis_laporan == 'detail' || $jenis_laporan == 'keluarga') ? 'portrait' : 'potrait');
 
+            $filename = 'laporan_' . $jenis_laporan . '_peserta_' . date('Ymd_His') . '.pdf';
+
+            return $pdf->download($filename);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Gagal membuat PDF: ' . $e->getMessage()
