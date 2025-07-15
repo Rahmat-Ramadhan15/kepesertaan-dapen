@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\Peserta;
 use App\Models\Cabang;
+use App\Models\DataBank;
 use App\Models\Keluarga;
 use Illuminate\Http\Request;
 use PDF;
@@ -123,6 +124,50 @@ class CetakController extends Controller
                 return view('operator.cetak.preview_rekap_cabang', compact('data', 'filters'));
             }
 
+            if ($jenis_laporan === 'rekap_bank') {
+                $banks = DataBank::with(['peserta' => function ($query) {
+                    // Hapus 'id', karena tidak ada. Ambil hanya yang diperlukan
+                    $query->select('kode_cabang', 'phdp');
+                }])->get();
+
+                $rekap = [];
+                $totalPeserta = 0;
+                $totalPhdp = 0;
+
+                foreach ($banks as $bank) {
+                    $jumlahPeserta = $bank->peserta->count();
+                    $rataPhdp = $bank->peserta->avg('phdp') ?? 0;
+                    $sumPhdp = $bank->peserta->sum('phdp');
+
+                    $rekap[] = [
+                        'kode_bank' => $bank->kode_bank,
+                        'nama_bank' => $bank->nama_bank,
+                        'kode_cabang' => $bank->kode_cabang,
+                        'nama_cabang' => $bank->nama_cabang,
+                        'kode_full' => $bank->kode_full,
+                        'alamat' => $bank->alamat,
+                        'jumlah_peserta' => $jumlahPeserta,
+                        'rata_phdp' => $rataPhdp,
+                    ];
+
+                    $totalPeserta += $jumlahPeserta;
+                    $totalPhdp += $sumPhdp;
+                }
+
+                $jumlahCabang = $banks->count();
+                $rataPhdp = $totalPeserta > 0 ? $totalPhdp / $totalPeserta : 0;
+                $date = now()->format('d F Y');
+
+                return view('operator.cetak.preview_rekapbank', compact(
+                    'rekap',
+                    'totalPeserta',
+                    'jumlahCabang',
+                    'totalPhdp',
+                    'rataPhdp',
+                    'date'
+                ));
+            }
+
             // Build query with relationships
             $query = Peserta::with('cabang');
             
@@ -203,6 +248,42 @@ class CetakController extends Controller
 
                 return $pdf->download($filename);
             }
+
+            if ($jenis_laporan === 'rekap_bank') {
+                $rekap = DataBank::with(['peserta' => function ($query) {
+                    $query->select('kode_cabang', 'phdp');
+                }])->get()->map(function ($bank) {
+                    $jumlah_peserta = $bank->peserta->count();
+                    $rata_phdp = $bank->peserta->avg('phdp') ?? 0;
+
+                    return [
+                        'kode_bank' => $bank->kode_bank,
+                        'nama_bank' => $bank->nama_bank,
+                        'kode_cabang' => $bank->kode_cabang,
+                        'nama_cabang' => $bank->nama_cabang,
+                        'kode_full' => $bank->kode_full,
+                        'jumlah_peserta' => $jumlah_peserta,
+                        'rata_phdp' => $rata_phdp,
+                    ];
+                });
+
+                $totalPeserta = $rekap->sum('jumlah_peserta');
+                $jumlahCabang = $rekap->count();
+                $totalPhdp = $rekap->sum('rata_phdp') * $totalPeserta;
+                $rataPhdp = $totalPeserta > 0 ? $totalPhdp / $totalPeserta : 0;
+
+                $pdf = PDF::loadView('pdf.rekap_bank', [
+                    'rekap' => $rekap,
+                    'totalPeserta' => $totalPeserta,
+                    'jumlahCabang' => $jumlahCabang,
+                    'totalPhdp' => $totalPhdp,
+                    'rataPhdp' => $rataPhdp,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                return $pdf->download('laporan_rekap_bank_' . date('Ymd_His') . '.pdf');
+            }
+
 
 
             // ➤ Laporan selain anak_25 lanjut seperti biasa
