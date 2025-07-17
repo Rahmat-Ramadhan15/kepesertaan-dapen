@@ -166,5 +166,11 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
 
     Route::post('/hitung/import', [HitungIuranController::class, 'import'])->name('operator.hitung.import');
 
+    // Menu cetak iuran
+    Route::get('/operator/cetak/iuranpeserta/form', [CetakController::class, 'formIuranPeserta'])->name('operator.cetak.iuranpeserta.form');
+    Route::get('/operator/cetak/iuranpeserta/preview', [CetakController::class, 'previewIuranPeserta'])->name('operator.cetak.iuranpeserta.preview');
+    Route::get('/operator/cetak/iuranpeserta/pdf', [CetakController::class, 'pdfIuranPeserta'])->name('operator.cetak.iuranpeserta.pdf');
+
+
     
 });
