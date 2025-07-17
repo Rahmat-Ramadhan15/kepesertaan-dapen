@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Peserta;
+use App\Models\HistoriIuranPeserta;
 use App\Models\Cabang;
 use App\Models\DataBank;
 use App\Models\Keluarga;
@@ -284,6 +285,44 @@ class CetakController extends Controller
                 return $pdf->download('laporan_rekap_bank_' . date('Ymd_His') . '.pdf');
             }
 
+            if ($jenis_laporan === 'daftar_iuran' || $jenis_laporan === 'daftar_peserta' || $jenis_laporan === 'pk_dan_peserta') {
+                $request->validate([
+                    'bulan' => 'required|integer|min:1|max:12',
+                    'tahun' => 'required|integer|min:2000',
+                ]);
+
+                $query = HistoriIuranPeserta::with('peserta')
+                    ->where('bulan', $request->bulan)
+                    ->where('tahun', $request->tahun);
+
+                if ($request->filled('kode_cabang')) {
+                    $query->whereHas('peserta', function ($q) use ($request) {
+                        $q->where('kode_cabang', $request->kode_cabang);
+                    });
+                }
+
+                if ($request->filled('nips')) {
+                    $query->whereHas('peserta', function ($q) use ($request) {
+                        $q->whereIn('nip', $request->nips);
+                    });
+                }
+
+
+                $data = $query->get();
+
+                $pdf = PDF::loadView('pdf.iuranpeserta.' . $jenis_laporan, [
+                    'data' => $data,
+                    'filters' => $filters,
+                    'bulan' => $request->bulan,
+                    'tahun' => $request->tahun,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                $filename = 'laporan_' . $jenis_laporan . '_' . date('Ymd_His') . '.pdf';
+
+                return $pdf->download($filename);
+            }
+
 
 
             // ➤ Laporan selain anak_25 lanjut seperti biasa
@@ -439,4 +478,56 @@ class CetakController extends Controller
             ], 500);
         }
     }
+
+    public function formIuranPeserta()
+    {
+        $listCabang = Cabang::orderBy('nama_cabang')->get();
+
+        return view('operator.cetak.iuranpeserta.form_iuranpeserta', compact('listCabang'));
+    }
+
+    public function previewIuranPeserta(Request $request)
+    {
+        $request->validate([
+            'jenis_laporan' => 'required|in:daftar_iuran,daftar_peserta,pk_dan_peserta',
+            'bulan' => 'required|integer|min:1|max:12',
+            'tahun' => 'required|integer|min:2000',
+        ]);
+
+        $jenis = $request->jenis_laporan;
+
+        if ($jenis === 'pk_dan_peserta') {
+            $query = HistoriIuranPeserta::with('peserta')
+                ->where('bulan', $request->bulan)
+                ->where('tahun', $request->tahun);
+
+            if ($request->filled('cabang_id')) {
+                $query->whereHas('peserta', function ($q) use ($request) {
+                    $q->where('kode_cabang', $request->cabang_id);
+                });
+            }
+
+            $data = $query->get();
+            return view('operator.cetak.iuranpeserta.preview_pkdanpeserta', compact('data', 'jenis'));
+        }
+
+        if ($jenis === 'daftar_iuran') {
+            $data = HistoriIuranPeserta::with('peserta')
+                ->where('bulan', $request->bulan)
+                ->where('tahun', $request->tahun)
+                ->get();
+
+            return view('operator.cetak.iuranpeserta.preview_iuran', compact('data', 'jenis'));
+        }
+
+        if ($jenis === 'daftar_peserta') {
+            $pesertas = Peserta::with('cabang')->get();
+
+            return view('operator.cetak.iuranpeserta.preview_peserta', compact('pesertas', 'jenis'));
+        }
+
+        abort(404, 'Jenis laporan tidak dikenali');
+    }
+
+
 }

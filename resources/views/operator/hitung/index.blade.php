@@ -103,6 +103,9 @@
                                     <button type="submit" class="btn btn-success">
                                        <i class="fas fa-file-import me-1"></i> Import
                                     </button>
+                                    <a href="{{ route('operator.cetak.iuranpeserta.form') }}" class="btn btn-danger">
+                                       <i class="fas fa-print me-1"></i> Menu Cetak Laporan
+                                    </a>
                                  </form>
 
 

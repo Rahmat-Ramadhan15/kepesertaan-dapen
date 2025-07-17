@@ -48,4 +48,6 @@ class HistoriIuranPeserta extends Model
         // dan 'NIP' jika primary key di tabelpeserta adalah uppercase
         return $this->belongsTo(Peserta::class, 'nip', 'nip');
     }
+
+    
 }
