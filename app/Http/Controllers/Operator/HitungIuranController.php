@@ -187,17 +187,21 @@ public function generatePDF($nip, Request $request)
         if ($last_month_histori) {
             $saldo_awal_peserta = $last_month_histori->saldo_akhir_peserta;
             $saldo_awal_pemberi_kerja = $last_month_histori->saldo_akhir_pemberi_kerja;
-        } else {
-            // Jika tidak ada histori bulan sebelumnya, ambil dari akumulasi_ibhp peserta
-            // Ini berarti ini adalah bulan pertama perhitungan untuk peserta tersebut
+        }  else {
+            // Jika bukan bulan pertama (bukan Januari tahun pertama) dan histori sebelumnya tidak ada → error
+            if (!($bulan == 1 && HistoriIuranPeserta::where('nip', $nip)->count() == 0)) {
+                return redirect()->back()->with('error', 'Tidak dapat menghitung iuran karena histori bulan sebelumnya belum tersedia.')->withInput();
+            }
+
+            // Jika bulan pertama dan belum ada histori → mulai dari saldo awal peserta
             $saldo_awal_peserta = $peserta->akumulasi_ibhp ?? 0;
-            $saldo_awal_pemberi_kerja = 0; // Asumsi saldo awal PK 0 jika tidak ada histori
+            $saldo_awal_pemberi_kerja = 0;
         }
 
         // --- RUMUS PERHITUNGAN IURAN ---
         // Konstanta persentase (karena tidak ada tabel parameter)
         $persen_iuran_peserta = 0.04; // 4%
-        $persen_iuran_pemberi_kerja = 0.2710; // Menggunakan 27.10% agar sesuai contoh desktop app
+        $persen_iuran_pemberi_kerja = 0.3; // Menggunakan 30% agar sesuai contoh desktop app
 
         // Perhitungan Iuran Peserta
         $iuran_peserta = $phdp_input * $persen_iuran_peserta;
@@ -310,68 +314,87 @@ public function generatePDF($nip, Request $request)
     }
 
     public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls,csv',
-            'tahun' => 'required|integer',
-            'bulan' => 'required|integer|min:1|max:12',
-            'ir' => 'required|numeric|min:0',
-        ]);
+{
+    $request->validate([
+        'file' => 'required|file|mimes:xlsx,xls,csv',
+        'tahun' => 'required|integer',
+        'bulan' => 'required|integer|min:1|max:12',
+        'ir' => 'required|numeric|min:0',
+    ]);
 
-        $tahun = $request->tahun;
-        $bulan = $request->bulan;
-        $ir_decimal = $request->ir / 100;
+    $tahun = $request->tahun;
+    $bulan = $request->bulan;
+    $ir_decimal = $request->ir / 100;
 
-        $data = Excel::toCollection(null, $request->file('file'))[0]; // hanya sheet pertama
+    $data = Excel::toCollection(null, $request->file('file'))[0]; // sheet pertama
 
-        foreach ($data as $row) {
-            $nip = trim($row['nip'] ?? $row[0] ?? '');
-            $phdp = floatval($row['phdp'] ?? $row[1] ?? 0);
+    $imported = 0;
+    $skipped = [];
 
-            if (!$nip || !$phdp) continue;
+    foreach ($data as $row) {
+        $nip = trim($row['nip'] ?? $row[0] ?? '');
+        $phdp = floatval($row['phdp'] ?? $row[1] ?? 0);
 
-            $peserta = Peserta::where('nip', $nip)->first();
-            if (!$peserta) continue;
+        if (!$nip || !$phdp) continue;
 
-            // Hitung saldo awal
-            $prevMonth = $bulan - 1;
-            $prevYear = $tahun;
-            if ($prevMonth == 0) {
-                $prevMonth = 12;
-                $prevYear -= 1;
-            }
+        $peserta = Peserta::where('nip', $nip)->first();
+        if (!$peserta) continue;
 
-            $prev = HistoriIuranPeserta::where('nip', $nip)->where('tahun', $prevYear)->where('bulan', $prevMonth)->first();
-            $saldo_awal_peserta = $prev->saldo_akhir_peserta ?? $peserta->akumulasi_ibhp ?? 0;
-            $saldo_awal_pemberi_kerja = $prev->saldo_akhir_pemberi_kerja ?? 0;
-
-            // Rumus
-            $iuran_peserta = $phdp * 0.04;
-            $hasil_pengembangan_peserta = ($saldo_awal_peserta * $ir_decimal) / 12;
-            $saldo_akhir_peserta = $saldo_awal_peserta + $iuran_peserta + $hasil_pengembangan_peserta;
-
-            $iuran_pemberi_kerja = $phdp * 0.271;
-            $hasil_pengembangan_pemberi_kerja = ($saldo_awal_pemberi_kerja * $ir_decimal) / 12;
-            $saldo_akhir_pemberi_kerja = $saldo_awal_pemberi_kerja + $iuran_pemberi_kerja + $hasil_pengembangan_pemberi_kerja;
-
-            // Simpan/update
-            HistoriIuranPeserta::updateOrCreate(
-                ['nip' => $nip, 'tahun' => $tahun, 'bulan' => $bulan],
-                [
-                    'phdp_bulan_ini' => $phdp,
-                    'ir_bulan_ini' => $request->ir,
-                    'saldo_awal_peserta' => $saldo_awal_peserta,
-                    'iuran_peserta' => $iuran_peserta,
-                    'hasil_pengembangan_peserta' => $hasil_pengembangan_peserta,
-                    'saldo_akhir_peserta' => $saldo_akhir_peserta,
-                    'saldo_awal_pemberi_kerja' => $saldo_awal_pemberi_kerja,
-                    'iuran_pemberi_kerja' => $iuran_pemberi_kerja,
-                    'hasil_pengembangan_pemberi_kerja' => $hasil_pengembangan_pemberi_kerja,
-                    'saldo_akhir_pemberi_kerja' => $saldo_akhir_pemberi_kerja,
-                ]
-            );
+        // Hitung bulan sebelumnya
+        $prevMonth = $bulan - 1;
+        $prevYear = $tahun;
+        if ($prevMonth == 0) {
+            $prevMonth = 12;
+            $prevYear -= 1;
         }
 
-        return back()->with('success', 'Import iuran berhasil diproses.');
+        // Ambil histori bulan sebelumnya
+        $prev = HistoriIuranPeserta::where('nip', $nip)->where('tahun', $prevYear)->where('bulan', $prevMonth)->first();
+
+        // ❗Cegah impor jika bulan sebelumnya tidak ada datanya (kecuali Januari)
+        if (!$prev && $bulan != 1) {
+            $skipped[] = $nip;
+            continue;
+        }
+
+        // Gunakan saldo awal dari histori sebelumnya atau akumulasi awal peserta
+        $saldo_awal_peserta = $prev->saldo_akhir_peserta ?? $peserta->akumulasi_ibhp ?? 0;
+        $saldo_awal_pemberi_kerja = $prev->saldo_akhir_pemberi_kerja ?? 0;
+
+        // Rumus
+        $iuran_peserta = $phdp * 0.04;
+        $hasil_pengembangan_peserta = ($saldo_awal_peserta * $ir_decimal) / 12;
+        $saldo_akhir_peserta = $saldo_awal_peserta + $iuran_peserta + $hasil_pengembangan_peserta;
+
+        $iuran_pemberi_kerja = $phdp * 0.3;
+        $hasil_pengembangan_pemberi_kerja = ($saldo_awal_pemberi_kerja * $ir_decimal) / 12;
+        $saldo_akhir_pemberi_kerja = $saldo_awal_pemberi_kerja + $iuran_pemberi_kerja + $hasil_pengembangan_pemberi_kerja;
+
+        // Simpan/update
+        HistoriIuranPeserta::updateOrCreate(
+            ['nip' => $nip, 'tahun' => $tahun, 'bulan' => $bulan],
+            [
+                'phdp_bulan_ini' => $phdp,
+                'ir_bulan_ini' => $request->ir,
+                'saldo_awal_peserta' => $saldo_awal_peserta,
+                'iuran_peserta' => $iuran_peserta,
+                'hasil_pengembangan_peserta' => $hasil_pengembangan_peserta,
+                'saldo_akhir_peserta' => $saldo_akhir_peserta,
+                'saldo_awal_pemberi_kerja' => $saldo_awal_pemberi_kerja,
+                'iuran_pemberi_kerja' => $iuran_pemberi_kerja,
+                'hasil_pengembangan_pemberi_kerja' => $hasil_pengembangan_pemberi_kerja,
+                'saldo_akhir_pemberi_kerja' => $saldo_akhir_pemberi_kerja,
+            ]
+        );
+
+        $imported++;
     }
+
+    if (count($skipped)) {
+        return back()->with('error', "Sebagian data dilewati karena belum ada histori bulan sebelumnya (NIP: " . implode(', ', $skipped) . ")");
+    }
+
+    return back()->with('success', "Import berhasil. Jumlah baris terproses: $imported");
+}
+
 }
