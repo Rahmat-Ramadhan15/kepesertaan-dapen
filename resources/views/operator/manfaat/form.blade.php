@@ -143,12 +143,16 @@
                                         </select>
                                     </div>
 
-                                    <div id="kenaikan-group" class="mb-4 d-none">
+                                    <div id="kenaikan-group" class="mb-4">
                                         <label for="kenaikan" class="form-label">Kenaikan</label>
-                                        <select id="kenaikan" name="kenaikan" class="form-select">
+                                        <select id="kenaikan" name="kenaikan" class="form-select" required>
                                             <option value="" disabled selected>-- Pilih Kenaikan --</option>
-                                            <option value="300000">300.000 (Pegawai)</option>
-                                            <option value="900000">900.000 (Direksi)</option>
+                                            @foreach ($kenaikanOptions as $option)
+                                                <option value="{{ $option->kenaikan }}">
+                                                    {{ number_format($option->kenaikan, 0, ',', '.') }}
+                                                    ({{ ucfirst($option->jabatan) }})
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
 
