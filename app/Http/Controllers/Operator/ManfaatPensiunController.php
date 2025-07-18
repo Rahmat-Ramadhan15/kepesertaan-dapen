@@ -11,6 +11,7 @@ use App\Models\Cabang; // Untuk daftar cabang di filter peserta
 use Carbon\Carbon; // Untuk manipulasi tanggal
 use App\Services\ManfaatPensiunService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\TableKenaikan;
 
 use Illuminate\Support\Facades\DB; // Untuk transaksi database
 use Illuminate\Support\Facades\Log; // Untuk logging error
@@ -100,7 +101,7 @@ class ManfaatPensiunController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -146,7 +147,8 @@ class ManfaatPensiunController extends Controller
     public function form($nip)
     {
         $peserta = Peserta::findOrFail($nip);
-        return view('operator.manfaat.form', compact('peserta'));
+        $kenaikanOptions = TableKenaikan::all();
+        return view('operator.manfaat.form', compact('peserta', 'kenaikanOptions'));
     }
 
     public function hitung(Request $request)
