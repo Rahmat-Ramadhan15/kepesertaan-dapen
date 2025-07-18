@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Parameter\NilaiSekarangController;
 use App\Http\Controllers\Admin\Parameter\PtkpController;
 use App\Http\Controllers\Admin\DataBankController;
 use App\Http\Controllers\Admin\Parameter\TableKenaikanController;
+use App\Http\Controllers\Admin\Parameter\IuranParameterController;
 
 //Operator
 use App\Http\Controllers\Operator\KeluargaController;
@@ -85,6 +86,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
         Route::resource('ptkp', ptkpController::class);
         Route::resource('databank', DataBankController::class);
         Route::resource('kenaikan', TableKenaikanController::class);
+        Route::resource('parameter_iuran', IuranParameterController::class);
     });
 
     

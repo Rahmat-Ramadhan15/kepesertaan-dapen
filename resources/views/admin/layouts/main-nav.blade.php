@@ -92,6 +92,21 @@
                     </li>
                     <!-- END : Menu nilai sekarang -->
 
+
+                    <!-- Menu data parameter -->
+                    <li class="nav-item">
+                        <a href="{{ route('admin.parameter.parameter_iuran.index') }}"
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.parameter_iuran.index','admin.parameter.parameter_iuran.edit') ? 'active' : '' }}"><i
+                                class="demo-pli-gear fs-5 me-2"></i>
+
+                            <span class="nav-label mininav-content ms-1">
+                                <span data-popper-arrow class="arrow"></span>
+                                Parameter Iuran
+                            </span>
+                        </a>
+                    </li>
+                    <!-- END : Menu data parameter -->
+
                     <!-- Menu data cabang -->
                     <li class="nav-item">
                         <a href="{{ route('cabang.index') }}"

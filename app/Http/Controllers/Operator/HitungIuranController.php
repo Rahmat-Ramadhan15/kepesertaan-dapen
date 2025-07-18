@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Peserta; // Model Peserta
 use App\Models\HistoriIuranPeserta; // Model Histori Iuran Peserta
+use App\Models\IuranParameter; // Model parameterIuran
 use App\Models\DataBank; // Untuk daftar cabang/bank di filter peserta
 use App\Models\Cabang; // Untuk daftar cabang di filter peserta
 use Carbon\Carbon; // Untuk manipulasi tanggal
@@ -200,16 +201,17 @@ public function generatePDF($nip, Request $request)
 
         // --- RUMUS PERHITUNGAN IURAN ---
         // Konstanta persentase (karena tidak ada tabel parameter)
-        $persen_iuran_peserta = 0.04; // 4%
-        $persen_iuran_pemberi_kerja = 0.3; // Menggunakan 30% agar sesuai contoh desktop app
+        $parameter = IuranParameter::first();
+        $parameter_peserta = $parameter->persentase_peserta;
+        $parameter_pemberi_kerja = $parameter->persentase_pemberi_kerja;
 
         // Perhitungan Iuran Peserta
-        $iuran_peserta = $phdp_input * $persen_iuran_peserta;
+        $iuran_peserta = $phdp_input * $parameter_peserta;
         $hasil_pengembangan_peserta = ($saldo_awal_peserta * $ir_decimal) / 12;
         $saldo_akhir_peserta = $saldo_awal_peserta + $iuran_peserta + $hasil_pengembangan_peserta;
 
         // Perhitungan Iuran Pemberi Kerja
-        $iuran_pemberi_kerja = $phdp_input * $persen_iuran_pemberi_kerja;
+        $iuran_pemberi_kerja = $phdp_input * $parameter_pemberi_kerja;
         $hasil_pengembangan_pemberi_kerja = ($saldo_awal_pemberi_kerja * $ir_decimal) / 12;
         $saldo_akhir_pemberi_kerja = $saldo_awal_pemberi_kerja + $iuran_pemberi_kerja + $hasil_pengembangan_pemberi_kerja;
 
@@ -331,6 +333,10 @@ public function generatePDF($nip, Request $request)
     $imported = 0;
     $skipped = [];
 
+    $parameter = IuranParameter::first();
+    $parameter_peserta = $parameter->persentase_peserta;
+    $parameter_pemberi_kerja = $parameter->persentase_pemberi_kerja;
+
     foreach ($data as $row) {
         $nip = trim($row['nip'] ?? $row[0] ?? '');
         $phdp = floatval($row['phdp'] ?? $row[1] ?? 0);
@@ -362,11 +368,11 @@ public function generatePDF($nip, Request $request)
         $saldo_awal_pemberi_kerja = $prev->saldo_akhir_pemberi_kerja ?? 0;
 
         // Rumus
-        $iuran_peserta = $phdp * 0.04;
+        $iuran_peserta = $phdp * $parameter_peserta;
         $hasil_pengembangan_peserta = ($saldo_awal_peserta * $ir_decimal) / 12;
         $saldo_akhir_peserta = $saldo_awal_peserta + $iuran_peserta + $hasil_pengembangan_peserta;
 
-        $iuran_pemberi_kerja = $phdp * 0.3;
+        $iuran_pemberi_kerja = $phdp * $parameter_pemberi_kerja;
         $hasil_pengembangan_pemberi_kerja = ($saldo_awal_pemberi_kerja * $ir_decimal) / 12;
         $saldo_akhir_pemberi_kerja = $saldo_awal_pemberi_kerja + $iuran_pemberi_kerja + $hasil_pengembangan_pemberi_kerja;
 
