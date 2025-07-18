@@ -183,10 +183,12 @@
                                     <input type="date" class="form-control" id="tpst" name="tpst" value="{{ old('tpst') }}">
 
                                     <label for="golongan" class="form-label fw-semibold mt-3">Golongan</label>
-                                    <select class="form-control" id="golongan" name="golongan">
-                                        <option value="">Pilih Golongan</option>
-                                        <option value="Karyawan" {{ old('golongan') == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
-                                        <option value="Direktur" {{ old('golongan') == 'Direktur' ? 'selected' : '' }}>Direktur</option>
+                                    <select class="form-select" id="golongan" name="golongan">
+                                       <option value="">Pilih Golongan</option>
+                                       <option value="1" {{ old('golongan') == 1 ? 'selected' : '' }}>Golongan 1</option>
+                                       <option value="2" {{ old('golongan') == 2 ? 'selected' : '' }}>Golongan 2</option>
+                                       <option value="3" {{ old('golongan') == 3 ? 'selected' : '' }}>Golongan 3</option>
+                                       <option value="4" {{ old('golongan') == 4 ? 'selected' : '' }}>Golongan 4</option>
                                     </select>
                                 </div>
 
@@ -272,8 +274,12 @@
                                 <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <label for="kode_dir" class="form-label fw-semibold">Kode Direktorat</label>
-                                    <input type="number" class="form-control" id="kode_dir" name="kode_dir" value="{{ old('kode_dir') }}" placeholder="Masukkan kode direktorat">
-                                </div>
+                                    <select class="form-select" id="kode_dir" name="kode_dir">
+                                       <option value="">Pilih Direktorat</option>
+                                       <option value="Direktur" {{ old('kode_dir') == 'Direktur' ? 'selected' : '' }}>Direktur</option>
+                                       <option value="Karyawan" {{ old('kode_dir') == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
+                                    </select>
+                                 </div>
                                 <div class="col-md-6">
                                     <label for="tahun_jabat" class="form-label fw-semibold">Tahun Menjabat</label>
                                     <input type="date" class="form-control" id="tahun_jabat" name="tahun_jabat" value="{{ old('tahun_jabat') }}" placeholder="Masukkan tahun menjabat">

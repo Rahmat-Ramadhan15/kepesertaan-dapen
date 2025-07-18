@@ -177,10 +177,12 @@
 
 
                                     <label for="golongan" class="form-label fw-semibold mt-3">Golongan</label>
-                                    <select class="form-select " id="golongan" name="golongan">
-                                    <option value="">Pilih Golongan</option>
-                                    <option value="Karyawan" {{ $peserta->golongan == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
-                                    <option value="Direktur" {{ $peserta->golongan == 'Direktur' ? 'selected' : '' }}>Direktur</option>
+                                    <select class="form-select" id="golongan" name="golongan">
+                                       <option value="">Pilih Golongan</option>
+                                       <option value="1" {{ $peserta->golongan == 1 ? 'selected' : '' }}>Golongan 1</option>
+                                       <option value="2" {{ $peserta->golongan == 2 ? 'selected' : '' }}>Golongan 2</option>
+                                       <option value="3" {{ $peserta->golongan == 3 ? 'selected' : '' }}>Golongan 3</option>
+                                       <option value="4" {{ $peserta->golongan == 4 ? 'selected' : '' }}>Golongan 4</option>
                                     </select>
                                 </div>
 
@@ -265,8 +267,12 @@
                                 <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <label for="kode_dir" class="form-label fw-semibold">Kode Direktorat</label>
-                                    <input type="text" class="form-control " id="kode_dir" name="kode_dir" value="{{ $peserta->kode_dir }}" placeholder="Masukkan kode direktorat">
-                                </div>
+                                    <select class="form-select" id="kode_dir" name="kode_dir">
+                                       <option value="">Pilih Direktorat</option>
+                                       <option value="Direktur" {{ $peserta->kode_dir === 'Direktur' ? 'selected' : '' }}>Direktur</option>
+                                       <option value="Karyawan" {{ $peserta->kode_dir === 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
+                                    </select>
+                                 </div>
                                 <div class="col-md-6">
                                     <label for="tahun_jabat" class="form-label fw-semibold">Tahun Menjabat</label>
                                     <input type="date" class="form-control " id="tahun_jabat" name="tahun_jabat" value="{{ $peserta->tahun_jabat ? (is_string($peserta->tahun_jabat) ? $peserta->tahun_jabat : $peserta->tahun_jabat->format('Y-m-d')) : '' }}" placeholder="Masukkan tahun menjabat">
