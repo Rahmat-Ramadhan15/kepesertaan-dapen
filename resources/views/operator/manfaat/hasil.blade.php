@@ -82,7 +82,7 @@
     <div class="value">
         <span class="label">PP ({{ ucfirst($hasil['jenis']) }} -
             {{ $hasil['metode'] === 'bulanan' ? 'Bulanan' : 'Sekaligus' }}):</span>
-        Rp{{ number_format($hasil['total'], 0, ',', '.') }}
+        Rp{{ number_format($hasil['mp'], 0, ',', '.') }}
     </div>
     @if (!is_null($hasil['maksimum']))
         <div class="value"><span class="label">Maksimum (80% dari PhDP):</span>

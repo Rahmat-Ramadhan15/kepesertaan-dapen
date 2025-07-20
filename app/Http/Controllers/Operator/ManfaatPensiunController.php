@@ -12,6 +12,10 @@ use Carbon\Carbon; // Untuk manipulasi tanggal
 use App\Services\ManfaatPensiunService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TableKenaikan;
+use App\Models\NilaiSekarang;
+use App\Models\NilaiAnak;
+use App\Models\NilaiJanda;
+use App\Models\NilaiPegawai;
 
 use Illuminate\Support\Facades\DB; // Untuk transaksi database
 use Illuminate\Support\Facades\Log; // Untuk logging error
@@ -158,6 +162,7 @@ class ManfaatPensiunController extends Controller
             'jenis'       => 'required|in:normal,dipercepat,cacat,janda/duda,anak,pihakyangditunjuk,pengembalianiuran,pengalihandana,ditunda',
             'metode'      => 'required|in:bulanan,sekaligus',
             'kenaikan'    => 'required|numeric|min:0',
+            'status_meninggal' => 'required_if:jenis,janda/duda,anak',
         ]);
 
         $peserta = Peserta::findOrFail($request->nip);
@@ -169,11 +174,15 @@ class ManfaatPensiunController extends Controller
         // Hitung manfaat pensiun lewat service
         $service = new ManfaatPensiunService();
         $kenaikan = floatval($request->kenaikan);
+        $statusMeninggal = $request->input('status_meninggal');
+        $nilaiSekarang = 1;
         $hasil = $service->hitung(
             $peserta,
             $request->jenis,
             $request->metode,
-            $kenaikan
+            $kenaikan,
+            $statusMeninggal,
+        $nilaiSekarang
         );
 
         // Tambahkan jenis pensiun ke hasil agar bisa digunakan di view
