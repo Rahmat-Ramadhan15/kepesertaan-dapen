@@ -77,7 +77,7 @@
                         <td>{{ $keluarga->hubungan }}</td>
                         <td>{{ \Carbon\Carbon::parse($keluarga->tanggal_lahir)->format('d-m-Y') }}</td>
                         <td class="text-center">{{ $keluarga->umur }}</td>
-                        <td>{{ $keluarga->pekerjaan }}</td>
+                        <td>{{ $keluarga->keterangan }}</td>
                     </tr>
                     @empty
                     <tr>

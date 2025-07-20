@@ -16,13 +16,18 @@ class Keluarga extends Model
     protected $fillable = [
         'nip',
         'nama',
-        'hubungan',
         'jenis_kelamin',
+        'tempat_lahir',
         'tanggal_lahir',
+        'hubungan',
         'usia',
+        'anak_ke',
+        'tanggal_nikah',
+        'status_ahli_waris',
+        'keterangan',
     ];
 
-    protected $dates = ['tanggal_lahir'];
+    protected $dates = ['tanggal_lahir', 'tanggal_nikah'];
 
     public function peserta()
     {

@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="A table library that works everywhere">
-   <title>Create | Bank - Sulselbar</title>
+   <title>Tambah | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -126,45 +126,75 @@
                         </div>
                      @endif
                         <form action="{{ route('keluarga.store') }}" method="POST" class="mt-3">
-                        @csrf
-                        <div class="row g-3">
-                           <div class="col-md-6">
-                                 <input type="hidden" name="nip" value="{{ $peserta->nip }}">
+                           @csrf
+                           <div class="row g-3">
+                              <div class="col-md-6">
+                                    <input type="hidden" name="nip" value="{{ $peserta->nip }}">
 
-                                 <label for="nama" class="form-label fw-semibold mt-3">Nama Keluarga</label>
-                                 <input type="text" class="form-control" id="nama" name="nama" required>
+                                    <label for="nama" class="form-label fw-semibold mt-3">Nama Keluarga</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" required>
 
-                                 <label for="hubungan" class="form-label fw-semibold mt-3">Hubungan</label>
-                                 <select class="form-select" id="hubungan" name="hubungan" required>
-                                    <option value="">Pilih Hubungan</option>
-                                    <option value="Suami">Suami</option>
-                                    <option value="Istri">Istri</option>
-                                    <option value="Anak">Anak</option>
-                                    <option value="Orang Tua">Orang Tua</option>
-                                    <option value="Saudara">Saudara</option>
-                                 </select>
+                                    <label for="jenis_kelamin" class="form-label fw-semibold mt-3">Jenis Kelamin</label>
+                                    <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                       <option value="">Pilih Jenis Kelamin</option>
+                                       <option value="Laki-laki">Laki-laki</option>
+                                       <option value="Perempuan">Perempuan</option>
+                                    </select>
 
-                                 <label for="jenis_kelamin" class="form-label fw-semibold mt-3">Jenis Kelamin</label>
-                                 <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
-                                    <option value="">Pilih Jenis Kelamin</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                 </select>
+                                    <label for="tempat_lahir" class="form-label fw-semibold mt-3">Tempat Lahir</label>
+                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
 
-                                 <label for="tanggal_lahir" class="form-label fw-semibold mt-3">Tanggal Lahir</label>
-                                 <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                                    <label for="tanggal_lahir" class="form-label fw-semibold mt-3">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
 
-                                 <label for="usia" class="form-label fw-semibold mt-3">Usia</label>
-                                 <input type="number" class="form-control" id="usia" name="usia" min="0" required>
+                                    <label for="hubungan" class="form-label fw-semibold mt-3">Hubungan</label>
+                                    <select class="form-select" id="hubungan" name="hubungan" onchange="toggleTanggalNikah()" required>
+                                       <option value="">Pilih Hubungan</option>
+                                       <option value="Suami">Suami</option>
+                                       <option value="Istri">Istri</option>
+                                       <option value="Anak">Anak</option>
+                                       <option value="Pihak YDT">Pihak YDT</option>
+                                    </select>
+
+                                    <div class="row mt-2">
+                                       <div class="col">
+                                          <label for="usia" class="form-label fw-semibold">Usia</label>
+                                          <input type="number" class="form-control" id="usia" name="usia" min="0" readonly>
+                                       </div>
+                                       <div class="col">
+                                          <label for="anak_ke" class="form-label fw-semibold">Anak ke</label>
+                                          <input type="number" class="form-control" id="anak_ke" name="anak_ke" min="1">
+                                       </div>
+                                    </div>
+
+                                    <div id="tanggal_nikah_group">
+                                       <label for="tanggal_nikah" class="form-label fw-semibold mt-3">Tanggal Nikah</label>
+                                       <input type="date" class="form-control" id="tanggal_nikah" name="tanggal_nikah">
+                                    </div>
+
+                                    <label for="status_ahli_waris" class="form-label fw-semibold mt-3">Status Ahli Waris</label>
+                                    <select class="form-select" id="status_ahli_waris" name="status_ahli_waris">
+                                       <option value="Kawin">Kawin</option>
+                                       <option value="Meninggal">Meninggal</option>
+                                       <option value="Sekolah">Sekolah</option>
+                                       <option value="Lain-lain">Lain-lain</option>
+                                    </select>
+
+                                    <label for="keterangan" class="form-label fw-semibold mt-3">Keterangan</label>
+                                    <select class="form-select" id="keterangan" name="keterangan">
+                                       <option value="Berhak">Berhak</option>
+                                       <option value="Tidak Berhak">Tidak Berhak</option>
+                                       
+                                    </select>
+                              </div>
                            </div>
 
                            <div class="d-flex justify-content-end gap-2 mt-4">
-                                 <button type="submit" class="btn btn-primary action-button">
+                              <button type="submit" class="btn btn-primary action-button">
                                     <i class="fas fa-save me-2"></i> Simpan Perubahan
-                                 </button>
+                              </button>
                            </div>
-                        </div>
-                     </form>
+                        </form>
                      <script>
                      document.getElementById('tanggal_lahir').addEventListener('change', function () {
                         const tanggalLahir = new Date(this.value);
@@ -180,6 +210,23 @@
 
                         document.getElementById('usia').value = usia > 0 ? usia : 0;
                      });
+                  </script>
+                  <script>
+                  function toggleTanggalNikah() {
+                     const hubungan = document.getElementById('hubungan').value;
+                     const tanggalNikahGroup = document.getElementById('tanggal_nikah_group');
+                     const tanggalNikahInput = document.getElementById('tanggal_nikah');
+
+                     if (hubungan === 'Suami' || hubungan === 'Istri') {
+                        tanggalNikahGroup.style.display = 'block';
+                        tanggalNikahInput.disabled = false;
+                     } else {
+                        tanggalNikahGroup.style.display = 'none';
+                        tanggalNikahInput.disabled = true;
+                        tanggalNikahInput.value = ''; // kosongkan input saat hidden
+                     }
+                  }
+                  window.addEventListener('DOMContentLoaded', toggleTanggalNikah);
                   </script>
                 </div>
             </div>

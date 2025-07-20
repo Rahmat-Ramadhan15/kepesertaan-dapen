@@ -232,18 +232,10 @@
                     <div class="column-left">
                         <div class="data-row">
                             <div class="data-label">Nomor SK</div>
-                            <div class="data-value">: {{ $p->nomor_sk ?? '-' }}</div>
-                        </div>
-                        <div class="data-row">
-                            <div class="data-label">TMT</div>
-                            <div class="data-value">: {{ $p->tmt ?? '-' }}</div>
+                            <div class="data-value">: {{ $p->no_sk ?? '-' }}</div>
                         </div>
                     </div>
                     <div class="column-right">
-                        <div class="data-row">
-                            <div class="data-label">TPT 1</div>
-                            <div class="data-value">: {{ $p->tpt1 ?? '-' }}</div>
-                        </div>
                         <div class="data-row">
                             <div class="data-label">Golongan</div>
                             <div class="data-value">: {{ $p->golongan ?? '-' }}</div>
@@ -261,7 +253,7 @@
             <div class="section-content">
                 <div class="data-row">
                     <div class="data-label">Pendidikan Terakhir</div>
-                    <div class="data-value">: {{ $p->pendidikan_terakhir ?? '-' }}</div>
+                    <div class="data-value">: {{ $p->pendidikan ?? '-' }}</div>
                 </div>
                 <div class="data-row">
                     <div class="data-label">Jurusan</div>
