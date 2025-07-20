@@ -40,26 +40,13 @@
                     <!-- Menu daftar pengguna -->
                     <li class="nav-item ">
                         <a href="{{ route('admin.dashboard') }}"
-                            class="mininav-toggle nav-link {{ request()->routeIs('admin.dashboard', 'admin.edit-user') ? 'active' : '' }}"><i
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.dashboard', 'admin.edit-user', 'admin.create-operator') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
                             <span data-popper-arrow class="arrow">Daftar Pengguna</span>
                         </a>
                     </li>
                     <!-- END : Menu daftar pengguna -->
-
-                    <!-- Menu tambah operator -->
-                    <li class="nav-item">
-                        <a href="{{ route('admin.create-operator') }}"
-                            class="mininav-toggle nav-link {{ request()->routeIs('admin.create-operator') ? 'active' : '' }}"><i
-                                class="demo-pli-gear fs-5 me-2"></i>
-
-                            <span class="nav-label mininav-content ms-1">
-                                <span data-popper-arrow class="arrow"></span>
-                                Tambah Operator
-                            </span>
-                        </a>
-                    </li>
-                    <!-- END : Menu tambah operator -->
+                     
 
                     <!-- Menu nilai sekarang -->
                     <li class="nav-item has-sub">

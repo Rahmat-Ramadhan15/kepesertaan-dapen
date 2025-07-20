@@ -105,7 +105,19 @@
 
                                 <!-- Toolbar dalam satu baris -->
                                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif @if (session('success'))
+                                        <div class="alert alert-success">{{ session('success') }}</div>
+                                    @elseif(session('error'))
+                                        <div class="alert alert-danger">{{ session('error') }}</div>
+                                    @endif
                                     <!-- Form Filter -->
                                     {{-- <form action="{{ route('operator.index') }}" method="GET"
                                         class="d-flex flex-wrap align-items-center gap-2 m-0">
@@ -190,13 +202,13 @@
 
                                                 {{-- Kolom Aksi --}}
                                                 <td>
-                                                    @if ($user->role === 'operator')
+                                                    @if (in_array($user->role, ['operator', 'supervisor']))
                                                         <a href="{{ route('admin.edit-user', $user->id) }}"
                                                             class="btn btn-outline-primary btn-sm me-1">
                                                             <i class="fas fa-edit me-1"></i> Edit
                                                         </a>
                                                     @else
-                                                        <div class="text-danger small">Hanya operator yang dapat diedit</div>
+                                                        <div class="text-danger small">Hanya operator & supervisor yang dapat diedit</div>
                                                     @endif
 
                                                     <form action="{{ route('admin.delete-user', $user->id) }}"

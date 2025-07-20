@@ -37,6 +37,7 @@ class AdminController extends Controller
         $request->validate([
             'nip' => 'required|string|max:50|unique:users,nip',
             'name' => 'required|string|max:255',
+            'role' => 'required|in:operator,supervisor,admin',
             'password' => [
                 'required',
                 'string',
@@ -57,6 +58,9 @@ class AdminController extends Controller
             'name.string' => 'Nama harus berupa teks.',
             'name.max' => 'Nama maksimal terdiri dari 255 karakter.',
 
+            'role.required' => 'Role wajib dipilih.',
+            'role.in' => 'Role tidak valid.',
+
             'password.required' => 'Password wajib diisi.',
             'password.string' => 'Password harus berupa teks.',
             'password.min' => 'Password minimal terdiri dari 8 karakter.',
@@ -69,12 +73,12 @@ class AdminController extends Controller
             'nip' => $request->nip,
             'name' => $request->name,
             'password' => Hash::make($request->password),
-            'role' => 'operator',
+            'role' => $request->role,
             'is_blocked' => false,
             'login_attempts' => 0,
         ]);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Operator berhasil ditambahkan.');
+        return redirect()->route('admin.dashboard')->with('success', 'Pengguna berhasil ditambahkan.');
     }
 
     // Menampilkan form edit operator
@@ -82,8 +86,8 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if ($user->role !== 'operator') {
-            return redirect()->back()->with('error', 'Hanya operator yang bisa diedit.');
+        if (!in_array($user->role, ['operator', 'supervisor'])) {
+            return redirect()->back()->with('error', 'Hanya operator dan supervisor yang bisa diedit.');
         }
 
         return view('admin.edit-user', compact('user'));
@@ -94,12 +98,14 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if ($user->role !== 'operator') {
-            return redirect()->back()->with('error', 'Hanya operator yang bisa diperbarui.');
+        if (!in_array($user->role, ['operator', 'supervisor'])) {
+            return redirect()->back()->with('error', 'Hanya operator dan supervisor yang bisa diperbarui.');
         }
+
 
        $request->validate([
             'name' => 'required|string|max:255',
+            'role' => 'required|in:operator,supervisor,admin',
             'password' => [
                 'required',
                 'string',
@@ -120,6 +126,7 @@ class AdminController extends Controller
 
 
         $user->name = $request->name;
+        $user->role = $request->role;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -135,8 +142,8 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if ($user->role !== 'operator') {
-            return redirect()->back()->with('error', 'Hanya operator yang bisa dihapus.');
+        if (!in_array($user->role, ['operator', 'supervisor'])) {
+            return redirect()->back()->with('error', 'Hanya operator dan supervisor yang bisa dihapus.');
         }
 
         // Optional: Cegah menghapus dirinya sendiri
@@ -146,6 +153,6 @@ class AdminController extends Controller
 
         $user->delete();
 
-        return redirect()->back()->with('success', 'Operator berhasil dihapus.');
+        return redirect()->back()->with('success', 'Pengguna berhasil dihapus.');
     }
 }

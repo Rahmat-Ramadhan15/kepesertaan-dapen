@@ -131,7 +131,7 @@ class AuthController extends Controller
 
         Auth::logout(); // logout dulu supaya aman
 
-        return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login kembali.');
+        return redirect()->route('login')->with('success', 'Password berhasil diubah. Silakan login kembali.');
 
     }
 
@@ -171,7 +171,7 @@ class AuthController extends Controller
         $user->last_password_changed = now();
         $user->save();
 
-        return back()->with('status', 'Password berhasil diubah.');
+        return back()->with('success', 'Password berhasil diubah. Silakan login kembali.');
     }
 
 

@@ -76,6 +76,7 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <section id="content" class="content">
             <div class="container">
+                <div class="container pt-4">
                 <h3 class="mb-4">Audit Log</h3>
 
                 {{-- FORM FILTER --}}
