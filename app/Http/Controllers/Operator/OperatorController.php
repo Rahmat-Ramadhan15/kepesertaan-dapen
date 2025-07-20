@@ -32,12 +32,18 @@ class OperatorController extends Controller
             $query->where('nama', 'like', '%' . $request->nama . '%');
         }
 
+        if ($request->filled('kode_peserta')) {
+            $query->where('kode_peserta', 'like', '%' . $request->kode_peserta . '%');
+        }
+
+
         $peserta = $query->paginate(10)->appends($request->query());
 
         // Ambil list cabang unik untuk dropdown
         $listCabang = Cabang::all();
+        $statusPeserta = KodePeserta::all();
 
-        return view('operator.dashboard', compact('peserta','listCabang'));
+        return view('operator.dashboard', compact('peserta','listCabang','statusPeserta'));
     }
 
 

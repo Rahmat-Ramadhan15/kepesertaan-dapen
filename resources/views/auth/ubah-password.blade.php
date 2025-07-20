@@ -166,7 +166,7 @@ function togglePassword(inputId, iconId) {
                      </form>
 
                      <div class="d-flex justify-content-start gap-md-5 mt-4">
-                        <a href="{{ route('operator.dashboard') }}" class="btn-link text-decoration-none">Back to Home</a>
+                        <a href="{{ route('login') }}" class="btn-link text-decoration-none">Masuk Ulang</a>
                      </div>
 
                      <div class="d-flex align-items-center justify-content-between border-top pt-3 mt-3">

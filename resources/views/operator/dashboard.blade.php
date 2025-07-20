@@ -134,6 +134,16 @@
 
                         <!-- Form Filter -->
                         <form action="{{ route('operator.index') }}" method="GET" class="d-flex flex-wrap align-items-center gap-2 m-0">
+
+                            <select name="kode_peserta" class="form-select" style="width: auto;">
+                              <option value="">Semua Status Peserta</option>
+                              @foreach($statusPeserta as $status)
+                                 <option value="{{ $status->kode_peserta }}" {{ request('kode_peserta') == $status->kode_peserta ? 'selected' : '' }}>
+                                       {{ $status->ket_kd_pst }}
+                                 </option>
+                              @endforeach
+                           </select>
+
                             <select name="cabang" class="form-select" style="width: auto;">
                                 <option value="">Semua Cabang</option>
                                 @foreach($listCabang as $cabang)
@@ -144,12 +154,13 @@
                             </select>
 
                             <select name="jenis_kelamin" class="form-select" style="width: auto;">
-                                <option value="">Semua</option>
+                                <option value="">Semua </option>
                                 <option value="Laki-laki" {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                 <option value="Perempuan" {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
 
                             <input type="text" name="nama" class="form-control" placeholder="Cari nama..." value="{{ request('nama') }}" style="width: auto;">
+
 
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-filter me-1"></i> Filter

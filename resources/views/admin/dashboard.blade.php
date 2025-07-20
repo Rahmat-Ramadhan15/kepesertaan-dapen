@@ -190,10 +190,14 @@
 
                                                 {{-- Kolom Aksi --}}
                                                 <td>
-                                                    <a href="{{ route('admin.edit-user', $user->id) }}"
-                                                        class="btn btn-outline-primary btn-sm me-1">
-                                                        <i class="fas fa-edit me-1"></i> Edit
-                                                    </a>
+                                                    @if ($user->role === 'operator')
+                                                        <a href="{{ route('admin.edit-user', $user->id) }}"
+                                                            class="btn btn-outline-primary btn-sm me-1">
+                                                            <i class="fas fa-edit me-1"></i> Edit
+                                                        </a>
+                                                    @else
+                                                        <div class="text-danger small">Hanya operator yang dapat diedit</div>
+                                                    @endif
 
                                                     <form action="{{ route('admin.delete-user', $user->id) }}"
                                                         method="POST" class="d-inline"

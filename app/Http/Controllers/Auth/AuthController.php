@@ -100,9 +100,22 @@ class AuthController extends Controller
     public function changePassword(Request $request)
     {
         $request->validate([
-            'current_password' => ['required'],
-            'password' => ['required', 'min:8', 'confirmed'],
+            'current_password' => ['required'], // Wajib diisi untuk konfirmasi sebelum mengganti password
+            'password' => [
+                'required', // Password baru wajib diisi
+                'min:8', // Minimal panjang password adalah 8 karakter
+                'confirmed', // Harus ada field 'password_confirmation' yang sama persis dengan 'password'
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&^()_\-])[A-Za-z\d@$!%*#?&^()_\-]+$/'
+                // Harus mengandung setidaknya satu huruf kecil, satu huruf kapital, satu angka, dan satu simbol
+            ],
+        ], [
+            'current_password.required' => 'Password saat ini wajib diisi.',
+            'password.required' => 'Password baru wajib diisi.',
+            'password.min' => 'Password baru minimal terdiri dari 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai dengan password baru.',
+            'password.regex' => 'Password baru harus mengandung setidaknya satu huruf kecil, satu huruf besar, satu angka, dan satu simbol (seperti @, $, !, %, *, #, ?, &).',
         ]);
+
 
         $user = User::where('nip', session('force_password_reset_nip'))->firstOrFail();
 
@@ -131,9 +144,22 @@ class AuthController extends Controller
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'current_password' => ['required'],
-            'password' => ['required', 'min:8', 'confirmed'],
+            'current_password' => ['required'], // Wajib diisi untuk konfirmasi sebelum mengganti password
+            'password' => [
+                'required', // Password baru wajib diisi
+                'min:8', // Minimal panjang password adalah 8 karakter
+                'confirmed', // Harus ada field 'password_confirmation' yang sama persis dengan 'password'
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&^()_\-])[A-Za-z\d@$!%*#?&^()_\-]+$/'
+                // Harus mengandung setidaknya satu huruf kecil, satu huruf kapital, satu angka, dan satu simbol
+            ],
+        ], [
+            'current_password.required' => 'Password saat ini wajib diisi.',
+            'password.required' => 'Password baru wajib diisi.',
+            'password.min' => 'Password baru minimal terdiri dari 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai dengan password baru.',
+            'password.regex' => 'Password baru harus mengandung setidaknya satu huruf kecil, satu huruf besar, satu angka, dan satu simbol (seperti @, $, !, %, *, #, ?, &).',
         ]);
+
 
         $user = Auth::user();
 

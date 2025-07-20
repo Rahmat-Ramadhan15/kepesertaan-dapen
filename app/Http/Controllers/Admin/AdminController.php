@@ -38,17 +38,32 @@ class AdminController extends Controller
             'nip' => 'required|string|max:50|unique:users,nip',
             'name' => 'required|string|max:255',
             'password' => [
-                            'required',
-                            'string',
-                            'min:8',
-                            'regex:/[a-z]/',      // huruf kecil
-                            'regex:/[A-Z]/',      // huruf besar
-                            'regex:/[0-9]/',      // angka
-                            'regex:/[@$!%*#?&]/', // simbol
-                            'confirmed',
-                        ],
+                'required',
+                'string',
+                'min:8',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/',
+                'confirmed',
+            ],
+        ], [
+            'nip.required' => 'NIP wajib diisi.',
+            'nip.string' => 'NIP harus berupa teks.',
+            'nip.max' => 'NIP maksimal terdiri dari 50 karakter.',
+            'nip.unique' => 'NIP sudah terdaftar.',
+            
+            'name.required' => 'Nama wajib diisi.',
+            'name.string' => 'Nama harus berupa teks.',
+            'name.max' => 'Nama maksimal terdiri dari 255 karakter.',
 
+            'password.required' => 'Password wajib diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'password.min' => 'Password minimal terdiri dari 8 karakter.',
+            'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, angka, dan simbol.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
         ]);
+
 
         User::create([
             'nip' => $request->nip,
@@ -83,20 +98,26 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Hanya operator yang bisa diperbarui.');
         }
 
-        $request->validate([
+       $request->validate([
             'name' => 'required|string|max:255',
             'password' => [
-                            'required',
-                            'string',
-                            'min:8',
-                            'regex:/[a-z]/',      // huruf kecil
-                            'regex:/[A-Z]/',      // huruf besar
-                            'regex:/[0-9]/',      // angka
-                            'regex:/[@$!%*#?&]/', // simbol
-                            'confirmed',
-                        ],
-
+                'required',
+                'string',
+                'min:8',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/',
+                'confirmed',
+            ],
+        ], [
+            'password.required' => 'Password wajib diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'password.min' => 'Password minimal terdiri dari 8 karakter.',
+            'password.regex' => 'Password harus terdiri dari huruf besar, huruf kecil, angka, dan simbol.',
+            'password.confirmed' => 'Konfirmasi password tidak sama dengan password.',
         ]);
+
 
         $user->name = $request->name;
 
