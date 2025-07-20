@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <!-- END : Menu daftar pengguna -->
-                     
+
 
                     <!-- Menu nilai sekarang -->
                     <li class="nav-item has-sub">
@@ -83,7 +83,7 @@
                     <!-- Menu data parameter -->
                     <li class="nav-item">
                         <a href="{{ route('admin.parameter.parameter_iuran.index') }}"
-                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.parameter_iuran.index','admin.parameter.parameter_iuran.edit') ? 'active' : '' }}"><i
+                            class="mininav-toggle nav-link {{ request()->routeIs('admin.parameter.parameter_iuran.index', 'admin.parameter.parameter_iuran.edit') ? 'active' : '' }}"><i
                                 class="demo-pli-gear fs-5 me-2"></i>
 
                             <span class="nav-label mininav-content ms-1">
@@ -135,18 +135,6 @@
                         </a>
                     </li>
                     <!-- END : Menu data cabang -->
-
-                    <!-- Menu rumus -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link mininav-toggle"><i class="demo-pli-gear fs-5 me-2"></i>
-
-                            <span class="nav-label mininav-content ms-1">
-                                <span data-popper-arrow class="arrow"></span>
-                                Rumus
-                            </span>
-                        </a>
-                    </li>
-                    <!-- END : Menu rumus -->
 
                     <!-- Menu kenaikan -->
                     <li class="nav-item">
