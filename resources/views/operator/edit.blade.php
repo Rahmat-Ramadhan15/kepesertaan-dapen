@@ -293,12 +293,12 @@
                                     <select class="form-select" id="pendidikan" name="pendidikan">
                                         <option value="">Pilih Pendidikan</option>
                                         <option value="SD" {{ $peserta->pendidikan == 'SD' ? 'selected' : '' }}>SD</option>
-                                        <option value="SMP" {{ $peserta->pendidikan == 'SMP' ? 'selected' : '' }}>SMP</option>
-                                        <option value="SMA/SMK" {{ $peserta->pendidikan == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
+                                        <option value="SLTP" {{ $peserta->pendidikan == 'SLTP' ? 'selected' : '' }}>SLTP</option>
+                                        <option value="SLTA" {{ $peserta->pendidikan == 'SLTA' ? 'selected' : '' }}>SLTA</option>
+                                        <option value="D1" {{ $peserta->pendidikan == 'D1' ? 'selected' : '' }}>D1</option>
+                                        <option value="D2" {{ $peserta->pendidikan == 'D2' ? 'selected' : '' }}>D2</option>
                                         <option value="D3" {{ $peserta->pendidikan == 'D3' ? 'selected' : '' }}>D3</option>
-                                        <option value="S1" {{ $peserta->pendidikan == 'S1' ? 'selected' : '' }}>S1</option>
-                                        <option value="S2" {{ $peserta->pendidikan == 'S2' ? 'selected' : '' }}>S2</option>
-                                        <option value="S3" {{ $peserta->pendidikan == 'S3' ? 'selected' : '' }}>S3</option>
+                                        <option value="D4" {{ $peserta->pendidikan == 'D4' ? 'selected' : '' }}>D4</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">

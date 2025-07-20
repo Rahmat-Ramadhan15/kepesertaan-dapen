@@ -278,16 +278,16 @@
               <div class="col-md-6">
                 <label class="form-label fw-semibold ">Tahun Menjabat</label>
                 <div class="form-control bg-light border-1 rounded-3" readonly>
-                  @if($peserta->tahun_jabat)
-                    @if(is_string($peserta->tahun_jabat))
-                      {{ \Carbon\Carbon::parse($peserta->tahun_jabat)->format('Y') }}
-                    @else
-                      {{ $peserta->tahun_jabat->format('Y') }}
-                    @endif
+               @if($peserta->tahun_jabat)
+                  @if(is_string($peserta->tahun_jabat))
+                     {{ \Carbon\Carbon::parse($peserta->tahun_jabat)->format('d M Y') }}
                   @else
-                    -
+                     {{ $peserta->tahun_jabat->format('d M Y') }}
                   @endif
-                </div>
+               @else
+                  -
+               @endif
+               </div>
               </div>
             </div>
           </div>
