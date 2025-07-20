@@ -134,9 +134,9 @@
                                         </select>
                                     </div>
 
-                                    <div id="status-kematian-group" class="mb-3 d-none">
-                                        <label for="status_kematian" class="form-label">Status Peserta</label>
-                                        <select id="status_kematian" name="status_kematian" class="form-select">
+                                    <div id="status-meninggal-group" class="mb-3 d-none">
+                                        <label for="status_meninggal" class="form-label">Status Peserta</label>
+                                        <select id="status_meninggal" name="status_meninggal" class="form-select">
                                             <option value="" disabled selected>-- Pilih Status Peserta --</option>
                                             <option value="aktif">Meninggal Saat Aktif</option>
                                             <option value="pensiun">Meninggal Saat Pensiun</option>
@@ -1528,7 +1528,7 @@
         });
         const jenis = document.getElementById('jenis');
         const metode = document.getElementById('metode');
-        const statusGroup = document.getElementById('status-kematian-group');
+        const statusGroup = document.getElementById('status-meninggal-group');
         const kenaikanGroup = document.getElementById('kenaikan-group');
 
         function toggleFields() {
