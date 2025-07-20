@@ -6,7 +6,7 @@
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
    <meta name="description" content="A table library that works everywhere">
-   <title>Detail | Bank - Sulselbar</title>
+   <title>Edit | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -81,12 +81,13 @@
             <div class="content__wrap">
 
 
-            <h1 class="page-title mb-0 mt-2">Detail Peserta</h1>
+            <h1 class="page-title mb-0 mt-2">Edit Keluarga</h1>
                <!-- Breadcrumb -->
                <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                      <li class="breadcrumb-item"><a href="{{ route('operator.index') }}">Data Peserta</a></li>
-                     <li class="breadcrumb-item"><a href="">Detail Peserta</a></li>
+                     <li class="breadcrumb-item"><a href="{{ url()->previous() }}">Detail Peserta</a></li>
+                     <li class="breadcrumb-item"><a href="">Edit Keluarga</a></li>
                   </ol>
                </nav>
                <!-- END : Breadcrumb -->
@@ -98,358 +99,145 @@
 
 
          <div class="content__boxed">
-  <div class="content__wrap">
-    <div class="card mb-3">
-      <div class="card-body">
-        <div class="d-flex flex-wrap justify-content-start align-items-center gap-2 mb-3">
-            <a href="{{ route('operator.edit', $peserta->nip) }}" class="btn btn-primary hstack gap-2">
-               <i class="demo-psi-pencil fs-5"></i>
-               <span class="vr"></span>
-               Edit
-            </a>
-            <form action="{{ route('operator.destroy', $peserta->nip) }}" method="POST" style="display:inline-block;">
-               @csrf
-               @method('DELETE')
-               <button type="submit" class="btn btn-primary hstack gap-2" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; font-weight: 500;">
-                     <i class="demo-psi-trash fs-5"></i>
-                     <span class="vr"></span>
-                     Hapus
-               </button>
-            </form>
+            <div class="content__wrap">
+                <div class="card mb-3">
+                <div class="card-body">
+                    <!-- Data Pribadi & Kepegawaian -->
+                    <div class="card mb-4 shadow-sm rounded-3">
+                    
+                    <div class="card-header bg-primary text-white fw-semibold">
+                        <i class="fas fa-id-card me-2"></i> Data Pribadi
+                    </div>
+                    <div class="card-body">
+                     @if ($errors->any())
+                        <div id="alert-error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                           <strong>Terjadi kesalahan:</strong>
+                           <ul class="mb-0">
+                                 @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                 @endforeach
+                           </ul>
+                        </div>
+                     @endif
 
-            <a href="{{ route('keluarga.create', $peserta->nip) }}" class="btn btn-primary hstack gap-2">
-                  <i class="demo-psi-add fs-5"></i>
-                  <span class="vr"></span>
-                  Tambah Keluarga
-            </a>
-            <!-- Tombol Cetak PDF - TAMBAHKAN INI -->
-            <a href="{{ route('operator.pdf', $peserta->nip) }}" class="btn btn-success hstack gap-2" target="_blank">
-               <i class="fas fa-file-pdf fs-5"></i>
-               <span class="vr"></span>
-               Cetak PDF
-            </a>
-
-            <!-- Tombol Lihat PDF di Browser (Optional) -->
-            <a href="{{ route('operator.view-pdf', $peserta->nip) }}" class="btn btn-info hstack gap-2" target="_blank">
-               <i class="fas fa-eye fs-5"></i>
-               <span class="vr"></span>
-               Lihat PDF
-            </a>
-
-         </div>
-
-        <!-- Data Pribadi & Kepegawaian -->
-        <div class="card mb-4 shadow-sm rounded-3">
-         
-          <div class="card-header bg-primary text-white fw-semibold">
-            <i class="fas fa-id-card me-2"></i> Data Pribadi
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">NIP</label>
-                <div class="form-control bg-light border-0" readonly>{{ $peserta->nip }}</div>
-                
-                <label class="form-label fw-semibold mt-3">Nama Lengkap</label>
-                <div class="form-control bg-light border-0" readonly>{{ $peserta->nama }}</div>
-                
-                <label class="form-label fw-semibold mt-3">Jenis Kelamin</label>
-                <div class="form-control bg-light border-0" readonly>{{ $peserta->jenis_kelamin }}</div>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Tempat, Tanggal Lahir</label>
-                <div class="form-control bg-light border-0" readonly>
-                  {{ $peserta->tempat_lahir }},
-                  @if($peserta->tanggal_lahir)
-                    @if(is_string($peserta->tanggal_lahir))
-                      {{ \Carbon\Carbon::parse($peserta->tanggal_lahir)->format('d M Y') }}
-                    @else
-                      {{ $peserta->tanggal_lahir->format('d M Y') }}
-                    @endif
-                  @else
-                    -
-                  @endif
-                </div>
-
-                <label class="form-label fw-semibold mt-3">Usia</label>
-                <div class="form-control bg-light border-0" readonly>{{ $peserta->usia ?? '-' }} tahun</div>
-
-                <label class="form-label fw-semibold mt-3">Status Pernikahan</label>
-                <div class="form-control bg-light border-0" readonly>{{ $peserta->status_kawin ?? '-' }}</div>
-              </div>
-            </div>
-          </div>
-</div>
-          
-          <div class="card mb-4 shadow-sm rounded-3">
-          <div class="card-header bg-primary text-white fw-semibold">
-            <i class="fas fa-briefcase me-2"></i> Data Kepegawaian
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Nomor SK</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->no_sk ?? '-' }}</div>
-
-                <label class="form-label fw-semibold  mt-3">TMK</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-                  @if($peserta->tmk)
-                    @if(is_string($peserta->tmk))
-                      {{ \Carbon\Carbon::parse($peserta->tmk)->format('d M Y') }}
-                    @else
-                      {{ $peserta->tmk->format('d M Y') }}
-                    @endif
-                  @else
-                    -
-                  @endif
-                </div>
-
-                <label class="form-label fw-semibold  mt-3">TPST</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-                  @if($peserta->tpst)
-                    @if(is_string($peserta->tpst))
-                      {{ \Carbon\Carbon::parse($peserta->tpst)->format('d M Y') }}
-                    @else
-                      {{ $peserta->tpst->format('d M Y') }}
-                    @endif
-                  @else
-                    -
-                  @endif
-                </div>
-
-                @php
-                     $labelGolongan = match($peserta->golongan) {
-                        1 => 'Golongan 1',
-                        2 => 'Golongan 2',
-                        3 => 'Golongan 3',
-                        4 => 'Golongan 4',
-                        default => '-',
-                     };
-                  @endphp
-
-                  <label class="form-label fw-semibold mt-3">Golongan</label>
-                  <div class="form-control bg-light border-1 rounded-3" readonly>{{ $labelGolongan }}</div>
-
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Cabang</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->cabang->nama_cabang ?? 'Tidak ada cabang' }}</div>
-
-               <label class="form-label fw-semibold mt-3">MKMK</label>
-               <div class="form-control bg-light border-1 rounded-3">
-               @if($peserta->tmk)
-                  @php
-                     $start = \Carbon\Carbon::parse($peserta->tmk);
-                     $now = \Carbon\Carbon::now();
-                     $selisih = $start->diff($now);
-                  @endphp
-                  {{ $selisih->y }} Tahun {{ $selisih->m }} Bulan {{ $selisih->d }} Hari
-               @else
-                  -
-               @endif
-               </div>
-
-               <label class="form-label fw-semibold mt-3">MKMP</label>
-               <div class="form-control bg-light border-1 rounded-3">
-               @if($peserta->tpst)
-                  @php
-                     $start = \Carbon\Carbon::parse($peserta->tpst);
-                     $now = \Carbon\Carbon::now();
-                     $selisih = $start->diff($now);
-                  @endphp
-                  {{ $selisih->y }} Tahun {{ $selisih->m }} Bulan {{ $selisih->d }} Hari
-               @else
-                  -
-               @endif
-               </div>
-
-                <label class="form-label fw-semibold  mt-3">Jabatan</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->jabatan ?? '-' }}</div>
-              </div>
-            </div>
-
-            <div class="row g-3 mt-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Kode Direktorat</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->kode_dir ?? '-' }}</div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Tahun Menjabat</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-               @if($peserta->tahun_jabat)
-                  @if(is_string($peserta->tahun_jabat))
-                     {{ \Carbon\Carbon::parse($peserta->tahun_jabat)->format('d M Y') }}
-                  @else
-                     {{ $peserta->tahun_jabat->format('d M Y') }}
-                  @endif
-               @else
-                  -
-               @endif
-               </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Data Pendidikan -->
-        <div class="card mb-4 shadow-sm rounded-3">
-          <div class="card-header bg-primary text-white fw-semibold">
-            <i class="fas fa-graduation-cap me-2"></i> Data Pendidikan
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Pendidikan Terakhir</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-                  {{ $peserta->pendidikan ?? '-' }}
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Jurusan</label>
-                <div class="form-control bg-light border-1 rounded-3" readonly>
-                  {{ $peserta->jurusan ?? '-' }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Data Keuangan -->
-        <div class="card mb-4 shadow-sm rounded-3">
-          <div class="card-header bg-primary text-white fw-semibold">
-            <i class="fas fa-money-bill-wave me-2"></i> Data Keuangan
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">PHDP</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  Rp {{ number_format($peserta->phdp ?? 0, 2, ',', '.') }}
-                </div>
-                <label class="form-label fw-semibold  mt-3">Kode PTKP</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  {{ $peserta->kode_ptkp ?? '-' }}
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Akumulasi IBHP</label>
-               <div class="form-control bg-light border rounded-3" readonly>
-               Rp {{ number_format($peserta->akumulasi_ibhp, 2, ',', '.') }}
-               </div>
-                <label class="form-label fw-semibold  mt-3">Kode Peserta</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  {{ $peserta->kode_peserta ?? '-' }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Data Alamat -->
-        <div class="card mb-4 shadow-sm rounded-3">
-          <div class="card-header bg-primary text-white fw-semibold">
-            <i class="fas fa-map-marker-alt me-2"></i> Data Alamat
-          </div>
-          <div class="card-body">
-            <label class="form-label fw-semibold  mb-1">Alamat Lengkap</label>
-            <div class="form-control bg-light border rounded-3" style="min-height: 60px;" readonly>
-              {{ $peserta->alamat ?? '-' }}
-            </div>
-
-            <div class="row g-3 mt-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Kelurahan</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  {{ $peserta->kelurahan ?? '-' }}
-                </div>
-                <label class="form-label fw-semibold  mt-3">Kabupaten/Kota</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  {{ $peserta->kabupaten_kota ?? '-' }}
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Kecamatan</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  {{ $peserta->kecamatan ?? '-' }}
-                </div>
-                <label class="form-label fw-semibold  mt-3">Kode Pos</label>
-                <div class="form-control bg-light border rounded-3" readonly>
-                  {{ $peserta->kode_pos ?? '-' }}
-                </div>
-              </div>
-            </div>
-
-            <div class="row g-3 mt-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold ">Telepon</label>
-                <div class="form-control bg-light border rounded-3 d-flex align-items-center" readonly>
-                  <i class="fas fa-phone me-2"></i> {{ $peserta->telpon ?? '-' }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Data Keluarga -->
-        <div class="card mb-4 shadow-sm rounded-3">
-          <div class="card-header bg-primary text-white fw-semibold">
-            <i class="fas fa-users me-2"></i> Data Keluarga
-          </div>
-          <div class="card-body">
-            @if($peserta->keluargas->isEmpty())
-              <div class="text-center py-4 text-muted">
-                <i class="fas fa-users" style="font-size: 3rem;"></i>
-                <p class="mt-3">Tidak ada data keluarga.</p>
-              </div>
-            @else
-              <div class="table-responsive">
-                <table class="table table-striped align-middle">
-                  <thead class="table-light">
-                    <tr>
-                      <th class="fw-semibold">Nama</th>
-                      <th class="fw-semibold">Jenis Kelamin</th>
-                      <th class="fw-semibold">Tanggal Lahir</th>
-                      <th class="fw-semibold">Usia</th>
-                      <th class="fw-semibold">Hubungan</th>
-                      <th class="fw-semibold">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($peserta->keluargas as $keluarga)
-                      <tr>
-                        <td>{{ $keluarga->nama }}</td>
-                        <td>{{ $keluarga->jenis_kelamin }}</td>
-                        <td>{{ $keluarga->tanggal_lahir }}</td>
-                        <td>{{ $keluarga->usia ?? '-' }}</td>
-                        <td>{{ $keluarga->hubungan ?? '-' }}</td>
-                        <td>
-                           <a href="{{ route('keluarga.edit', $keluarga->id) }}" 
-                              class="btn btn-primary btn-sm px-2 py-1 rounded-2" title="Edit">
-                              <i class="fas fa-edit"></i>
-                           </a>
-                          <form action="{{ route('keluarga.destroy', $keluarga->id) }}" method="POST" 
-                                onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="d-inline">
+                     @if (session('success'))
+                        <div id="alert-success" class="alert alert-success alert-dismissible fade show" role="alert">
+                           {{ session('success') }}
+                        </div>
+                     @endif
+                        <form action="{{ route('keluarga.update', $keluarga->id) }}" method="POST" class="mt-3">
                             @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm px-2 py-1 rounded-2" type="submit" title="Hapus">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-            @endif
-          </div>
-        </div>
+                            @method('PUT')
 
-      </div>
-    </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="hidden" name="nip" value="{{ $keluarga->nip }}">
 
+                                    <label for="nama" class="form-label fw-semibold mt-3">Nama Keluarga</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $keluarga->nama }}" required>
+
+                                    <label for="jenis_kelamin" class="form-label fw-semibold mt-3">Jenis Kelamin</label>
+                                    <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                        <option value="">Pilih Jenis Kelamin</option>
+                                        <option value="Laki-laki" {{ $keluarga->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="Perempuan" {{ $keluarga->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                    </select>
+
+                                    <label for="tempat_lahir" class="form-label fw-semibold mt-3">Tempat Lahir</label>
+                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="{{ $keluarga->tempat_lahir }}">
+
+                                    <label for="tanggal_lahir" class="form-label fw-semibold mt-3">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ $keluarga->tanggal_lahir }}" required>
+
+                                    <label for="hubungan" class="form-label fw-semibold mt-3">Hubungan</label>
+                                    <select class="form-select" id="hubungan" name="hubungan" onchange="toggleTanggalNikah()" required>
+                                        <option value="">Pilih Hubungan</option>
+                                        <option value="Suami" {{ $keluarga->hubungan == 'Suami' ? 'selected' : '' }}>Suami</option>
+                                        <option value="Istri" {{ $keluarga->hubungan == 'Istri' ? 'selected' : '' }}>Istri</option>
+                                        <option value="Anak" {{ $keluarga->hubungan == 'Anak' ? 'selected' : '' }}>Anak</option>
+                                        <option value="Pihak YDT" {{ $keluarga->hubungan == 'Pihak YDT' ? 'selected' : '' }}>Pihak YDT</option>
+                                    </select>
+
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <label for="usia" class="form-label fw-semibold">Usia</label>
+                                            <input type="number" class="form-control" id="usia" name="usia" min="0" value="{{ $keluarga->usia }}" readonly>
+                                        </div>
+                                        <div class="col">
+                                            <label for="anak_ke" class="form-label fw-semibold">Anak ke</label>
+                                            <input type="number" class="form-control" id="anak_ke" name="anak_ke" min="1" value="{{ $keluarga->anak_ke }}">
+                                        </div>
+                                    </div>
+
+                                    <div id="tanggal_nikah_group">
+                                        <label for="tanggal_nikah" class="form-label fw-semibold mt-3">Tanggal Nikah</label>
+                                        <input type="date" class="form-control" id="tanggal_nikah" name="tanggal_nikah" value="{{ $keluarga->tanggal_nikah }}">
+                                    </div>
+
+                                    <label for="status_ahli_waris" class="form-label fw-semibold mt-3">Status Ahli Waris</label>
+                                    <select class="form-select" id="status_ahli_waris" name="status_ahli_waris">
+                                        <option value="Kawin" {{ $keluarga->status_ahli_waris == 'Kawin' ? 'selected' : '' }}>Kawin</option>
+                                        <option value="Meninggal" {{ $keluarga->status_ahli_waris == 'Meninggal' ? 'selected' : '' }}>Meninggal</option>
+                                        <option value="Sekolah" {{ $keluarga->status_ahli_waris == 'Sekolah' ? 'selected' : '' }}>Sekolah</option>
+                                        <option value="Lain-lain" {{ $keluarga->status_ahli_waris == 'Lain-lain' ? 'selected' : '' }}>Lain-lain</option>
+                                    </select>
+
+                                    <label for="keterangan" class="form-label fw-semibold mt-3">Keterangan</label>
+                                    <select class="form-select" id="keterangan" name="keterangan">
+                                        <option value="Berhak" {{ $keluarga->keterangan == 'Berhak' ? 'selected' : '' }}>Berhak</option>
+                                        <option value="Tidak Berhak" {{ $keluarga->keterangan == 'Tidak Berhak' ? 'selected' : '' }}>Tidak Berhak</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary action-button">
+                                    <i class="fas fa-save me-2"></i> Simpan Perubahan
+                                </button>
+                            </div>
+                        </form>
+
+                        <script>
+                        document.getElementById('tanggal_lahir').addEventListener('change', function () {
+                            const tanggalLahir = new Date(this.value);
+                            const today = new Date();
+
+                            let usia = today.getFullYear() - tanggalLahir.getFullYear();
+                            const bulan = today.getMonth() - tanggalLahir.getMonth();
+                            const tanggal = today.getDate() - tanggalLahir.getDate();
+
+                            if (bulan < 0 || (bulan === 0 && tanggal < 0)) {
+                                usia--;
+                            }
+
+                            document.getElementById('usia').value = usia > 0 ? usia : 0;
+                        });
+                        </script>
+
+                        <script>
+                        function toggleTanggalNikah() {
+                            const hubungan = document.getElementById('hubungan').value;
+                            const tanggalNikahGroup = document.getElementById('tanggal_nikah_group');
+                            const tanggalNikahInput = document.getElementById('tanggal_nikah');
+
+                            if (hubungan === 'Suami' || hubungan === 'Istri') {
+                                tanggalNikahGroup.style.display = 'block';
+                                tanggalNikahInput.disabled = false;
+                            } else {
+                                tanggalNikahGroup.style.display = 'none';
+                                tanggalNikahInput.disabled = true;
+                                tanggalNikahInput.value = '';
+                            }
+                        }
+                        window.addEventListener('DOMContentLoaded', toggleTanggalNikah);
+                        </script>
+
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
 
          <!-- FOOTER -->
 
@@ -971,9 +759,6 @@
 
    <!-- SCROLL TO TOP BUTTON -->
    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-   <div class="scroll-container">
-      <a href="#root" class="scroll-page ratio ratio-1x1" aria-label="Scroll button"></a>
-   </div>
    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    <!-- END - SCROLL TO TOP BUTTON -->
 
@@ -1625,6 +1410,16 @@
 
    <!-- Initialize [ SAMPLE ] -->
    <script src="{{ asset('assets/pages/dashboard-1.js') }}"></script>
+
+   <script>
+      setTimeout(() => {
+         const alertError = document.getElementById('alert-error');
+         const alertSuccess = document.getElementById('alert-success');
+
+         if (alertError) alertError.style.display = 'none';
+         if (alertSuccess) alertSuccess.style.display = 'none';
+      }, 3000);
+   </script>
 
 
 </body>

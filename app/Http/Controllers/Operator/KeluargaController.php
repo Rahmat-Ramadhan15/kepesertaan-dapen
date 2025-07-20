@@ -95,8 +95,10 @@ class KeluargaController extends Controller
      */
     public function edit(Keluarga $keluarga)
     {
-        return view('keluarga.edit', compact('keluarga'));
+        $peserta = Peserta::where('nip', $keluarga->nip)->first(); // Jika perlu
+        return view('operator.keluarga.edit', compact('keluarga', 'peserta'));
     }
+
 
     /**
      * Update the specified resource in storage.
