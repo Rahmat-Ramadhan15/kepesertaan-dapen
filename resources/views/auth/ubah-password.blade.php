@@ -85,6 +85,12 @@
                         <p>Change your account password</p>
                      </div>
 
+                     @if (session('success'))
+                        <div class="mb-4 text-green-600 text-sm">
+                           {{ session('success') }}
+                        </div>
+                     @endif
+
                      @if ($errors->any())
                      <div class="mb-4 text-red-600 text-sm">
                         <ul class="list-disc pl-5 space-y-1">
@@ -99,65 +105,65 @@
                         @csrf
 
                         <div class="row mb-3">
-   <div class="col-xl-6 mb-3">
-      <div class="row align-items-center">
-         <label class="col-sm-4 col-form-label">Password Lama</label>
-         <div class="col-sm-8 position-relative">
-            <div class="input-group">
-               <input type="password" name="current_password" class="form-control" id="current_password" required>
-               <span class="input-group-text" onclick="togglePassword('current_password', 'icon_current')" style="cursor: pointer;">
-                  <ion-icon name="eye-off-outline" id="icon_current"></ion-icon>
-               </span>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
+                           <div class="col-xl-6 mb-3">
+                              <div class="row align-items-center">
+                                 <label class="col-sm-4 col-form-label">Password Lama</label>
+                                 <div class="col-sm-8 position-relative">
+                                    <div class="input-group">
+                                       <input type="password" name="current_password" class="form-control" id="current_password" required>
+                                       <span class="input-group-text" onclick="togglePassword('current_password', 'icon_current')" style="cursor: pointer;">
+                                          <ion-icon name="eye-off-outline" id="icon_current"></ion-icon>
+                                       </span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
 
-<div class="row mb-3">
-   <div class="col-xl-6 mb-3">
-      <div class="row align-items-center">
-         <label class="col-sm-4 col-form-label">Password Baru</label>
-         <div class="col-sm-8 position-relative">
-            <div class="input-group">
-               <input type="password" name="password" class="form-control" id="password" required>
-               <span class="input-group-text" onclick="togglePassword('password', 'icon_password')" style="cursor: pointer;">
-                  <ion-icon name="eye-off-outline" id="icon_password"></ion-icon>
-               </span>
-            </div>
-         </div>
-      </div>
-   </div>
+                        <div class="row mb-3">
+                           <div class="col-xl-6 mb-3">
+                              <div class="row align-items-center">
+                                 <label class="col-sm-4 col-form-label">Password Baru</label>
+                                 <div class="col-sm-8 position-relative">
+                                    <div class="input-group">
+                                       <input type="password" name="password" class="form-control" id="password" required>
+                                       <span class="input-group-text" onclick="togglePassword('password', 'icon_password')" style="cursor: pointer;">
+                                          <ion-icon name="eye-off-outline" id="icon_password"></ion-icon>
+                                       </span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
 
-   <div class="col-xl-6">
-      <div class="row align-items-center">
-         <label class="col-sm-4 p-xl-0 text-xl-end col-form-label">Retype Password Baru</label>
-         <div class="col-sm-8 position-relative">
-            <div class="input-group">
-               <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" required>
-               <span class="input-group-text" onclick="togglePassword('password_confirmation', 'icon_confirmation')" style="cursor: pointer;">
-                  <ion-icon name="eye-off-outline" id="icon_confirmation"></ion-icon>
-               </span>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
+                           <div class="col-xl-6">
+                              <div class="row align-items-center">
+                                 <label class="col-sm-4 p-xl-0 text-xl-end col-form-label">Retype Password Baru</label>
+                                 <div class="col-sm-8 position-relative">
+                                    <div class="input-group">
+                                       <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" required>
+                                       <span class="input-group-text" onclick="togglePassword('password_confirmation', 'icon_confirmation')" style="cursor: pointer;">
+                                          <ion-icon name="eye-off-outline" id="icon_confirmation"></ion-icon>
+                                       </span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
 
-                        <script>
-function togglePassword(inputId, iconId) {
-   const input = document.getElementById(inputId);
-   const icon = document.getElementById(iconId);
+                                                <script>
+                        function togglePassword(inputId, iconId) {
+                           const input = document.getElementById(inputId);
+                           const icon = document.getElementById(iconId);
 
-   if (input.type === "password") {
-      input.type = "text";
-      icon.setAttribute("name", "eye-outline");
-   } else {
-      input.type = "password";
-      icon.setAttribute("name", "eye-off-outline");
-   }
-}
-</script>
+                           if (input.type === "password") {
+                              input.type = "text";
+                              icon.setAttribute("name", "eye-outline");
+                           } else {
+                              input.type = "password";
+                              icon.setAttribute("name", "eye-off-outline");
+                           }
+                        }
+                        </script>
 
 
                         <div class="d-flex">
@@ -166,7 +172,7 @@ function togglePassword(inputId, iconId) {
                      </form>
 
                      <div class="d-flex justify-content-start gap-md-5 mt-4">
-                        <a href="{{ route('login') }}" class="btn-link text-decoration-none">Masuk Ulang</a>
+                        <a href="{{ route('login') }}" class="btn-link text-decoration-none">Login Ulang</a>
                      </div>
 
                      <div class="d-flex align-items-center justify-content-between border-top pt-3 mt-3">

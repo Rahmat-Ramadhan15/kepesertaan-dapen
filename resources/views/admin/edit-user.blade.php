@@ -119,6 +119,15 @@
                                         placeholder="Masukkan nama operator" />
                                 </div>
                                 <div class="mb-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select name="role" id="role" class="form-select" required>
+                                        <option value="operator" {{ $user->role === 'operator' ? 'selected' : '' }}>Operator</option>
+                                        <option value="supervisor" {{ $user->role === 'supervisor' ? 'selected' : '' }}>Supervisor</option>
+                                        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="password" class="form-label">Password Baru (Opsional)</label>
                                     <div class="input-group">
                                         <input type="password" name="password" id="password" class="form-control"

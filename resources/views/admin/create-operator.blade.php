@@ -118,6 +118,19 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="role" class="col-sm-2 col-form-label">Role</label>
+                                <select name="role" id="role" class="form-select @error('role') is-invalid @enderror" required>
+                                    <option value="">Pilih Role</option>
+                                    <option value="operator" {{ old('role') == 'operator' ? 'selected' : '' }}>Operator</option>
+                                    <option value="supervisor" {{ old('role') == 'supervisor' ? 'selected' : '' }}>Supervisor</option>
+                                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                </select>
+                                @error('role')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="row mb-3">
                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" name="password" id="password"
