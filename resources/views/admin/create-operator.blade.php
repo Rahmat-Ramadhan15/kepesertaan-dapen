@@ -9,6 +9,8 @@
     <title>Dashboard | Bank - Sulselbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 
     <!-- STYLESHEETS -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -116,25 +118,34 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="input-group">
                                 <input type="password" name="password" id="password"
                                     class="form-control @error('password') is-invalid @enderror" required
                                     placeholder="Masukkan password" />
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                                 @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
-                                <small class="text-muted">
-                                    Gunakan minimal 8 karakter, kombinasi huruf besar, kecil, angka,
-                                    dan simbol.
-                                </small>
                             </div>
+                            <small class="text-muted ms-2">
+                                Gunakan minimal 8 karakter, kombinasi huruf besar, kecil, angka, dan simbol.
+                            </small>
+                        </div>
 
-                            <div class="row mb-3">
-                                <label for="password_confirmation" class="col-sm-4 col-form-label">Konfirmasi
-                                    Password</label>
+                        <div class="row mb-3">
+                            <label for="password_confirmation" class="col-sm-4 col-form-label">Konfirmasi Password</label>
+                            <div class="input-group">
                                 <input type="password" name="password_confirmation" id="password_confirmation"
                                     class="form-control" required placeholder="Ulangi password" />
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_confirmation', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                             </div>
+                        </div>
+
 
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali</a>
@@ -324,6 +335,23 @@
             });
         });
     </script>
+    <script>
+    function togglePassword(fieldId, btn) {
+        const input = document.getElementById(fieldId);
+        const icon = btn.querySelector('i');
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+        }
+    }
+</script>
+
 </body>
 
 </html>
