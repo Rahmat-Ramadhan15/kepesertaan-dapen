@@ -47,7 +47,7 @@ class Peserta extends Model
         'akumulasi_ibhp',
         'kode_cabang',
         'created_at',
-        'updated_at', // <<< KOREKSI: UBAH DARI 'Updated_at' KE 'updated_at' (huruf kecil)
+        'updated_at',
     ];
 
     protected $casts = [
