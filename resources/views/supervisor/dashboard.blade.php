@@ -76,6 +76,11 @@
       <section id="content" class="content">
          <div class="content__header content__boxed rounded-0">
             <div class="content__wrap">
+               <div class="text-end">
+                  <a href="{{ route('supervisor.exportPdf') }}" class="btn btn-danger mb-3" target="_blank">
+                     <i class="fas fa-file-pdf me-1"></i> Download PDF
+                  </a>
+               </div>
 
 
                <!-- Page title and information -->
@@ -214,8 +219,6 @@
                            </div>
                         </div>
                      </div>
-                     END : Stat widget
-
 
                   </div>
                   <div class="col-sm-6 col-lg-3">
@@ -323,7 +326,7 @@
 
                   <!-- Brand logo -->
                   <a href="{{ route('supervisor.dashboard') }}" class="brand-img stretched-link">
-                     <img src="{{ asset('images/Logo_Bank_Sulselbar.png') }}" alt="Nifty Logo" class="Nifty logo" width="16" height="16">
+                     <!-- <img src="{{ asset('images/Logo_Bank_Sulselbar.png') }}" alt="Nifty Logo" class="Nifty logo" width="16" height="16"> -->
                   </a>
 
 
@@ -410,7 +413,7 @@
                         </button>
                         <div id="usernav" class="nav flex-column collapse">
                            <a href="{{ route('ubah-password.form') }}" class="nav-link">
-                              <i class="fas fa-key me-2"></i>
+                              <i class="demo-pli-pencil fs-5 me-2"></i>
                               <span class="ms-1">Ganti Password</span>
                            </a>
                         </div>

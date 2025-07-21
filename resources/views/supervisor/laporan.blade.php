@@ -75,7 +75,11 @@
       <section id="content" class="content">
          <div class="content__header content__boxed rounded-0">
             <div class="content__wrap">
-
+            <div class="text-end">
+               <a href="{{ route('supervisor.laporanPdf', ['bulan' => $bulan, 'tahun' => $tahun]) }}" class="btn btn-danger mb-3 float-end" target="_blank">
+                  <i class="fas fa-file-pdf me-1"></i> Download PDF
+               </a>
+            </div>
 
                <!-- Page title and information -->
                <div class="text-center">
@@ -112,7 +116,7 @@
 
 
                      <!-- Stat widget -->
-                     <div class="card bg-cyan text-white mb-3 mb-xl-3 hv-grow">
+                     <!-- <div class="card bg-cyan text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
                               <i class="demo-psi-lock-user fs-1"></i>
@@ -122,7 +126,7 @@
                               <p class="mb-0">Total Peserta</p>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                      <!-- END : Stat widget -->
 
 
@@ -131,7 +135,7 @@
 
 
                      <!-- Stat widget -->
-                     <div class="card bg-purple text-white mb-3 mb-xl-3 hv-grow">
+                     <!-- <div class="card bg-purple text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
                               <i class="demo-psi-male fs-1"></i>
@@ -141,7 +145,7 @@
                               <p class="mb-0">Total Laki-laki</p>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                      <!-- END : Stat widget -->
 
 
@@ -150,7 +154,7 @@
 
 
                      <!-- Stat widget -->
-                     <div class="card bg-orange text-white mb-3 mb-xl-3 hv-grow">
+                     <!-- <div class="card bg-orange text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
                               <i class="demo-psi-female-2 fs-1"></i>
@@ -160,7 +164,7 @@
                               <p class="mb-0">Total Perempuan</p>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
 
 
                   </div>
@@ -168,7 +172,7 @@
 
 
                      <!-- Stat widget -->
-                     <div class="card bg-pink text-white mb-3 mb-xl-3 hv-grow">
+                     <!-- <div class="card bg-pink text-white mb-3 mb-xl-3 hv-grow">
                         <div class="card-body py-3 d-flex align-items-stretch">
                            <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-start">
                               <i class="demo-psi-idea-2 fs-1"></i>
@@ -178,7 +182,7 @@
                               <p class="mb-0">Total Jabatan</p>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                      <!-- END : Stat widget -->
 
 
@@ -194,7 +198,6 @@
                      <!-- Top Users table -->
                      <div class="card">
                         <div class="card-body">
-                           <h5 class="card-title">Top Users</h5>
                            <div class="table-responsive">
                               <h2>Laporan Iuran Pensiun Bulan {{ $bulan }} Tahun {{ $tahun }}</h2>
 
@@ -287,7 +290,7 @@
 
                   <!-- Brand logo -->
                   <a href="{{ route('supervisor.dashboard') }}" class="brand-img stretched-link">
-                     <img src="{{ asset('images/Logo_Bank_Sulselbar.png') }}" alt="Nifty Logo" class="Nifty logo" width="16" height="16">
+                     <!-- <img src="{{ asset('images/Logo_Bank_Sulselbar.png') }}" alt="Nifty Logo" class="Nifty logo" width="16" height="16"> -->
                   </a>
 
 
@@ -374,7 +377,7 @@
                         </button>
                         <div id="usernav" class="nav flex-column collapse">
                            <a href="{{ route('ubah-password.form') }}" class="nav-link">
-                              <i class="fas fa-key me-2"></i>
+                              <i class="demo-pli-pencil fs-5 me-2"></i>
                               <span class="ms-1">Ganti Password</span>
                            </a>
                         </div>
