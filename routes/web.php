@@ -99,6 +99,9 @@ Route::middleware(['auth', RoleMiddleware::class . ':supervisor'])->group(functi
     Route::get('/supervisor', [SupervisorController::class, 'dashboard'])->name('supervisor.dashboard');
     Route::get('/export/peserta', [ExportController::class, 'exportPeserta'])->name('export.peserta');
     Route::get('/supervisor/laporan', [SupervisorController::class, 'laporan'])->name('supervisor.laporan');
+    Route::get('/supervisor/pdf', [SupervisorController::class, 'exportPdf'])->name('supervisor.exportPdf');
+    Route::get('/supervisor/laporan-pdf', [SupervisorController::class, 'laporanPdf'])->name('supervisor.laporanPdf');
+
 });
 
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Peserta;
 use App\Models\HistoriIuranPeserta;
 use DateTime;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class SupervisorController extends Controller
@@ -150,6 +151,40 @@ public function laporan(Request $request)
         'totalJabatan',
         'avgPerMonth'
     ));
+}
+
+public function exportPdf()
+{
+    $totalPeserta = Peserta::count();
+    $totalPeserta = Peserta::count();
+    $totalLaki = Peserta::where('jenis_kelamin', 'Laki-laki')->count();
+    $totalPerempuan = Peserta::where('jenis_kelamin', 'Perempuan')->count();
+    $totalPHDP = Peserta::sum('phdp');
+    $totalJabatan = Peserta::distinct('jabatan')->count();
+    $peserta = Peserta::all();
+
+    $pdf = Pdf::loadView('supervisor.pdf.main', compact(
+        'totalPeserta', 'totalLaki', 'totalPerempuan', 'totalPHDP', 'totalJabatan', 'peserta'
+    ));
+
+    return $pdf->download('peserta-rekap.pdf');
+}
+
+public function laporanPdf(Request $request)
+{
+    $bulan = $request->bulan ?? date('m');
+    $tahun = $request->tahun ?? date('Y');
+
+    // Ambil data berdasarkan bulan dan tahun
+    $data = HistoriIuranPeserta::where('bulan', $bulan)
+        ->where('tahun', $tahun)
+        ->get();
+
+    // Generate PDF
+    $pdf = Pdf::loadView('supervisor.pdf.laporan', compact('data', 'bulan', 'tahun'))
+              ->setPaper('a4', 'landscape'); // opsional: ubah orientasi
+
+    return $pdf->download("laporan-iuran-pensiun-$bulan-$tahun.pdf");
 }
 
 }
