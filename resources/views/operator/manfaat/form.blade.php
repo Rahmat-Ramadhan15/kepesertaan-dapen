@@ -82,14 +82,18 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6">
 
-                        {{-- Pesan error dari session --}}
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         @if (session('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
                             </div>
                         @endif
 
-                        {{-- Error dari validasi bawaan Laravel --}}
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul class="mb-0">
@@ -104,6 +108,7 @@
                             <div class="card-body">
                                 <h4 class="text-center mb-4">Form Hitung MP untuk {{ $peserta->nama }}</h4>
 
+                                {{-- FORM HITUNG MP --}}
                                 <form method="POST" action="{{ route('manfaat.hitung') }}">
                                     @csrf
                                     <input type="hidden" name="nip" value="{{ $peserta->nip }}">
@@ -156,10 +161,66 @@
                                         </select>
                                     </div>
 
-                                    <div class="d-grid">
+                                    <div class="d-grid mb-2">
                                         <button type="submit" class="btn btn-primary">Hitung Manfaat Pensiun</button>
                                     </div>
                                 </form>
+
+                                <!-- Tombol untuk memunculkan modal -->
+                                <div class="d-grid mb-2">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#modalBayarMP">
+                                        Bayar MP
+                                    </button>
+                                </div>
+
+                                <!-- Modal Pilihan Kode Peserta -->
+                                <div class="modal fade" id="modalBayarMP" tabindex="-1"
+                                    aria-labelledby="modalBayarMPLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{{ route('manfaat.bayar') }}">
+                                            @csrf
+                                            <input type="hidden" name="nip" value="{{ $peserta->nip }}">
+                                            <input type="hidden" name="jenis" value="{{ $jenis ?? '' }}">
+
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Pilih Jenis Pensiun (Kode Peserta)</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="kode_peserta" class="form-label">Kode Peserta
+                                                            Baru</label>
+                                                        <select name="kode_peserta" id="kode_peserta"
+                                                            class="form-select" required>
+                                                            <option value="1">1 - Pensiunan Ditunda</option>
+                                                            <option value="21">21 - Pensiun Normal</option>
+                                                            <option value="22">22 - Pensiun Dipercepat</option>
+                                                            <option value="23">23 - Pensiun Cacat</option>
+                                                            <option value="24">24 - Pensiun Janda/Duda</option>
+                                                            <option value="25">25 - Pensiun Anak</option>
+                                                            <option value="26">26 - Pensiun Pihak Yang Ditunjuk
+                                                            </option>
+                                                            <option value="27">27 - Pengembalian Iuran</option>
+                                                            <option value="28">28 - Pengalihan Dana</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Proses</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
 
@@ -170,6 +231,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- END - CONTENTS -->
@@ -1518,41 +1580,53 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const span = document.getElementById('modalTanggalPensiun');
-            const today = new Date();
-
-            const tanggal = today.getDate().toString().padStart(2, '0');
-            const bulan = (today.getMonth() + 1).toString().padStart(2, '0'); // bulan dimulai dari 0
-            const tahun = today.getFullYear();
-
-            span.textContent = `${tanggal}-${bulan}-${tahun}`;
-        });
-        const jenis = document.getElementById('jenis');
-        const metode = document.getElementById('metode');
-        const statusGroup = document.getElementById('status-meninggal-group');
-        const kenaikanGroup = document.getElementById('kenaikan-group');
-
-        function toggleFields() {
-            const jenisVal = jenis.value;
-            const metodeVal = metode.value;
-
-            if (jenisVal && metodeVal === 'bulanan') {
-                if (['janda/duda', 'anak'].includes(jenisVal)) {
-                    statusGroup.classList.remove('d-none');
-                    kenaikanGroup.classList.remove('d-none');
-                } else {
-                    statusGroup.classList.add('d-none');
-                    kenaikanGroup.classList.remove('d-none');
-                }
-            } else {
-                statusGroup.classList.add('d-none');
-                kenaikanGroup.classList.add('d-none');
+            if (span) {
+                const today = new Date();
+                const tanggal = today.getDate().toString().padStart(2, '0');
+                const bulan = (today.getMonth() + 1).toString().padStart(2, '0');
+                const tahun = today.getFullYear();
+                span.textContent = `${tanggal}-${bulan}-${tahun}`;
             }
-        }
 
-        jenis.addEventListener('change', toggleFields);
-        metode.addEventListener('change', toggleFields);
+            const jenisSelect = document.getElementById('jenis');
+            const jenisBayarInput = document.getElementById('jenis_bayar');
+            const metode = document.getElementById('metode');
+            const statusGroup = document.getElementById('status-meninggal-group');
+            const kenaikanGroup = document.getElementById('kenaikan-group');
+
+            if (jenisSelect && jenisBayarInput) {
+                jenisSelect.addEventListener('change', function() {
+                    jenisBayarInput.value = jenisSelect.value;
+                    toggleFields(); // Update form saat jenis berubah
+                });
+            }
+
+            if (metode) {
+                metode.addEventListener('change', toggleFields);
+            }
+
+            function toggleFields() {
+                const jenisVal = jenisSelect?.value;
+                const metodeVal = metode?.value;
+
+                if (jenisVal && metodeVal === 'bulanan') {
+                    if (['janda/duda', 'anak'].includes(jenisVal)) {
+                        statusGroup?.classList.remove('d-none');
+                        kenaikanGroup?.classList.remove('d-none');
+                    } else {
+                        statusGroup?.classList.add('d-none');
+                        kenaikanGroup?.classList.remove('d-none');
+                    }
+                } else {
+                    statusGroup?.classList.add('d-none');
+                    kenaikanGroup?.classList.add('d-none');
+                }
+            }
+
+            // Trigger di awal untuk kondisi default
+            toggleFields();
+        });
     </script>
-
 
 </body>
 

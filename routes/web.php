@@ -135,6 +135,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':operator'])->group(function
 
     //Manfaat Pensiun
     Route::get('manfaat/form/{nip}', [ManfaatPensiunController::class, 'form'])->name('manfaat.form');
+    // routes/web.php
+    Route::post('/manfaat/bayar', [ManfaatPensiunController::class, 'bayar'])->name('manfaat.bayar');
     Route::post('manfaat/hitung', [ManfaatPensiunController::class, 'hitung'])->name('manfaat.hitung');
     Route::get('manfaat/{nip}/detail', [ManfaatPensiunController::class, 'detail'])->name('manfaat.detail');
     Route::resource('manfaat', ManfaatPensiunController::class);

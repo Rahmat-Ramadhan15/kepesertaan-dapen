@@ -198,4 +198,18 @@ class ManfaatPensiunController extends Controller
         return $pdf->stream('manfaat-pensiun.pdf');
     }
 
+    public function bayar(Request $request)
+    {
+        $nip = $request->input('nip');
+        $kodeBaru = $request->input('kode_peserta');
+
+        $peserta = Peserta::where('nip', $nip)->firstOrFail();
+
+        // Simpan hanya perubahan kode peserta (tanpa tanggal berhenti)
+        $peserta->kode_peserta = $kodeBaru;
+        $peserta->save();
+
+        return back()->with('success', "Peserta telah dipindahkan dari status kode peserta 0 menjadi $kodeBaru");
+    }
+
 }
