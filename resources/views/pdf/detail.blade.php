@@ -104,6 +104,15 @@
             font-size: 6px;
             border-radius: 2px;
         }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 9px;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+            padding-top: 8px;
+        }
         @media print {
             .card {
                 page-break-inside: avoid;
@@ -197,8 +206,13 @@
                         <tr>
                             <td class="label">Status</td>
                             <td class="separator">:</td>
-                            <td class="value"><span class="status-badge">Aktif</span></td>
+                            <td class="value">
+                                <span class="status-badge">
+                                    {{ $p->kodePeserta->ket_kd_pst ?? '-' }}
+                                </span>
+                            </td>
                         </tr>
+
                     </table>
                 </div>
             </div>
@@ -237,6 +251,11 @@
                 <li>Golongan: {{ $filters['golongan'] }}</li>
             @endif
         </ul>
+    </div>
+
+    <div class="footer">
+        <p>Dokumen ini dicetak otomatis pada {{ now()->format('d F Y H:i:s') }}</p>
+        <p>© 2025 Dapen Bank Sulselbar - Semua hak cipta dilindungi</p>
     </div>
 </body>
 </html>

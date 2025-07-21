@@ -71,6 +71,12 @@ class Peserta extends Model
         return $this->belongsTo(Cabang::class, 'kode_cabang', 'kode_cabang');
     }
 
+    public function kodePeserta()
+    {
+        return $this->belongsTo(KodePeserta::class, 'kode_peserta', 'kode_peserta');
+    }
+
+
     public function getUmurAttribute()
     {
         if ($this->tanggal_lahir) {

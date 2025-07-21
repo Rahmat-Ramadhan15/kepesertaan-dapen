@@ -34,7 +34,7 @@
                     <td>{{ $anak->nama }}</td>
                     <td>{{ $anak->jenis_kelamin }}</td>
                     <td>{{ \Carbon\Carbon::parse($anak->tanggal_lahir)->format('d M Y') }}</td>
-                    <td class="text-center">{{ $anak->umur }} th</td>
+                    <td class="text-center">{{ $anak->usia }} th</td>
                     <td>{{ $anak->peserta->nama ?? '-' }}</td>
                     <td>{{ $anak->peserta->nip ?? '-' }}</td>
                 </tr>
