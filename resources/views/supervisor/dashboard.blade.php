@@ -1160,23 +1160,80 @@
    <script src="./assets/vendors/chart.js/chart.umd.min.js"></script>
 
    <script>
-      const lineData = [
+      // Modified script to show only top 6 positions by PHDP
+      const allPhdpPerJabatan = [
          @foreach($phdpPerJabatan as $jabatan => $avgPhdp)
             { elapsed: "{{ $jabatan }}", value: {{ $avgPhdp }} },
          @endforeach
       ];
+      
+      // Sort by PHDP value (descending) and take only top 6
+      const lineData = allPhdpPerJabatan
+         .sort((a, b) => b.value - a.value)
+         .slice(0, 6);
+      
+      console.log('Top 6 positions by PHDP:', lineData);
    </script>
-
+   
    <script>
       window.jumlahPerJabatan = @json($jumlahPerJabatan);
       window.doughnutLabels = Object.keys(window.jumlahPerJabatan);
       window.doughnutData   = Object.values(window.jumlahPerJabatan);
    </script>
-
+   
    <!-- Initialize [ SAMPLE ] -->
    <script src="{{ asset('assets/pages/dashboard-3.js') }}"></script>
-
-    
+   
+    <!-- Chart.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+   <script>
+      // Data untuk doughnut chart
+      const totalLaki = {{ $totalLaki }};
+      const totalPerempuan = {{ $totalPerempuan }};
+      
+      // Doughnut Chart - Gender Distribution
+      const doughnutCtx = document.getElementById('_dm-doughnutChart').getContext('2d');
+      const doughnutChart = new Chart(doughnutCtx, {
+          type: 'doughnut',
+          data: {
+              labels: ['Laki-laki', 'Perempuan'],
+              datasets: [{
+                  data: [totalLaki, totalPerempuan],
+                  backgroundColor: [
+                      '#6f42c1', // Purple untuk laki-laki
+                      '#fd7e14'  // Orange untuk perempuan
+                  ],
+                  borderWidth: 2,
+                  borderColor: '#ffffff'
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      position: 'bottom',
+                      labels: {
+                          padding: 20,
+                          usePointStyle: true,
+                          pointStyle: 'circle'
+                      }
+                  },
+                  tooltip: {
+                      callbacks: {
+                          label: function(context) {
+                              const label = context.label || '';
+                              const value = context.parsed;
+                              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                              const percentage = ((value / total) * 100).toFixed(1);
+                              return `${label}: ${value} (${percentage}%)`;
+                          }
+                      }
+                  }
+              }
+          }
+      });
+   </script>
+   
 </body>
-
 </html>
