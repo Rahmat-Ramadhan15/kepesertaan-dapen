@@ -8,6 +8,10 @@ use App\Models\HistoriIuranPeserta;
 use App\Models\Cabang;
 use App\Models\DataBank;
 use App\Models\Keluarga;
+use App\Models\NilaiSekarang;
+use App\Models\NsAnak;
+use App\Models\NsJanda;
+use App\Models\NsPegawai;
 use Illuminate\Http\Request;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
@@ -169,6 +173,27 @@ class CetakController extends Controller
                 ));
             }
 
+            if ($jenis_laporan === 'nilai_sekarang') {
+                $data = NilaiSekarang::all();
+                return view('operator.cetak.parameter.preview_nilai_sekarang', compact('data', 'filters'));
+            }
+
+            if ($jenis_laporan === 'nilai_pegawai') {
+                $data = NsPegawai::all();
+                return view('operator.cetak.parameter.preview_nilai_pegawai', compact('data', 'filters'));
+            }
+
+            if ($jenis_laporan === 'nilai_anak') {
+                $data = NsAnak::all();
+                return view('operator.cetak.parameter.preview_nilai_anak', compact('data', 'filters'));
+            }
+
+            if ($jenis_laporan === 'nilai_janda') {
+                $data = NsJanda::all();
+                return view('operator.cetak.parameter.preview_nilai_janda', compact('data', 'filters'));
+            }
+
+
             // Build query with relationships
             $query = Peserta::with('cabang');
             
@@ -322,6 +347,51 @@ class CetakController extends Controller
 
                 return $pdf->download($filename);
             }
+
+            if ($jenis_laporan === 'nilai_sekarang') {
+                $data = NilaiSekarang::all();
+                $pdf = PDF::loadView('pdf.parameter.nilai-sekarang', [
+                    'data' => $data,
+                    'filters' => $filters,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                return $pdf->download('laporan_nilai_sekarang_' . date('Ymd_His') . '.pdf');
+            }
+
+            if ($jenis_laporan === 'nilai_pegawai') {
+                $data = NsPegawai::all();
+                $pdf = PDF::loadView('pdf.parameter.ns-pegawai', [
+                    'data' => $data,
+                    'filters' => $filters,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                return $pdf->download('laporan_nilai_pegawai_' . date('Ymd_His') . '.pdf');
+            }
+
+            if ($jenis_laporan === 'nilai_anak') {
+                $data = NsAnak::all();
+                $pdf = PDF::loadView('pdf.parameter.ns-anak', [
+                    'data' => $data,
+                    'filters' => $filters,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                return $pdf->download('laporan_nilai_anak_' . date('Ymd_His') . '.pdf');
+            }
+
+            if ($jenis_laporan === 'nilai_janda') {
+                $data = NsJanda::all();
+                $pdf = PDF::loadView('pdf.parameter.ns-janda', [
+                    'data' => $data,
+                    'filters' => $filters,
+                    'date' => now()->format('d F Y'),
+                ])->setPaper('a4', 'portrait');
+
+                return $pdf->download('laporan_nilai_janda_' . date('Ymd_His') . '.pdf');
+            }
+
 
 
 

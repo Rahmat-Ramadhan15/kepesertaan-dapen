@@ -136,6 +136,22 @@
                                  <input id="laporanRekapBank" class="form-check-input" type="radio" name="jenis_laporan" value="rekap_bank">
                                  <label for="laporanRekapBank" class="form-check-label">Laporan Rekap Bank</label>
                            </div>
+                           <div class="form-check mt-2">
+                              <input id="laporanNilaiSekarang" class="form-check-input" type="radio" name="jenis_laporan" value="nilai_sekarang">
+                              <label for="laporanNilaiSekarang" class="form-check-label">Nilai Sekarang</label>
+                           </div>
+                           <div class="form-check mt-2">
+                              <input id="laporanNilaiPegawai" class="form-check-input" type="radio" name="jenis_laporan" value="nilai_pegawai">
+                              <label for="laporanNilaiPegawai" class="form-check-label">Nilai Sekarang Pegawai</label>
+                           </div>
+                           <div class="form-check mt-2">
+                              <input id="laporanNilaiAnak" class="form-check-input" type="radio" name="jenis_laporan" value="nilai_anak">
+                              <label for="laporanNilaiAnak" class="form-check-label">Nilai Sekarang Anak</label>
+                           </div>
+                           <div class="form-check mt-2">
+                              <input id="laporanNilaiJanda" class="form-check-input" type="radio" name="jenis_laporan" value="nilai_janda">
+                              <label for="laporanNilaiJanda" class="form-check-label">Nilai Sekarang Janda/Duda</label>
+                           </div>
                             </div>
                         </div>
 
