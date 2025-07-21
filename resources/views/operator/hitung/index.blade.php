@@ -109,9 +109,15 @@
 
                                     <input type="file" name="file" class="form-control" required style="width: auto;">
 
-                                    <input type="number" name="tahun" class="form-control" placeholder="Tahun" required style="width: auto;">
-                                    <input type="number" name="bulan" class="form-control" placeholder="Bulan" min="1" max="12" required style="width: auto;">
-                                    <input type="number" step="0.01" name="ir" class="form-control" placeholder="IR (%)" required style="width: auto;">
+                                    @php
+                                       $tahunSekarang = date('Y');
+                                       $bulanSekarang = (int) date('m');
+                                    @endphp
+
+                                    <input type="number" name="tahun" class="form-control" placeholder="Tahun" required style="width: auto;" value="{{ $tahunSekarang }}">
+                                    <input type="number" name="bulan" class="form-control" placeholder="Bulan" min="1" max="12" required style="width: auto;" value="{{ $bulanSekarang }}">
+                                    <input type="number" step="0.01" name="ir" class="form-control" placeholder="IR (%)" required style="width: auto;" value="5.5">
+
 
                                     <button type="submit" class="btn btn-success">
                                        <i class="fas fa-file-import me-1"></i> Import

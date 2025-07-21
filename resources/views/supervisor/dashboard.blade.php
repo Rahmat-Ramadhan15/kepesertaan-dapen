@@ -1170,7 +1170,7 @@
       // Sort by PHDP value (descending) and take only top 6
       const lineData = allPhdpPerJabatan
          .sort((a, b) => b.value - a.value)
-         .slice(0, 6);
+         .slice(0, 10);
       
       console.log('Top 6 positions by PHDP:', lineData);
    </script>
@@ -1216,7 +1216,8 @@
                       labels: {
                           padding: 20,
                           usePointStyle: true,
-                          pointStyle: 'circle'
+                          pointStyle: 'circle',
+                          color: '#ffffff'
                       }
                   },
                   tooltip: {

@@ -74,8 +74,9 @@
                     </tr>
                     <tr>
                         <td>Status</td>
-                        <td>: <span class="badge bg-success">Aktif</span></td>
+                        <td>: <span class="badge bg-success">{{ $p->kodePeserta->ket_kd_pst ?? '-' }}</span></td>
                     </tr>
+
                 </table>
             </div>
         </div>

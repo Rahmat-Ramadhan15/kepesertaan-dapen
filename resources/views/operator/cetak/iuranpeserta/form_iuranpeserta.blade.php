@@ -109,7 +109,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form action="{{ route('operator.cetak.iuranpeserta.preview') }}" method="GET" target="_blank" class="row g-3">
+                                <form action="{{ route('operator.cetak.iuranpeserta.preview') }}" method="GET" class="row g-3">
 
                                     {{-- Jenis Laporan --}}
                                     <div class="col-md-6">
