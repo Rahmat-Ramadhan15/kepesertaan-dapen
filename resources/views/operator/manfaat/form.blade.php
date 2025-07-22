@@ -434,7 +434,7 @@
 
                             <li class="nav-item">
                                 <a href="{{ route('manfaat.index') }}"
-                                    class="nav-link {{ request()->routeIs('manfaat.index') ? 'active' : '' }}">
+                                    class="nav-link active {{ request()->routeIs('manfaat.index') ? 'active' : '' }}">
                                     <i class="fas fa-book me-2"></i>
                                     <span class="nav-label">Manfaat Pensiun</span>
                                 </a>

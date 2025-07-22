@@ -134,7 +134,7 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Data operator berhasil diperbarui.');
+        return redirect()->route('admin.dashboard')->with('success', 'Data Pengguna berhasil diperbarui.');
     }
 
     // Menghapus operator

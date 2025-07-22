@@ -28,7 +28,7 @@ class AuthController extends Controller
         $user = User::where('nip', $request->nip)->first();
 
         if (!$user) {
-            return back()->withErrors(['nip' => 'NIP tidak ditemukan.']);
+            return back()->withErrors(['nip' => 'Tidak Terdaftar Sebagai Pengguna.']);
         }
 
         if ($user->is_blocked) {
