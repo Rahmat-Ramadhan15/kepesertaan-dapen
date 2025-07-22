@@ -251,7 +251,7 @@
                      <!-- Top Users table -->
                      <div class="card">
                         <div class="card-body">
-                           <h5 class="card-title">Top Users</h5>
+                           <h5 class="card-title">Daftar Peserta</h5>
                            <div class="table-responsive">
                               <table class="table table-striped">
                                  <thead>

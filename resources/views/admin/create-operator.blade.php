@@ -83,7 +83,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="card p-4">
-                        <h3 class="card-title text-center">Tambah Operator</h3>
+                        <h3 class="card-title text-center">Tambah Pengguna</h3>
 
                         @if ($errors->any())
                             <div class="alert alert-danger">

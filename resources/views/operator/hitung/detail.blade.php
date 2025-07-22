@@ -455,7 +455,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('hitung.index') }}" class="nav-link active{{ request()->routeIs('hitung.index') ? 'active' : '' }}">
+                        <a href="{{ route('hitung.index') }}" class="nav-link active {{ request()->routeIs('hitung.index') ? 'active' : '' }}">
                             <i class="fas fa-calculator me-2"></i>
                             <span class="nav-label">Hitung Iuran</span>
                         </a>
