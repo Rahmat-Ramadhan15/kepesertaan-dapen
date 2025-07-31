@@ -30,6 +30,7 @@ class Peserta extends Model
         'mkmp',
         'kode_peserta',
         'status_kawin',
+        'jumlah_anak',
         'kode_ptkp',
         'alamat',
         'kelurahan',

@@ -218,18 +218,9 @@
                   @endif
                 </div>
 
-                @php
-                     $labelGolongan = match($peserta->golongan) {
-                        1 => 'Golongan 1',
-                        2 => 'Golongan 2',
-                        3 => 'Golongan 3',
-                        4 => 'Golongan 4',
-                        default => '-',
-                     };
-                  @endphp
+               <label class="form-label fw-semibold mt-3">Golongan</label>
+               <div class="form-control bg-light border-1 rounded-3" readonly>{{ $peserta->golongan ?? '-' }}</div>
 
-                  <label class="form-label fw-semibold mt-3">Golongan</label>
-                  <div class="form-control bg-light border-1 rounded-3" readonly>{{ $labelGolongan }}</div>
 
               </div>
 
