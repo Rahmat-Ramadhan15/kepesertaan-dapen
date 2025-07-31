@@ -160,6 +160,12 @@
                                     <option value="Duda" {{ old('status_kawin') == 'Duda' ? 'selected' : '' }}>Duda</option>
                                     <option value="Janda" {{ old('status_kawin') == 'Janda' ? 'selected' : '' }}>Janda</option>
                                 </select>
+
+                                <div id="jumlahAnakGroup" class="mt-3" style="display: none;">
+                                    <label for="jumlah_anak" class="form-label fw-semibold">Jumlah Anak</label>
+                                    <input type="number" class="form-control" id="jumlah_anak" name="jumlah_anak" min="0" value="{{ old('jumlah_anak', $peserta->jumlah_anak ?? 0) }}">
+                                 </div>
+
                             </div>
                             </div>
                             </div>
@@ -185,11 +191,20 @@
                                     <label for="golongan" class="form-label fw-semibold mt-3">Golongan</label>
                                     <select class="form-select" id="golongan" name="golongan">
                                        <option value="">Pilih Golongan</option>
-                                       <option value="1" {{ old('golongan') == 1 ? 'selected' : '' }}>Golongan 1</option>
-                                       <option value="2" {{ old('golongan') == 2 ? 'selected' : '' }}>Golongan 2</option>
-                                       <option value="3" {{ old('golongan') == 3 ? 'selected' : '' }}>Golongan 3</option>
-                                       <option value="4" {{ old('golongan') == 4 ? 'selected' : '' }}>Golongan 4</option>
+                                       <option value="TELL" {{ old('golongan') == 'TELL' ? 'selected' : '' }}>TELL</option>
+                                       <option value="CSOF" {{ old('golongan') == 'CSOF' ? 'selected' : '' }}>CSOF</option>
+                                       <option value="SOFR" {{ old('golongan') == 'SOFR' ? 'selected' : '' }}>SOFR</option>
+                                       <option value="SFR1" {{ old('golongan') == 'SFR1' ? 'selected' : '' }}>SFR1</option>
+                                       <option value="AMGR" {{ old('golongan') == 'AMGR' ? 'selected' : '' }}>AMGR</option>
+                                       <option value="MGR1" {{ old('golongan') == 'MGR1' ? 'selected' : '' }}>MGR1</option>
+                                       <option value="SMGR" {{ old('golongan') == 'SMGR' ? 'selected' : '' }}>SMGR</option>
+                                       <option value="AVP" {{ old('golongan') == 'AVP' ? 'selected' : '' }}>AVP</option>
+                                       <option value="VP" {{ old('golongan') == 'VP' ? 'selected' : '' }}>VP</option>
+                                       <option value="SVP" {{ old('golongan') == 'SVP' ? 'selected' : '' }}>SVP</option>
+                                       <option value="EVP" {{ old('golongan') == 'EVP' ? 'selected' : '' }}>EVP</option>
+                                       <option value="DIR" {{ old('golongan') == 'DIR' ? 'selected' : '' }}>DIR</option>
                                     </select>
+
                                 </div>
 
                                 <div class="col-md-6">
@@ -324,11 +339,91 @@
                             <div class="card-body">
                                 <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold ">PHDP</label>
+                                    <label class="form-label fw-semibold">PHDP</label>
                                     <div class="input-group">
-                                        <span class="input-group-text">Rp</span>
-                                        <input type="number" step="0.01" class="form-control" id="phdp" name="phdp" value="{{ old('phdp') }}" placeholder="0.00">
+                                       <span class="input-group-text">Rp</span>
+                                       <input type="number" step="0.01" class="form-control" id="phdp" name="phdp" value="{{ old('phdp') }}" placeholder="0.00" readonly>
                                     </div>
+
+                                    <script>
+                                       const statusKawin = document.getElementById('status_kawin');
+                                       const golongan = document.getElementById('golongan');
+                                       const jumlahAnakInput = document.getElementById('jumlah_anak');
+                                       const jumlahAnakGroup = document.getElementById('jumlahAnakGroup');
+                                       const phdpInput = document.getElementById('phdp');
+
+                                       const gajiPokokMap = {
+                                          TELL: 1000000,
+                                          CSOF: 1500000,
+                                          SOFR: 2000000,
+                                          SFR1: 2500000,
+                                          AMGR: 3000000,
+                                          MGR1: 3500000,
+                                          SMGR: 4000000,
+                                          AVP: 4500000,
+                                          VP: 5000000,
+                                          SVP: 5500000,
+                                          EVP: 6000000,
+                                          DIR: 6500000
+                                       };
+
+                                       function hitungPHDP() {
+                                          const status = statusKawin.value;
+                                          const gol = golongan.value;
+                                          let jumlahAnak = parseInt(jumlahAnakInput.value) || 0;
+                                          const gapok = gajiPokokMap[gol] || 0;
+
+                                          let ti = 0;
+                                          let ta = 0;
+
+                                          // Maksimal 3 anak
+                                          jumlahAnak = Math.min(jumlahAnak, 3);
+
+                                          // Hitung TI
+                                          if (status === 'Menikah') {
+                                             ti = 0.10 * gapok;
+                                          }
+
+                                          // Hitung TA berdasarkan jumlah anak
+                                          if (jumlahAnak === 1) {
+                                             ta = 0.05 * gapok;
+                                          } else if (jumlahAnak === 2) {
+                                             ta = 0.10 * gapok;
+                                          } else if (jumlahAnak >= 3) {
+                                             ta = 0.15 * gapok;
+                                          }
+
+                                          const tk = ti + ta;
+                                          const tke = 0.05 * (gapok + tk);
+                                          const tks = 100000;
+
+                                          const phdp = gapok + tk + tke + tks;
+                                          phdpInput.value = phdp ? phdp.toFixed(2) : '';
+                                       }
+
+                                       statusKawin.addEventListener('change', function () {
+                                          if (statusKawin.value === 'Lajang') {
+                                             jumlahAnakGroup.style.display = 'none';
+                                             jumlahAnakInput.value = 0;
+                                          } else {
+                                             jumlahAnakGroup.style.display = 'block';
+                                          }
+                                          hitungPHDP();
+                                       });
+
+                                       [golongan, jumlahAnakInput].forEach(el => {
+                                          el.addEventListener('input', hitungPHDP);
+                                       });
+
+                                       window.addEventListener('DOMContentLoaded', function () {
+                                          if (statusKawin.value !== 'Lajang' && statusKawin.value !== '') {
+                                             jumlahAnakGroup.style.display = 'block';
+                                          }
+                                          hitungPHDP();
+                                       });
+                                    </script>
+
+
                                     <label class="form-label fw-semibold mt-3" for="kode_ptkp">Kode PTKP</label>
                                     <select class="form-select" id="kode_ptkp" name="kode_ptkp">
                                        <option value="">Pilih Kode PTKP</option>
