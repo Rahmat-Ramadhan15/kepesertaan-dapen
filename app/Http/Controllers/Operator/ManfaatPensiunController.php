@@ -166,6 +166,7 @@ class ManfaatPensiunController extends Controller
         ]);
 
         $peserta = Peserta::findOrFail($request->nip);
+        $usia = $peserta->usia;
 
         // Set tanggal berhenti ke hari ini (otomatis diisi saat proses hitung)
         $peserta->tpst = now();
@@ -175,14 +176,13 @@ class ManfaatPensiunController extends Controller
         $service = new ManfaatPensiunService();
         $kenaikan = floatval($request->kenaikan);
         $statusMeninggal = $request->input('status_meninggal');
-        $nilaiSekarang = 1;
         $hasil = $service->hitung(
             $peserta,
             $request->jenis,
             $request->metode,
             $kenaikan,
             $statusMeninggal,
-        $nilaiSekarang
+        $usia
         );
 
         // Tambahkan jenis pensiun ke hasil agar bisa digunakan di view
