@@ -3,11 +3,15 @@
 namespace App\Services;
 
 use App\Models\Peserta;
+use App\Models\NilaiSekarang;
+use App\Models\NsPegawai;
+use App\Models\NsJanda;
+use App\Models\NsAnak;
 use Carbon\Carbon;
 
 class ManfaatPensiunService
 {
-    public function hitung(Peserta $peserta, $jenis, $metode, $kenaikan, $statusMeninggal = null, $nilaiSekarang = 1)
+    public function hitung(Peserta $peserta, $jenis, $metode, $kenaikan, $statusMeninggal = null, $usia)
     {
         $kodeDirektorat = strtolower($peserta->kode_dir);
         $tanggalLahir = Carbon::make($peserta->tanggal_lahir);
@@ -24,6 +28,23 @@ class ManfaatPensiunService
 
         if ($jenis === 'dipercepat' && $usia < 45) {
             return ['error' => 'Usia belum memenuhi syarat pensiun dipercepat (minimal 45 tahun).'];
+        }
+
+        // Logika request data NS berdasarkan jenis pensiun
+        if (
+            ($jenis === 'dipercepat' || $jenis === 'janda/duda' || $jenis === 'anak' || $jenis === 'ditunda' || $jenis === 'cacat') 
+            && $metode === 'bulanan'
+        ) {
+            // Jenis khusus dan metode bulanan → pakai NilaiSekarang
+            $ns = NilaiSekarang::where('usia', $usia)->value('nilai_sekarang');
+
+        } else {
+            // Jenis lain (termasuk normal atau sekaligus) tidak pakai Nilai Sekarang
+            $ns = null;
+        }
+
+        if (is_null($ns) && in_array($jenis, ['dipercepat', 'janda/duda', 'anak', 'ditunda', 'cacat']) && $metode === 'bulanan') {
+            return ['error' => "Nilai Sekarang tidak ditemukan untuk usia $usia dan jenis $jenis."];
         }
 
         // Hitung masa kerja dari tmk ke tpst (atau now)
@@ -47,32 +68,32 @@ class ManfaatPensiunService
 
         // Rumus Pegawai / Karyawan
         if ($kodeDirektorat === 'karyawan') {
-            if (in_array($jenis, ['normal', 'dipercepat', 'cacat', 'ditunda']) && $metode === 'bulanan') {
-                $mp = 2.5 * $masaKerja * $phdp;
+            if ($jenis === 'normal' && $metode === 'bulanan') {
+                $mp = 0.025 * $masaKerja * $phdp + $kenaikan;
+            } elseif (in_array($jenis, ['dipercepat', 'cacat', 'ditunda']) && $metode === 'bulanan') {
+                $mp = 0.025 * $ns * $masaKerja * $phdp + $kenaikan;
             } elseif (in_array($jenis, ['janda/duda', 'anak']) && $metode === 'bulanan') {
                 if ($statusMeninggal === 'aktif') {
-                    $mp = 0.75 * $nilaiSekarang * 2.5 * $masaKerja * $phdp;
+                    $mp = 0.75 * $ns * 0.025 * $masaKerja * $phdp + $kenaikan;
                 } elseif ($statusMeninggal === 'pensiun') {
-                    $mp = 0.75 * 2.5 * $masaKerja * $phdp; // atau ambil dari MP pensiunan jika tersedia
+                    $mp = 0.75 * 0.025 * $masaKerja * $phdp; // atau ambil dari MP pensiunan
                 }
             }
         }
+
 
         // Rumus Direksi
         if ($kodeDirektorat === 'direktur') {
             if (in_array($jenis, ['normal', 'dipercepat', 'cacat', 'ditunda']) && $metode === 'bulanan') {
-                $mp = 3.25 * $masaKerja * $phdp;
+                $mp = 0.025 * $masaKerja * $phdp;
             } elseif (in_array($jenis, ['janda/duda', 'anak']) && $metode === 'bulanan') {
                 if ($statusMeninggal === 'aktif') {
-                    $mp = 0.75 * 2.5 * $masaKerja * $phdp;
+                    $mp = 0.75 * 0.025 * $masaKerja * $phdp;
                 } elseif ($statusMeninggal === 'pensiun') {
-                    $mp = 0.75 * 2.5 * $masaKerja * $phdp;
+                    $mp = 0.75 * 0.025 * $masaKerja * $phdp;
                 }
-            }
+            } 
         }
-
-
-        $total = $mp + $kenaikan;
 
         return [
             'masaKerja' => $masaKerja,

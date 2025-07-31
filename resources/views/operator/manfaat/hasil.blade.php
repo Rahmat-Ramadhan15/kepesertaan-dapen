@@ -69,7 +69,7 @@
             in_array($hasil['jenis'], ['normal', 'dipercepat', 'cacat', 'ditunda']) &&
             $hasil['metode'] === 'bulanan'
         ) {
-            $rumus = '2.5 × Masa Kerja × PhDP + Kenaikan';
+            $rumus = '0.025 × Masa Kerja × PhDP + Kenaikan';
         } elseif ($hasil['metode'] === 'sekaligus') {
             $rumus = 'Manfaat Pensiun × 12 bulan';
         } else {
