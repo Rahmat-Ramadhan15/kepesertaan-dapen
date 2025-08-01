@@ -51,7 +51,11 @@
     </div>
     <div class="value"><span class="label">Masa Kerja:</span> {{ number_format($hasil['masaKerja'], 6) }} tahun</div>
     <div class="value"><span class="label">PhDP:</span> Rp{{ number_format($peserta->phdp, 0, ',', '.') }}</div>
-    <div class="value"><span class="label">Kenaikan:</span> Rp{{ number_format($hasil['kenaikan'], 0, ',', '.') }}
+    @if ($hasil['metode'] === 'bulanan')
+        <div class="value">
+            <span class="label">Kenaikan:</span> Rp{{ number_format($hasil['kenaikan'], 0, ',', '.') }}
+        </div>
+    @endif
     </div>
 
     <br>
@@ -59,23 +63,76 @@
     <hr>
 
     @php
+        $komponen = [];
+
+        if (in_array($hasil['jenis'], ['dipercepat', 'cacat', 'ditunda']) && $hasil['metode'] === 'sekaligus') {
+            $komponen = [
+                'pp' => $hasil['pp'] ?? 0,
+                'pj' => $hasil['pj'] ?? 0,
+                'pa' => $hasil['pa'] ?? 0,
+                'a' => $hasil['a'] ?? 0,
+                'b' => $hasil['b'] ?? 0,
+                'c' => $hasil['c'] ?? 0,
+            ];
+        } elseif ($hasil['jenis'] === 'janda/duda' && $hasil['metode'] === 'sekaligus') {
+            $komponen = [
+                'pj' => $hasil['pj'] ?? 0,
+                'pa' => $hasil['pa'] ?? 0,
+                'f' => $hasil['f'] ?? 0,
+                'g' => $hasil['g'] ?? 0,
+            ];
+        }
+
+        $rupiahFields = ['pp', 'pj', 'pa'];
+    @endphp
+
+    @if (!empty($komponen))
+        <div class="komponen">
+            <strong>Rincian Komponen:</strong>
+            <ul>
+                @foreach ($komponen as $kode => $nilai)
+                    <li>
+                        <strong>{{ strtoupper($kode) }}:</strong>
+                        @if (in_array($kode, $rupiahFields))
+                            Rp{{ number_format($nilai, 0, ',', '.') }}
+                        @else
+                            {{ number_format($nilai, 0, ',', '.') }}
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @php
         $rumus = '';
 
-        if ($hasil['jenis'] === 'janda/duda' && $hasil['metode'] === 'bulanan') {
-            $rumus = '0.75 × 2.5 × Masa Kerja × PhDP + Kenaikan';
-        } elseif ($hasil['jenis'] === 'anak' && $hasil['metode'] === 'bulanan') {
-            $rumus = '0.75 × 2.5 × Masa Kerja × PhDP + Kenaikan';
-        } elseif (
-            in_array($hasil['jenis'], ['normal', 'dipercepat', 'cacat', 'ditunda']) &&
-            $hasil['metode'] === 'bulanan'
-        ) {
-            $rumus = '0.025 × Masa Kerja × PhDP + Kenaikan';
-        } elseif ($hasil['metode'] === 'sekaligus') {
-            $rumus = 'Manfaat Pensiun × 12 bulan';
+        if ($hasil['kodeDirektorat'] === 'karyawan') {
+            if ($hasil['jenis'] === 'normal' && $hasil['metode'] === 'bulanan') {
+                $rumus = '0.025 × Masa Kerja × PhDP + Kenaikan';
+            } elseif (in_array($hasil['jenis'], ['dipercepat', 'cacat', 'ditunda']) && $hasil['metode'] === 'bulanan') {
+                $rumus = '0.025 × NS × Masa Kerja × PhDP + Kenaikan';
+            } elseif (in_array($hasil['jenis'], ['janda/duda', 'anak']) && $hasil['metode'] === 'bulanan') {
+                if ($hasil['statusMeninggal'] === 'aktif') {
+                    $rumus = '0.75 × NS × 0.025 × Masa Kerja × PhDP + Kenaikan';
+                } elseif ($hasil['statusMeninggal'] === 'pensiun') {
+                    $rumus = '0.75 × 0.025 × Masa Kerja × PhDP';
+                }
+            } elseif (
+                in_array($hasil['jenis'], ['dipercepat', 'cacat', 'ditunda']) &&
+                $hasil['metode'] === 'sekaligus'
+            ) {
+                $rumus = '(A × PP) + (B × PJ) + (C × PA)';
+            } elseif ($hasil['jenis'] === 'janda/duda' && $hasil['metode'] === 'sekaligus') {
+                $rumus = '(F × PJ) + (G × PA)';
+            } else {
+                $rumus = 'Tidak tersedia';
+            }
         } else {
-            $rumus = 'Tidak tersedia';
+            $rumus = 'Tidak tersedia (bukan karyawan)';
         }
     @endphp
+
 
     <div class="value"><span class="label">Rumus Dasar:</span> {{ $rumus }}</div>
 
