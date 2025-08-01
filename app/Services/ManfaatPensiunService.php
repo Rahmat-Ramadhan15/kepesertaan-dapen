@@ -31,20 +31,38 @@ class ManfaatPensiunService
         }
 
         // Logika request data NS berdasarkan jenis pensiun
+        $usiaBulat = floor($usia);
+        $a = null; $b = null; $c = null;
+        $f = null; $g = null;
+
         if (
             ($jenis === 'dipercepat' || $jenis === 'janda/duda' || $jenis === 'anak' || $jenis === 'ditunda' || $jenis === 'cacat') 
             && $metode === 'bulanan'
         ) {
             // Jenis khusus dan metode bulanan → pakai NilaiSekarang
-            $ns = NilaiSekarang::where('usia', $usia)->value('nilai_sekarang');
+            $ns = NilaiSekarang::where('usia', $usiaBulat)->value('nilai_sekarang');
+        } elseif (
+            in_array($jenis, ['dipercepat', 'ditunda', 'cacat']) &&
+            $metode === 'sekaligus'
+        ) {
+            $a = NsPegawai::where('usia', $usiaBulat)->value('nilai_sekarang');
+            $b = NsPegawai::where('usia', $usiaBulat)->value('ns_janda');
+            $c = NsPegawai::where('usia', $usiaBulat)->value('ns_anak');
 
+            if (is_null($a) || is_null($b) || is_null($c)) {
+                return ['error' => "Nilai Sekarang tidak ditemukan untuk usia $usiaBulat pada jenis $jenis."];
+            }
+        } elseif (
+            $jenis === 'janda/duda' && $metode === 'sekaligus'
+        ) {
+            $f = NsJanda::where('usia', $usiaBulat)->value('nilai_sekarang');
+            $g = NsJanda::where('usia', $usiaBulat)->value('ns_anak');
+
+            if (is_null($f) || is_null($g)) {
+                return ['error' => "Nilai Sekarang tidak ditemukan untuk usia $usiaBulat pada jenis $jenis."];
+            }
         } else {
-            // Jenis lain (termasuk normal atau sekaligus) tidak pakai Nilai Sekarang
             $ns = null;
-        }
-
-        if (is_null($ns) && in_array($jenis, ['dipercepat', 'janda/duda', 'anak', 'ditunda', 'cacat']) && $metode === 'bulanan') {
-            return ['error' => "Nilai Sekarang tidak ditemukan untuk usia $usia dan jenis $jenis."];
         }
 
         // Hitung masa kerja dari tmk ke tpst (atau now)
@@ -62,9 +80,14 @@ class ManfaatPensiunService
         $masaKerja = $tahun + ($bulan / 12);
         $phdp = $peserta->phdp;
 
+        // Variabel universal
         $mp = 0;
-        $total = 0;
         $maksimum = 0.8 * $phdp;
+
+        // Variabel perhitungan mp 100% sekaligus
+        $pp = 0.025 * $masaKerja * $phdp;
+        $pj = 0.75 * $pp;
+        $pa = 0.75 * $pp;
 
         // Rumus Pegawai / Karyawan
         if ($kodeDirektorat === 'karyawan') {
@@ -76,8 +99,15 @@ class ManfaatPensiunService
                 if ($statusMeninggal === 'aktif') {
                     $mp = 0.75 * $ns * 0.025 * $masaKerja * $phdp + $kenaikan;
                 } elseif ($statusMeninggal === 'pensiun') {
-                    $mp = 0.75 * 0.025 * $masaKerja * $phdp; // atau ambil dari MP pensiunan
+                    $mp = 0.75 * 0.025 * $masaKerja * $phdp;
                 }
+            } elseif (in_array($jenis, ['dipercepat', 'cacat', 'ditunda']) && $metode === 'sekaligus') {
+                $mp = ($a * $pp) + ($b * $pj) + ($c * $pa);
+            } elseif ($jenis === 'janda/duda' && $metode === 'sekaligus') {
+                $mp = ($f * $pj) + ($g * $pa);
+            } else {
+                $mp = 0;
+                logger()->info('MP tidak dihitung: kombinasi tidak cocok', compact('kodeDirektorat', 'jenis', 'metode'));
             }
         }
 
@@ -101,11 +131,21 @@ class ManfaatPensiunService
             'mp'        => $mp,
             'kenaikan'  => $kenaikan,
             'maksimum'  => $metode === 'bulanan' ? $maksimum : null,
-            'hasil'     => $total,
+            'hasil'     => $mp,
             'usia'      => $usia,
             'jenis'     => $jenis,
             'metode'    => $metode,
-            'total'     => $total,
+            'total'     => $mp,
+            'kodeDirektorat' => $kodeDirektorat,
+            'statusMeninggal' => $statusMeninggal,
+            'pp'        => $pp,
+            'pj'        => $pj,
+            'pa'        => $pa,
+            'a'         => $a,
+            'b'         => $b,
+            'c'         => $c,
+            'f'         => $f,
+            'g'         => $g,
         ];
     }
 

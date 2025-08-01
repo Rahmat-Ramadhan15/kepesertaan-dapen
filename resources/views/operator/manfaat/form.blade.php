@@ -1608,18 +1608,29 @@
             function toggleFields() {
                 const jenisVal = jenisSelect?.value;
                 const metodeVal = metode?.value;
+                const kenaikanField = document.getElementById('kenaikan');
 
                 if (jenisVal && metodeVal === 'bulanan') {
+                    // Tampilkan opsi status jika janda/duda/anak
                     if (['janda/duda', 'anak'].includes(jenisVal)) {
                         statusGroup?.classList.remove('d-none');
-                        kenaikanGroup?.classList.remove('d-none');
                     } else {
                         statusGroup?.classList.add('d-none');
-                        kenaikanGroup?.classList.remove('d-none');
                     }
+
+                    // Tampilkan dan wajibkan kenaikan
+                    kenaikanGroup?.classList.remove('d-none');
+                    kenaikanField?.removeAttribute('disabled');
+                    kenaikanField?.setAttribute('required', 'required');
                 } else {
+                    // Sembunyikan status dan kenaikan
                     statusGroup?.classList.add('d-none');
                     kenaikanGroup?.classList.add('d-none');
+
+                    // Nonaktifkan dan hapus required kenaikan
+                    kenaikanField?.setAttribute('disabled', 'disabled');
+                    kenaikanField?.removeAttribute('required');
+                    kenaikanField.value = ''; // reset nilai agar tidak ikut terkirim
                 }
             }
 

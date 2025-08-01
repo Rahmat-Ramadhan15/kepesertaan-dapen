@@ -12,14 +12,8 @@ use Carbon\Carbon; // Untuk manipulasi tanggal
 use App\Services\ManfaatPensiunService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TableKenaikan;
-use App\Models\NilaiSekarang;
-use App\Models\NilaiAnak;
-use App\Models\NilaiJanda;
-use App\Models\NilaiPegawai;
+use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Support\Facades\DB; // Untuk transaksi database
-use Illuminate\Support\Facades\Log; // Untuk logging error
-use Maatwebsite\Excel\Facades\Excel;
 
 class ManfaatPensiunController extends Controller
 {
@@ -157,13 +151,24 @@ class ManfaatPensiunController extends Controller
 
     public function hitung(Request $request)
     {
-        $request->validate([
-            'nip' => 'required|exists:tablepeserta,nip',
-            'jenis'       => 'required|in:normal,dipercepat,cacat,janda/duda,anak,pihakyangditunjuk,pengembalianiuran,pengalihandana,ditunda',
-            'metode'      => 'required|in:bulanan,sekaligus',
-            'kenaikan'    => 'required|numeric|min:0',
-            'status_meninggal' => 'required_if:jenis,janda/duda,anak',
+        $validator = Validator::make($request->all(), [
+            'nip'       => 'required|exists:tablepeserta,nip',
+            'jenis'     => 'required|in:normal,dipercepat,cacat,janda/duda,anak,pihakyangditunjuk,pengembalianiuran,pengalihandana,ditunda',
+            'metode'    => 'required|in:bulanan,sekaligus',
+            'kenaikan'  => $request->metode === 'bulanan' ? 'required|numeric' : 'nullable|numeric',
         ]);
+
+        $validator->after(function ($validator) use ($request) {
+            if (
+                in_array($request->jenis, ['janda/duda', 'anak']) &&
+                $request->metode === 'bulanan' &&
+                empty($request->status_meninggal)
+            ) {
+                $validator->errors()->add('status_meninggal', 'Status meninggal wajib diisi jika jenis janda/duda atau anak dengan metode bulanan.');
+            }
+        });
+
+        $validator->validate();
 
         $peserta = Peserta::findOrFail($request->nip);
         $usia = $peserta->usia;
@@ -194,8 +199,15 @@ class ManfaatPensiunController extends Controller
         }
 
         // Jika berhasil, tampilkan hasil dalam bentuk PDF
-        $pdf = Pdf::loadView('operator.manfaat.hasil', compact('peserta', 'hasil'));
+        $pdf = Pdf::loadView('operator.manfaat.hasil', [
+            'peserta' => $peserta,
+            'hasil' => $hasil,
+            'kodeDirektorat' => strtolower($peserta->kode_dir),
+            'statusMeninggal' => $request->status_meninggal,
+        ]);
+
         return $pdf->stream('manfaat-pensiun.pdf');
+
     }
 
     public function bayar(Request $request)
