@@ -1,4 +1,7 @@
 
+
+<!DOCTYPE html> <html lang="en" data-bs-theme="light" data-scheme="navy"> <head> <meta http-equiv="content-type" content="text/html; charset=UTF-8"> <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"> <meta name="description" content="Nifty is
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-scheme="navy">
 
@@ -38,6 +41,124 @@
    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
    <link rel="manifest" href="./site.webmanifest">
 
+   <!-- Custom CSS untuk pewarnaan tabel histori iuran -->
+   <style>
+  /* Custom styling untuk pewarnaan tabel histori iuran */
+.table-histori {
+    border: 2px solid #dee2e6;
+}
+.table-histori thead th {
+    font-weight: 600;
+    border: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+/* Bulan column - Light Blue */
+.table-histori .th-bulan {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #1565c0;
+}
+/* Peserta columns - Light Green */
+.table-histori .th-peserta {
+    background: linear-gradient(135deg, #e8f5e8, #c8e6c8);
+    color: #2e7d32;
+}
+/* Pemberi Kerja columns - Light Orange */
+.table-histori .th-pemberi-kerja {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    color: #f57c00;
+}
+/* Aksi column - Light Purple */
+.table-histori .th-aksi {
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    color: #7b1fa2;
+}
+
+/* Body row styling untuk readability yang lebih baik */
+.table-histori tbody tr:nth-child(even) {
+    background-color: rgba(248, 249, 250, 0.5);
+}
+.table-histori tbody tr:hover {
+    background-color: rgba(227, 242, 253, 0.4);
+    transition: background-color 0.2s ease;
+}
+
+/* Column group styling di body - Disesuaikan dengan warna header */
+/* Kolom Bulan (kolom 1) - Light Blue sesuai header */
+.table-histori tbody td:nth-child(1) {
+    background: linear-gradient(135deg, rgba(227, 242, 253, 0.4), rgba(187, 222, 251, 0.3));
+    color: #1565c0;
+    font-weight: 500;
+    border-left: 3px solid #bbdefb;
+}
+
+/* Kolom Peserta (kolom 2-7) - Light Green sesuai header */
+.table-histori tbody td:nth-child(2),
+.table-histori tbody td:nth-child(3),
+.table-histori tbody td:nth-child(4),
+.table-histori tbody td:nth-child(5),
+.table-histori tbody td:nth-child(6),
+.table-histori tbody td:nth-child(7) {
+    background: linear-gradient(135deg, rgba(232, 245, 232, 0.4), rgba(200, 230, 200, 0.3));
+    color: #2e7d32;
+    border-left: 2px solid #c8e6c8;
+}
+
+/* Kolom Pemberi Kerja (kolom 8-11) - Light Orange sesuai header */
+.table-histori tbody td:nth-child(8),
+.table-histori tbody td:nth-child(9),
+.table-histori tbody td:nth-child(10),
+.table-histori tbody td:nth-child(11) {
+    background: linear-gradient(135deg, rgba(255, 243, 224, 0.4), rgba(255, 224, 178, 0.3));
+    color: #f57c00;
+    border-left: 2px solid #ffe0b2;
+}
+
+/* Kolom Aksi (kolom 12) - Light Purple sesuai header */
+.table-histori tbody td:nth-child(12) {
+    background: linear-gradient(135deg, rgba(243, 229, 245, 0.4), rgba(225, 190, 231, 0.3));
+    color: #7b1fa2;
+    border-left: 3px solid #e1bee7;
+}
+
+/* Enhanced hover effect untuk setiap grup kolom */
+.table-histori tbody tr:hover td:nth-child(1) {
+    background: linear-gradient(135deg, rgba(227, 242, 253, 0.7), rgba(187, 222, 251, 0.5));
+}
+.table-histori tbody tr:hover td:nth-child(2),
+.table-histori tbody tr:hover td:nth-child(3),
+.table-histori tbody tr:hover td:nth-child(4),
+.table-histori tbody tr:hover td:nth-child(5),
+.table-histori tbody tr:hover td:nth-child(6),
+.table-histori tbody tr:hover td:nth-child(7) {
+    background: linear-gradient(135deg, rgba(232, 245, 232, 0.7), rgba(200, 230, 200, 0.5));
+}
+.table-histori tbody tr:hover td:nth-child(8),
+.table-histori tbody tr:hover td:nth-child(9),
+.table-histori tbody tr:hover td:nth-child(10),
+.table-histori tbody tr:hover td:nth-child(11) {
+    background: linear-gradient(135deg, rgba(255, 243, 224, 0.7), rgba(255, 224, 178, 0.5));
+}
+.table-histori tbody tr:hover td:nth-child(12) {
+    background: linear-gradient(135deg, rgba(243, 229, 245, 0.7), rgba(225, 190, 231, 0.5));
+}
+
+/* Styling untuk cell borders */
+.table-histori tbody td {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 0.5rem;
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    .table-histori tbody td {
+        padding: 0.5rem 0.25rem;
+    }
+}
+   </style>
 
    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -189,25 +310,25 @@
 
                             <h5 class="mt-4 mb-3">Histori Perhitungan Iuran (Tahun {{ $tahun }})</h5>
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead class="bg-light">
+                                <table class="table table-striped table-bordered table-histori">
+                                    <thead>
                                         <tr>
-                                            <th rowspan="2" class="align-middle text-center">Bulan</th>
-                                            <th colspan="6" class="text-center">Peserta</th>
-                                            <th colspan="4" class="text-center">Pemberi Kerja</th>
-                                            <th rowspan="2" class="align-middle text-center">Aksi</th>
+                                            <th rowspan="2" class="align-middle text-center th-bulan">Bulan</th>
+                                            <th colspan="6" class="text-center th-peserta">Peserta</th>
+                                            <th colspan="4" class="text-center th-pemberi-kerja">Pemberi Kerja</th>
+                                            <th rowspan="2" class="align-middle text-center th-aksi">Aksi</th>
                                         </tr>
                                         <tr>
-                                            <th>PHDP</th>
-                                            <th>IR</th>
-                                            <th>Saldo Awal</th>
-                                            <th>Iuran</th>
-                                            <th>Hsl. Peng.</th>
-                                            <th>Saldo Akhir</th>
-                                            <th>Saldo Awal</th>
-                                            <th>Iuran</th>
-                                            <th>Hsl. Peng.</th>
-                                            <th>Saldo Akhir</th>
+                                            <th class="th-peserta">PHDP</th>
+                                            <th class="th-peserta">IR</th>
+                                            <th class="th-peserta">Saldo Awal</th>
+                                            <th class="th-peserta">Iuran</th>
+                                            <th class="th-peserta">Hsl. Peng.</th>
+                                            <th class="th-peserta">Saldo Akhir</th>
+                                            <th class="th-pemberi-kerja">Saldo Awal</th>
+                                            <th class="th-pemberi-kerja">Iuran</th>
+                                            <th class="th-pemberi-kerja">Hsl. Peng.</th>
+                                            <th class="th-pemberi-kerja">Saldo Akhir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -264,6 +385,7 @@
                 </div>
             </footer>
         </section>
+
 
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- END - CONTENTS -->
